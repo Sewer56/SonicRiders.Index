@@ -1,7 +1,7 @@
 //------------------------------------------------
 //--- 010 Editor v11.0 Binary Template
 //
-//      File: Sonic Riders Object Layout File (ID 000305 / Obj 00000)
+//      File: Sonic Riders Object Layout File (GC TestLevel) (ID 000300 / Obj 00000)
 //   Authors: Sewer56
 //   Version: 1.0.0
 //------------------------------------------------
@@ -16,9 +16,9 @@ struct Vector3
 struct SetObjectMode 
 {
     // Flags
-    int gamecube : 1; 
-    int playstation : 1;
-    int xbox : 1;
+    int g : 1; 
+    int p : 1; // Seems to be always this mode
+    int x : 1;
     
     // Mode Flags
     int race     : 1; // Show in race
@@ -50,10 +50,11 @@ struct SetObject
 };
 
 
-// File Structure
-ushort objectCount;
+BigEndian();
 
+// File Structure
 ushort unknownMagic; // 32768
+ushort objectCount;
 int    objectCountMultiplyBy46Add8;
 
 SetObject objects[objectCount];
