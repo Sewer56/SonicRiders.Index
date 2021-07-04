@@ -1,13 +1,13 @@
 <div align="center">
 	<h1>Sonic Riders PC Wiki</h1>
-	<img src="./docs/Images/Icon.png" Width=200 /><br/>
+	<img src="./docs/images/icon.png" Width=200 /><br/>
 	<strong>🎈 Let's get hacking 🎈</strong>
     <p>A repository of my tools and information for modding Sonic Riders</p>
 </div>
 
 # The Index
 
-[***Click here to visit the current online version of the index.***](https://sewer56.dev/Riders.Tweakbox/)
+[***Click here to visit the current online version of the index.***](https://sewer56.dev/SonicRiders.Index/)
 
 ## About The Index
 
