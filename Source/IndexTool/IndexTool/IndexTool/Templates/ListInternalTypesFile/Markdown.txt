@@ -1,0 +1,14 @@
+﻿# {{ type.id }}: {{ type.name }}
+
+## Internal Files' Formats
+
+{{- for format in type.internal_formats }}
+- {{ format.id }}: {{ format.name }}  
+{{- end }}
+
+## Seen In
+
+This id has been seen in the following archives:  
+{{ for seenAt in type.seen_at }}
+- {{ seenAt }}  
+{{ end }}

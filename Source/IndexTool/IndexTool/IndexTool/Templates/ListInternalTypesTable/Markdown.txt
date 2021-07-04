@@ -1,0 +1,12 @@
+﻿| Id   | Name  | Number Files | No. Archives Seen In |
+| ---- | ----- | ------------ | -------------------- |
+{{- for type in types }}
+| [{{ type.id }}](./groups/{{ type.id }}.md) | {{ 
+
+	if type.name == ""
+		type.name = "??"
+	end
+	type.name
+
+}} | {{ type.internal_formats | array.size }} | {{ type.seen_at | array.size }}
+{{- end }}

@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.223
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IndexTool", "IndexTool\IndexTool.csproj", "{DACD4398-70E3-4734-98A4-D3019E710D7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{5935957D-DEF8-4EC5-A16A-201A1D13E7C2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sewer56.SonicRiders", "..\..\Submodules\Sewer56.SonicRiders\Sewer56.SonicRiders\Sewer56.SonicRiders.csproj", "{86BEE1B3-FF99-445F-8C8D-3940F4ECE761}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DACD4398-70E3-4734-98A4-D3019E710D7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DACD4398-70E3-4734-98A4-D3019E710D7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DACD4398-70E3-4734-98A4-D3019E710D7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DACD4398-70E3-4734-98A4-D3019E710D7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86BEE1B3-FF99-445F-8C8D-3940F4ECE761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86BEE1B3-FF99-445F-8C8D-3940F4ECE761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86BEE1B3-FF99-445F-8C8D-3940F4ECE761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86BEE1B3-FF99-445F-8C8D-3940F4ECE761}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{86BEE1B3-FF99-445F-8C8D-3940F4ECE761} = {5935957D-DEF8-4EC5-A16A-201A1D13E7C2}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1F1B958-EF7A-4A1E-800F-AB707DDEC42E}
+	EndGlobalSection
+EndGlobal

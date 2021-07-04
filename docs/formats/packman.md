@@ -3,14 +3,14 @@
 ## Data Structures
 
 ### Archives (1, PA00, EVDM etc.)
-- [Archive Format](./template/PackMan.md)
-- [Menu Texture Format (40011/00001)](./template/MenuTextureArchive.md)
+- [Archive Format](./template/PackMan.bt)
+- [Menu Texture Format (40011/00001)](./template/MenuTextureArchive.bt)
 
 ### Stage Archives (1, 1M, 1V etc.)
 Brackets indicate source file in the format of `id/fileNo` as extracted by the archive tool.
 
-- [Object Layout Culling Format (00301/00000)](./template/ObjectVisibility.md)
-- [Object Layout Format (00305/00000)](./template/ObjectLayout.md)
+- [Object Layout Culling Format (00301/00000)](./template/ObjectVisibility.bt)
+- [Object Layout Format (00305/00000)](./template/ObjectLayout.bt)
 
 #### ID Lists
 Semi-Optional: File can be empty but needs to be present.

@@ -1,0 +1,3 @@
+﻿{{ for type in types }}
+{{ type.extension }} | {{ type.format }} | {{ type.tool }} | {{ type.template }} | {{ type.example }} | {{ type.description }} |
+{{- end }}

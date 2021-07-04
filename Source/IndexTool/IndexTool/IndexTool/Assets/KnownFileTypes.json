@@ -1,0 +1,122 @@
+[
+  {
+    "Extension": ".DAT",
+    "Format": "XBOX DTPK",
+    "Tool": "DTPKUtil (maybe in the future)",
+    "ToolUrl": "https://github.com/Shenmue-Mods/DTPKUtil",
+    "Template": "AM2-DTPK.txt",
+    "TemplateUrl": "https://github.com/Shenmue-Mods/DTPKUtil/blob/master/AM2-DTPK.txt",
+    "Description": "Archive containing uncompressed audio. Variant of .SND used in Shenmue, alongside other games. Most likely PCM 16-bit, 1 Channel, 22050Hz audio; but there can sometimes be a mix of multiple frequencies.",
+    "Example": "00.dat"
+  },
+  {
+    "Extension": "",
+    "Format": "Riders Archive",
+    "Tool": "RidersArchiveTool",
+    "ToolUrl": "https://github.com/Sewer56/SonicRiders.Index/tree/master/Source/RidersArchiveTool",
+    "Template": "PackMan.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/formats/template/PackMan.bt",
+    "Description": "Sonic Riders' native archive format. Has optional compression and no extension.",
+    "Example": "1"
+  },
+  {
+    "Extension": ".ADX",
+    "Format": "CRI ADX",
+    "Tool": "radx",
+    "ToolUrl": "https://github.com/Isaac-Lozano/radx",
+    "Template": "Wikipedia",
+    "TemplateUrl": "https://en.wikipedia.org/wiki/ADX_(file_format)",
+    "Description": "Lossy proprietary audio format from CRI Middleware for low CPU audio playback.",
+    "Example": "E01E.ADX"
+  },
+  {
+    "Extension": ".AFS",
+    "Format": "CRI AFS",
+    "Tool": "AFSUtils",
+    "ToolUrl": "https://sourceforge.net/projects/shenmuesubs/files/AFS%20Utils/afsutils_23.7z/download",
+    "Template": "GRAF:AFS",
+    "TemplateUrl": "http://wiki.xentax.com/index.php/GRAF:AFS_AFS",
+    "Description": "Proprietary archive from CRI Middleware which contains a collection of audio files in either ADX, AIX or AHX format (interchangeable).",
+    "Example": "Voice\\VOICE.AFS"
+  },
+  {
+    "Extension": ".AIX",
+    "Format": "CRI AIX",
+    "Tool": "aixmaker (CRI SDK)",
+    "ToolUrl": "http://shenmuesubs.sourceforge.net/download/addons/CRI_Middleware_ADX_Tools_v1.15_Linux_Win32.rar",
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": "Proprietary audio format from CRI Middleware storing multiple ADX tracks in one file.",
+    "Example": "ED_E.AIX"
+  },
+  {
+    "Extension": ".SFD",
+    "Format": "CRI SofDec",
+    "Tool": "SofDec CRAFT (CRI SDK) or SfdMux",
+    "ToolUrl": "https://archive.org/details/CRISDK113XB",
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": "Proprietary video format from CRI Middleware which is a wrapper for MPEG-1 or MPEG-2 video, with ADX-encoded audio.",
+    "Example": "ENDING.sfd"
+  },
+  {
+    "Extension": ".XNF",
+    "Format": "Sega NN: Morph Animation",
+    "Tool": null,
+    "ToolUrl": null,
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": null,
+    "Example": "v.xnf"
+  },
+  {
+    "Extension": ".XNG",
+    "Format": "Sega NN: ?? Animation",
+    "Tool": null,
+    "ToolUrl": null,
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": null,
+    "Example": "v.xng"
+  },
+  {
+    "Extension": ".XNM",
+    "Format": "Sega NN: Skeletal Animation",
+    "Tool": null,
+    "ToolUrl": null,
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": null,
+    "Example": "v.xnm"
+  },
+  {
+    "Extension": ".XNO",
+    "Format": "Sega NN: 3D Object",
+    "Tool": "Sega NN Tools",
+    "ToolUrl": "https://github.com/Argx2121/Sega_NN_tools",
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": null,
+    "Example": "v.xno"
+  },
+  {
+    "Extension": ".XNV",
+    "Format": "Sega NN: Material Animation",
+    "Tool": null,
+    "ToolUrl": null,
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": null,
+    "Example": "v.xnv"
+  },
+  {
+    "Extension": ".XVRS",
+    "Format": "PVR Texture Library",
+    "Tool": "Sega NN Tools",
+    "ToolUrl": "https://github.com/Argx2121/Sega_NN_tools",
+    "Template": null,
+    "TemplateUrl": null,
+    "Description": "For some strange reason they decided to use a file extension which made it look like it belongs to Sega NN library.",
+    "Example": "v.XVRs"
+  }
+]

@@ -1,0 +1,56 @@
+//------------------------------------------------
+//--- 010 Editor v11.0 Binary Template
+//
+//      File: Sonic Riders PackMan Archive
+//   Authors: Sewer56
+//   Version: 1.0.0
+//------------------------------------------------
+
+// Helpers
+
+// Aligns the current offset to a given value.
+void AlignCurrentOffset(int multiple) 
+{
+    local int currentPos = FTell();
+    local int alignedPos = Align(currentPos, multiple);
+    FSeek(alignedPos);
+}
+
+int Align(int number, int multiple)
+{
+    if (multiple == 0)
+        return number;
+
+    local int remainder = number % multiple;
+    if (remainder == 0)
+        return number;
+
+    return number + multiple - remainder;
+}
+
+// Get Number of Offsets
+int GetOffsetCount() 
+{
+    local int offsetCount = 0;
+    local int x;
+    for (x = 0; x < binCount; x++)
+    {
+        offsetCount += binNum[x];
+    }
+
+    return offsetCount;
+}
+
+
+LittleEndian();
+
+// File Structure
+int binCount;
+byte binNum[binCount];
+
+AlignCurrentOffset(4);
+short binTotalFileCount[binCount];
+ushort binId[binCount];
+int offsets[GetOffsetCount()];
+
+// Please note if writing a repacker: Offsets start at the next 16 byte alignment
