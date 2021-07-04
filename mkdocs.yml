@@ -1,0 +1,40 @@
+site_name: Sonic Riders Index
+site_url: http://sewer56.dev/SonicRiders.Index/
+
+repo_name: Sewer56/SonicRiders.Index
+repo_url: http://sewer56.dev/SonicRiders.Index/
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Sewer56
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/TheSewer56
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences
+
+theme:
+  name: material
+  palette:
+    primary: red
+    accent: red
+    scheme: slate
+    
+use_directory_urls: false
+
+nav:
+  - Home: index.md
+  - Tools:
+    - Index: tools/index.md
+    - Riders Archive Tool: tools/archive-tool.md
+
+  - File Formats:
+    - Index: formats/index.md
+    - Riders Archive (PackMan): formats/packman.md
+
+  - Guides: 
+    - Contributing Locally: guides/contributing-locally.md
+    - Contributing Online: guides/contributing-online.md
+     

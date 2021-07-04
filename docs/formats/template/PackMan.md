@@ -1,9 +1,10 @@
+```c
 //------------------------------------------------
 //--- 010 Editor v11.0 Binary Template
 //
 //      File: Sonic Riders PackMan Archive
 //   Authors: Sewer56
-//   Version: 0.0.0
+//   Version: 1.0.0
 //------------------------------------------------
 
 // Helpers
@@ -54,3 +55,4 @@ ushort binId[binCount];
 int offsets[GetOffsetCount()];
 
 // Please note if writing a repacker: Offsets start at the next 16 byte alignment
+```

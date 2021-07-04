@@ -1,9 +1,10 @@
+```c
 //------------------------------------------------
 //--- 010 Editor v11.0 Binary Template
 //
 //      File: Sonic Riders Object Portal File (ID 00301 / Obj 00000)
 //   Authors: Sewer56
-//   Version: 0.0.0
+//   Version: 1.0.0
 // Description: File format for "portals". 
 //              Bounding boxes which define when objects should be culled in and out.
 //------------------------------------------------
@@ -52,3 +53,4 @@ FSeek(FTell() + 4);
 
 // Portals.
 Portal portals[numOfPortals];
+```

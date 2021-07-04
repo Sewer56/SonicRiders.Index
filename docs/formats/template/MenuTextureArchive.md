@@ -1,7 +1,8 @@
+```c
 //------------------------------------------------
 //--- 010 Editor v11.0 Binary Template
 //
-//      File: Sonic Riders Texture Archive
+//      File: Sonic Riders Menu Texture Archive
 //   Authors: Sewer56
 //   Version: 1.0.0
 //------------------------------------------------
@@ -27,3 +28,4 @@ byte unknownFlagsAlways0x11[texCount];
 
 // Texture Names
 TextureName texNames[texCount] <optimize=false>;
+```

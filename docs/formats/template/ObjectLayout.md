@@ -1,3 +1,4 @@
+```c
 //------------------------------------------------
 //--- 010 Editor v11.0 Binary Template
 //
@@ -52,7 +53,6 @@ struct SetObject
 
 // File Structure
 ushort objectCount;
-
 ushort unknownMagic; // 32768
 int    objectCountMultiplyBy46Add8;
 
@@ -61,3 +61,4 @@ SetObject objects[objectCount];
 // I have no idea what this does; seems to have no effect on gameplay.
 // 1, 2, 4 are known valid values. Sometimes there are 5 and 6 so likely flags.
 ushort unknownObjectFlags[objectCount];
+```
