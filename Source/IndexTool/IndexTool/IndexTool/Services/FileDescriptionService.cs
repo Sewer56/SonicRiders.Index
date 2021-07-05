@@ -244,6 +244,7 @@ namespace IndexTool.Services
             NameToDescription.Add($"ME", $"Unknown Collection of Sega NN Skeletal Animations");
             NameToDescription.Add($"MO", $"Unknown Collection of Sega NN Skeletal Animations");
             NameToDescription.Add($"MS", $"Unknown Collection of Sega NN Skeletal Animations");
+            NameToDescription.Add($"AS", $"Menu: Memory Card");
         }
 
         public static string TryDescribe(string fileName)

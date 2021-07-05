@@ -142,7 +142,7 @@ Note: Uses uncompressed sizes for Riders Archives.
 | 9TE | 48.44 KiB | Riders Archive | Stage Intro Text Texture: Night Chase. |
 | 9TJ | 48.44 KiB | Riders Archive | Stage Intro Text Texture [Japanese]: Night Chase. |
 | 9V | 5.05 MiB | Riders Archive | Stage: Night Chase (2 Player). |
-| AS | 3.14 MiB | Riders Archive |  |
+| AS | 3.14 MiB | Riders Archive | Menu: Memory Card |
 | E01E.ADX | 4.34 MiB | CRI ADX | Story Event Audio: Event No. 1 (Stage: Metal City). |
 | E01J.ADX | 4.34 MiB | CRI ADX | Story Event Audio: Event No. 1 (Stage: Metal City) [Japanese]. |
 | E02E.ADX | 9.26 MiB | CRI ADX | Story Event Audio: Event No. 2 (Stage: Splash Canyon). |
