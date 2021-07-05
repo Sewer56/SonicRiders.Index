@@ -1,10 +1,15 @@
 ﻿# {{ type.id }}: {{ type.name }}
 
+{{ type.description }}
+
 ## Internal Files' Formats
 
 {{- for format in type.internal_formats }}
 - {{ format.id }}: {{ format.name }}  
 {{- end }}
+
+The formats shown here are guesses made by an automated tool.  
+While I cannot guarantee they're correct, they're probably right around 99% of the time.
 
 ## Seen In
 

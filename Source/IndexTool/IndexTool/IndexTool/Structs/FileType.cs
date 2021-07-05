@@ -6,6 +6,7 @@ namespace IndexTool.Structs
 {
     public class FileType : ITemplateStructure
     {
+        public string Id;
         public string Extension;
         public string Format;
         public string Tool;
@@ -21,6 +22,7 @@ namespace IndexTool.Structs
         /// <param name="type">The type.</param>
         public void CopyFrom(FileType type)
         {
+            Utilities.AssignIfNotNullOrEmpty(ref Id, type.Id);
             Utilities.AssignIfNotNullOrEmpty(ref Format, type.Format);
             Utilities.AssignIfNotNullOrEmpty(ref Tool, type.Tool);
             Utilities.AssignIfNotNullOrEmpty(ref ToolUrl, type.ToolUrl);

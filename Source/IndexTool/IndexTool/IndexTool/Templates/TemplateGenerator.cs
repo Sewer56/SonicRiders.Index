@@ -4,6 +4,8 @@ using System.IO;
 using IndexTool.Options.Helpers;
 using IndexTool.Structs;
 using Scriban;
+using Scriban.Parsing;
+using Scriban.Runtime;
 
 namespace IndexTool.Templates
 {
@@ -16,6 +18,10 @@ namespace IndexTool.Templates
         /// Full path of the folder containing templates.
         /// </summary>
         public string Directory { get; private set; }
+
+        static TemplateGenerator()
+        {
+        }
         
         /// <param name="directory">Name of the directory inside the `Templates` folder.</param>
         public TemplateGenerator(string directory)
@@ -47,8 +53,15 @@ namespace IndexTool.Templates
             }
 
             // Render template
+            var scriptobj = new ScriptObject();
+            scriptobj.Import(scribanModel);
+
+            var context = new TemplateContext();
+            context.LoopLimit = 0;
+            context.PushGlobal(scriptobj);
+
             var template = Template.Parse(File.ReadAllText(templateFile));
-            return template.Render(scribanModel);
+            return template.Render(context);
         }
     }
 }

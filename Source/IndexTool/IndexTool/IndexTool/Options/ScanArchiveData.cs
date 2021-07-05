@@ -14,17 +14,19 @@ namespace IndexTool.Options
 {
     public class ScanArchiveData : IOption
     {
-        public static readonly string KnownTypesPath      = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/Assets/KnownInternalTypes.json";
-        public static readonly string OutputPath          = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/out";
+        public static readonly string KnownTypesPath      = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/Assets/KnownInternalIds.json";
+        public static readonly string OutputPath          = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/out/ScanArchiveData";
         public static readonly string TemplateTableFolder = $"ListInternalTypesTable";
         public static readonly string TemplateFileFolder  = $"ListInternalTypesFile";
 
         public static readonly string GroupOutputPath = Path.Combine(OutputPath, "groups");
         public static readonly string TableOutputPath = Path.Combine(OutputPath, "table.md");
+        public static readonly string JsonOutputPath  = Path.Combine(OutputPath, "types.json");
 
         // Performance: Caching
         private readonly HashSet<ObjectId> _objectIds = Enum.GetValues<ObjectId>().ToHashSet();
-
+        private GuessFileType _fileGuesser = new GuessFileType();
+        
         public string GetName() => "Scan Riders Archives";
         public void Execute()
         {
@@ -38,6 +40,7 @@ namespace IndexTool.Options
             var types = GetTypes(path);
             
             Console.WriteLine("Writing out Files: ");
+            File.WriteAllText(JsonOutputPath, Utilities.ToJson(types));
             var fileGenerator = new TemplateGenerator(TemplateFileFolder);
             foreach (var type in types)
             {
@@ -109,11 +112,11 @@ namespace IndexTool.Options
 
             // Inject known types.
             var knownTypes = Utilities.FromJsonOrEmpty<List<InternalFileType>>(KnownTypesPath);
-            var typesDict  = types.ToDictionary(type => type.Id);
+            var typesDict  = types.ToDictionary(type => type.Id.Value);
 
             foreach (var knownType in knownTypes)
             {
-                if (knownType.Id != null && typesDict.TryGetValue(knownType.Id, out var type))
+                if (knownType.Id != null && typesDict.TryGetValue(knownType.Id.Value, out var type))
                     type.CopyFrom(knownType);
             }
 
@@ -123,7 +126,10 @@ namespace IndexTool.Options
 
         private string TryGetFileFormat(byte[] data)
         {
-            // TODO: Implement TryGetFileFormat
+            using var memStream = new MemoryStream(data);
+            if (_fileGuesser.TryGuess(memStream, (int) memStream.Length, out var type))
+                return type.Format;
+
             return "Unknown";
         }
 

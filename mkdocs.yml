@@ -30,9 +30,9 @@ nav:
     - Index: tools/index.md
     - Riders Archive Tool: tools/archive-tool.md
 
-  - File Formats:
-    - Index: formats/index.md
-    - Riders Archive (PackMan): formats/packman.md
+  - Files:
+    - File Formats: files/formats.md
+    - File Listing: files/list.md
 
   - Guides: 
     - Contributing Locally: guides/contributing-locally.md

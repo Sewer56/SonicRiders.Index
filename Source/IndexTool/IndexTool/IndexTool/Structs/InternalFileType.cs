@@ -8,6 +8,7 @@ namespace IndexTool.Structs
     {
         public int? Id;
         public string Name;
+        public string Description; // Optional
 
         public List<InternalFormat> InternalFormats;
         public List<string> SeenAt;
@@ -22,6 +23,7 @@ namespace IndexTool.Structs
                 Id = type.Id;
             
             Utilities.AssignIfNotNullOrEmpty(ref Name, type.Name);
+            Utilities.AssignIfNotNullOrEmpty(ref Description, type.Description);
 
             if (type.SeenAt != null)
                 SeenAt = type.SeenAt;

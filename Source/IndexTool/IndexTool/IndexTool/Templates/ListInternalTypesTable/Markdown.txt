@@ -1,5 +1,5 @@
-﻿| Id   | Name  | Number Files | No. Archives Seen In |
-| ---- | ----- | ------------ | -------------------- |
+﻿| Id   | Name  | Number of Files | Number of Archives Seen In |
+| ---- | ----- | --------------- | -------------------------- |
 {{- for type in types }}
 | [{{ type.id }}](./groups/{{ type.id }}.md) | {{ 
 

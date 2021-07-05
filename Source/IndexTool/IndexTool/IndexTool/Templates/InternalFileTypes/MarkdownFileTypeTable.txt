@@ -1,0 +1,15 @@
+﻿| Format      | Tool        | Specification | Example File | Description |
+| ----------- | ----------- | ------------- | ------------ | ----------- |
+{{- for type in types }}
+| {{ type.format }} | {{ 
+	if type.tool_url != null
+		type.tool = "[" + type.tool + "]" + "(" + type.tool_url + ")"
+	end
+	type.tool
+}} | {{ 
+	if type.template_url != null
+		type.template = "[" + type.template + "]" + "(" + type.template_url + ")"
+	end
+	type.template
+}} | {{ type.example }} | {{ type.description }} |
+{{- end }}

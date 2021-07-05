@@ -6,6 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Templates\InternalFileTypes\MarkdownFileTypeTable.txt" />
+    <None Remove="Templates\InternalFileTypes\Simple.txt" />
+    <None Remove="Templates\ListFilesTable\Markdown.txt" />
     <None Remove="Templates\ListFileTypes\MarkdownFileTypeTable.txt" />
     <None Remove="Templates\ListFileTypes\Simple.txt" />
     <None Remove="Templates\ListInternalTypesFile\Markdown.txt" />
@@ -14,6 +17,9 @@
 
   <ItemGroup>
     <Content Include="Templates\**">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\**">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -28,12 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Structs\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assets\KnownFileTypes.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

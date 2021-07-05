@@ -1,0 +1,5 @@
+﻿| File      | Size        | Format | Description |
+| --------- | ----------- | ------ | ----------- |
+{{- for file in files }}
+| {{ file.path }} | {{ file.size }} | {{ file.type.format }} | {{ file.description }} |
+{{- end }}
