@@ -35,7 +35,6 @@ nav:
   - Resources: resources.md
   - Tools:
     - Index: tools/index.md
-    - Riders Archive Tool: tools/archive-tool.md
 
   - Files:
     - File Formats: files/formats.md
