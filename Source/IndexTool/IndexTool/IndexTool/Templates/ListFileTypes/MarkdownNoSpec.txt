@@ -1,0 +1,15 @@
+﻿| Extension   | Format | Tool | Description |
+| ----------- | ------ | ---- | ----------- |
+{{- for type in types }}
+| {{ 
+	if type.extension == ""
+		type.extension = "N/A"
+	end
+	type.extension
+}} | {{ type.format }} | {{ 
+	if type.tool_url != null
+		type.tool = "[" + type.tool + "]" + "(" + type.tool_url + ")"
+	end
+	type.tool
+}} | {{ type.description }} |
+{{- end }}

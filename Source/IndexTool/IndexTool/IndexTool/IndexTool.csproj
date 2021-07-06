@@ -10,6 +10,7 @@
     <None Remove="Templates\InternalFileTypes\Simple.txt" />
     <None Remove="Templates\ListFilesTable\Markdown.txt" />
     <None Remove="Templates\ListFileTypes\MarkdownFileTypeTable.txt" />
+    <None Remove="Templates\ListFileTypes\MarkdownNoSpec.txt" />
     <None Remove="Templates\ListFileTypes\Simple.txt" />
     <None Remove="Templates\ListInternalTypesFile\Markdown.txt" />
     <None Remove="Templates\ListInternalTypesTable\Markdown.txt" />
