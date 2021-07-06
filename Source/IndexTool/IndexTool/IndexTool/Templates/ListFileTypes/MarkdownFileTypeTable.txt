@@ -1,5 +1,5 @@
-﻿| Extension   | Format      | Tool        | Specification | Example File | Description |
-| ----------- | ----------- | ----------- | ------------- | ------------ | ----------- |
+﻿| Extension   | Format | Example Tool | Specification | Example File | Description |
+| ----------- | ------ | ------------ | ------------- | ------------ | ----------- |
 {{- for type in types }}
 | {{ 
 	if type.extension == ""

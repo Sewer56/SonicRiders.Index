@@ -1,5 +1,5 @@
-﻿| Format      | Tool        | Specification | Example File | Description |
-| ----------- | ----------- | ------------- | ------------ | ----------- |
+﻿| Format      | Example Tool | Specification | Example File | Description |
+| ----------- | ------------ | ------------- | ------------ | ----------- |
 {{- for type in types }}
 | {{ type.format }} | {{ 
 	if type.tool_url != null

@@ -17,11 +17,17 @@ markdown_extensions:
 
 theme:
   name: material
+  features:
+    - navigation.instant
+
   palette:
     primary: red
     accent: red
     scheme: slate
     
+extra_css:
+  - stylesheets/extra.css
+
 use_directory_urls: false
 
 nav:
