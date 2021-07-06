@@ -29,6 +29,6 @@ Some of the tools mentioned are contained in this repository.
 To compile them, you will need the following:  
 - **.NET 5 SDK**  
 
-To compile them, simply go to the `Source` folder and run the `BuildTools.ps1` script in Powershell.
+To compile them, clone this repository **and the submodules** (`git clone --recurse-submodules`) and simply go to the `Source` folder and run the `BuildTools.ps1` script in Powershell.
 
 If you wish to contribute to the tools and are not familiar with C# or the .NET platform, I would recommend installing **Visual Studio** for development.
