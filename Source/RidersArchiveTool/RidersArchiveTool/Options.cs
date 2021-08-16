@@ -41,4 +41,17 @@ namespace RidersArchiveTool
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; internal set; }
     }
+
+    [Verb("test", HelpText = "Unpacks and repacks all files and compares their hashes.")]
+    internal class TestOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the files to test.")]
+        public string Source { get; private set; }
+        
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Location of the folder to save old and new file in case of mismatch.", Default = false)]
+        public string SavePath { get; private set; }
+    }
 }

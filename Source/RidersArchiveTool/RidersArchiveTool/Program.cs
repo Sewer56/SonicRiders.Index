@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using CommandLine;
 using CommandLine.Text;
+using Reloaded.Memory.Streams;
+using Reloaded.Memory.Streams.Readers;
+using Reloaded.Memory.Streams.Writers;
+using RidersArchiveTool.Utilities;
 using Sewer56.SonicRiders.Parser.Archive;
 using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
+using Standart.Hash.xxHash;
 using File = System.IO.File;
 
 namespace RidersArchiveTool
@@ -24,11 +29,94 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, PackOptions, PackAllOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, PackOptions, PackAllOptions, TestOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<PackOptions>(Pack)
                         .WithParsed<PackAllOptions>(PackAll)
+                        .WithParsed<TestOptions>(TestFiles)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
+        }
+
+        private static void TestFiles(TestOptions options)
+        {
+            if (!Directory.Exists(options.SavePath))
+                Directory.CreateDirectory(options.SavePath);
+
+            var files = Directory.GetFiles(options.Source);
+            var archiveGuesser = new RidersArchiveGuesser();
+            var mismatchCount = 0;
+            var filesTested = 0;
+
+            foreach (var file in files)
+            {
+                var data = File.ReadAllBytes(file);
+                using var stream = new MemoryStream(data);
+                using var bufferedStreamReader = new BufferedStreamReader(stream, 2048);
+                using EndianStreamReader endianStreamReader = options.BigEndian ? new BigEndianStreamReader(bufferedStreamReader) : new LittleEndianStreamReader(bufferedStreamReader);
+
+                if (archiveGuesser.TryGuess(endianStreamReader, (int) stream.Length))
+                {
+                    stream.Position = 0;
+                    TestFile(options, stream, Path.GetFileName(file), ref mismatchCount);
+                    filesTested++;
+                }
+                else
+                {
+                    Console.WriteLine($"[{Path.GetFileName(file)}] Not an Archive File!!");
+                }
+            }
+
+            if (mismatchCount > 0)
+                Console.WriteLine($"Total No. Mismatches {mismatchCount}");
+
+            Console.WriteLine($"Total Files Tested {filesTested}");
+        }
+
+        private static void TestFile(TestOptions options, MemoryStream stream, string fileName, ref int mismatchCount)
+        {
+            var oldFile = stream.ToArray();
+            var unpacked = new ArchiveReader(stream, (int)stream.Length, options.BigEndian);
+            var writer = new ArchiveWriter();
+
+            // Generate File
+            for (var x = 0; x < unpacked.Groups.Length; x++)
+            {
+                var group = unpacked.Groups[x];
+                var newGroup = new ManagedGroup() { Id = group.Id, Files = new List<ManagedFile>() };
+                foreach (var file in unpacked.GetFiles(group))
+                    newGroup.Files.Add(new ManagedFile() { Data = file });
+
+                writer.AddGroup((byte)x, newGroup);
+            }
+
+            // Write File
+            using var memoryStream = new MemoryStream();
+            writer.Write(memoryStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
+
+            // File Compare
+            var newFile = memoryStream.ToArray();
+            
+            var oldHash = xxHash64.ComputeHash(oldFile);
+            var newHash = xxHash64.ComputeHash(newFile);
+
+            if (oldHash != newHash)
+            {
+                Console.WriteLine($"[{fileName}] Hash Mismatch | Old {oldHash}, New {newHash}");
+                mismatchCount++;
+
+                if (!string.IsNullOrEmpty(options.SavePath))
+                {
+                    var filePathNew = Path.Combine(options.SavePath, $"{fileName}.new");
+                    var filePathOld = Path.Combine(options.SavePath, $"{fileName}.old");
+                    File.WriteAllBytes(filePathOld, oldFile);
+                    File.WriteAllBytes(filePathNew, newFile);
+                }
+            }
+
+            var oldLength = oldFile.Length;
+            var newLength = newFile.Length;
+            if (oldLength != newLength)
+                Console.WriteLine($"[{fileName}] Length Mismatch | Old {oldLength}, New {newLength}");
         }
 
         private static void PackAll(PackAllOptions packAllOptions)
@@ -69,7 +157,7 @@ namespace RidersArchiveTool
             // Write file to new location.
             Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath));
             using var fileStream = new FileStream(options.SavePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            writer.Write(fileStream, options.BigEndian);
+            writer.Write(fileStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
         }
 
         private static void Extract(ExtractOptions options)
