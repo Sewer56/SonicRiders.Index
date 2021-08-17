@@ -1,6 +1,9 @@
-﻿using System;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
 using Reloaded.Memory.Streams;
@@ -29,53 +32,58 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, PackOptions, PackAllOptions, TestOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, PackOptions, PackListOptions, TestOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<PackOptions>(Pack)
-                        .WithParsed<PackAllOptions>(PackAll)
+                        .WithParsed<PackListOptions>(PackList)
                         .WithParsed<TestOptions>(TestFiles)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
         }
 
         private static void TestFiles(TestOptions options)
         {
+            var watch = Stopwatch.StartNew();
             if (!Directory.Exists(options.SavePath))
                 Directory.CreateDirectory(options.SavePath);
 
             var files = Directory.GetFiles(options.Source);
-            var archiveGuesser = new RidersArchiveGuesser();
             var mismatchCount = 0;
-            var filesTested = 0;
+            var archivesTested = 0;
 
             foreach (var file in files)
             {
-                var data = File.ReadAllBytes(file);
-                using var stream = new MemoryStream(data);
-                using var bufferedStreamReader = new BufferedStreamReader(stream, 2048);
-                using EndianStreamReader endianStreamReader = options.BigEndian ? new BigEndianStreamReader(bufferedStreamReader) : new LittleEndianStreamReader(bufferedStreamReader);
+                using var stream = new MemoryStream(File.ReadAllBytes(file));
 
-                if (archiveGuesser.TryGuess(endianStreamReader, (int) stream.Length))
+                if (!RidersArchiveGuesser.TryGuess(stream, (int)stream.Length, options.BigEndian, out bool isCompressed))
                 {
-                    stream.Position = 0;
-                    TestFile(options, stream, Path.GetFileName(file), ref mismatchCount);
-                    filesTested++;
+                    Console.WriteLine($"[{Path.GetFileName(file)}] Not an Archive File!!");
+                    continue;
+                }
+
+                if (isCompressed)
+                {
+                    using var decompStream = new MemoryStream(ArchiveCompression.DecompressSlow(stream, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+                    TestFile(options, decompStream, Path.GetFileName(file), ref mismatchCount);
                 }
                 else
                 {
-                    Console.WriteLine($"[{Path.GetFileName(file)}] Not an Archive File!!");
+                    TestFile(options, stream, Path.GetFileName(file), ref mismatchCount);
                 }
+
+                archivesTested++;
             }
 
             if (mismatchCount > 0)
                 Console.WriteLine($"Total No. Mismatches {mismatchCount}");
 
-            Console.WriteLine($"Total Files Tested {filesTested}");
+            Console.WriteLine($"Total Archives Tested {archivesTested}");
+            Console.WriteLine($"{watch.ElapsedMilliseconds}ms");
         }
 
-        private static void TestFile(TestOptions options, MemoryStream stream, string fileName, ref int mismatchCount)
+        private static void TestFile(TestOptions options, MemoryStream fileData, string fileName, ref int mismatchCount)
         {
-            var oldFile = stream.ToArray();
-            var unpacked = new ArchiveReader(stream, (int)stream.Length, options.BigEndian);
+            var oldFile = fileData.ToArray();
+            var unpacked = new ArchiveReader(fileData, (int)fileData.Length, options.BigEndian);
             var writer = new ArchiveWriter();
 
             // Generate File
@@ -119,7 +127,7 @@ namespace RidersArchiveTool
                 Console.WriteLine($"[{fileName}] Length Mismatch | Old {oldLength}, New {newLength}");
         }
 
-        private static void PackAll(PackAllOptions packAllOptions)
+        private static void PackList(PackListOptions packAllOptions)
         {
             var sources = File.ReadAllLines(packAllOptions.Sources);
             var paths   = File.ReadAllLines(packAllOptions.SavePaths);
@@ -127,11 +135,15 @@ namespace RidersArchiveTool
             if (sources.Length != paths.Length)
                 throw new ArgumentException("Amount of source folders does not equal amount of save paths.");
 
-            for (int x = 0; x < sources.Length; x++)
+            var partitioner = Partitioner.Create(0, sources.Length);
+            Parallel.ForEach(partitioner, (tuple, state) =>
             {
-                Console.WriteLine($"Saving: {paths[x]}");
-                Pack(new PackOptions() { SavePath = paths[x], Source = sources[x], BigEndian = packAllOptions.BigEndian });
-            }
+                for (int x = tuple.Item1; x < tuple.Item2; x++)
+                {
+                    Pack(new PackOptions() { SavePath = paths[x], Source = sources[x], BigEndian = packAllOptions.BigEndian });
+                    Console.WriteLine($"Saved: {paths[x]}");
+                }
+            });
         }
 
         private static void Pack(PackOptions options)
@@ -164,20 +176,33 @@ namespace RidersArchiveTool
         {
             Directory.CreateDirectory(options.SavePath);
 
-            using var fileStream   = new FileStream(options.Source, FileMode.Open, FileAccess.Read);
-            using var archiveReader = new ArchiveReader(fileStream, (int) fileStream.Length, options.BigEndian);
+            using var fileStream = new FileStream(options.Source, FileMode.Open, FileAccess.Read);
+            if (ArchiveCompression.IsCompressed(fileStream, options.BigEndian))
+            {
+                using var decompressed = new MemoryStream(ArchiveCompression.DecompressFast(fileStream, (int)fileStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+                ExtractInternal(options, decompressed);
+            }
+            else
+            {
+                ExtractInternal(options, fileStream);
+            }
+        }
+
+        private static void ExtractInternal(ExtractOptions options, Stream stream)
+        {
+            using var archiveReader = new ArchiveReader(stream, (int)stream.Length, options.BigEndian);
             var allGroups = archiveReader.GetAllGroups();
 
             for (var x = 0; x < allGroups.Length; x++)
             {
-                var group  = allGroups[x];
-                var folder = Path.Combine(options.SavePath, $"{x:000}{GroupIdSeparator}{group.Id:00000}");
+                var group = allGroups[x];
+                var folder = Path.Combine(options.SavePath, $"{x:000}{GroupIdSeparator}{@group.Id:00000}");
                 Directory.CreateDirectory(folder);
 
-                for (var y = 0; y < group.Files.Count; y++)
+                for (var y = 0; y < @group.Files.Count; y++)
                 {
                     var filePath = Path.Combine(folder, y.ToString("00000"));
-                    File.WriteAllBytes(filePath, group.Files[y].Data);
+                    File.WriteAllBytes(filePath, @group.Files[y].Data);
                     Console.WriteLine($"Writing {filePath}");
                 }
             }

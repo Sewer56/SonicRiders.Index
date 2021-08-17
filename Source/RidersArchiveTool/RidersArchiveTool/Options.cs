@@ -15,7 +15,6 @@ namespace RidersArchiveTool
         public bool BigEndian { get; private set; }
     }
 
-
     [Verb("pack", HelpText = "Packs a Riders Archive file.")]
     internal class PackOptions
     {
@@ -29,8 +28,8 @@ namespace RidersArchiveTool
         public bool BigEndian { get; internal set; }
     }
 
-    [Verb("packall", HelpText = "Packs a list of Riders Archive files.")]
-    internal class PackAllOptions
+    [Verb("packlist", HelpText = "Packs a list of Riders Archive files.")]
+    internal class PackListOptions
     {
         [Option(Required = true, HelpText = "Text file containing folders with the files to pack in the same format as extracted. Each folder should be on a separate line.")]
         public string Sources { get; private set; }
