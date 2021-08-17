@@ -6,13 +6,42 @@ namespace RidersArchiveTool
     internal class ExtractOptions
     {
         [Option(Required = true, HelpText = "The archive file to extract.")]
-        public string Source { get; private set; }
+        public string Source { get; internal set; }
 
         [Option(Required = true, HelpText = "The folder to extract files to.")]
+        public string SavePath { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Does not print out files written to disk.", Default = false)]
+        public bool Silent { get; internal set; }
+    }
+
+    [Verb("extractall", HelpText = "Extracts all Riders archives in a given folder.")]
+    internal class ExtractAllOptions
+    {
+        [Option(Required = true, HelpText = "The folder containing archives to extract.")]
+        public string Source { get; private set; }
+
+        [Option(Required = true, HelpText = "The folder to save the extracted archives to.")]
         public string SavePath { get; private set; }
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; private set; }
+    }
+
+    [Verb("packall", HelpText = "Packs all folders in a given path into Riders archive files.")]
+    internal class PackAllOptions
+    {
+        [Option(Required = true, HelpText = "The folder containing folders to pack in the same format as extracted. i.e. In these folders should be subfolders, each of which is an unique ID.")]
+        public string Source { get; internal set; }
+
+        [Option(Required = true, HelpText = "The folder in which to save the new archive files.")]
+        public string SavePath { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
     }
 
     [Verb("pack", HelpText = "Packs a Riders Archive file.")]
