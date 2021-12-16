@@ -20,7 +20,7 @@
     "Tool": "RidersArchiveTool",
     "ToolUrl": "https://github.com/Sewer56/SonicRiders.Index/tree/master/Source/RidersArchiveTool",
     "Template": "PackMan.bt",
-    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/formats/template/PackMan.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/files/template/PackMan.bt",
     "Description": "Sonic Riders' native archive format. Has optional compression and no extension.",
     "Example": "1"
   },
@@ -130,7 +130,7 @@
     "Tool": "Sega NN Tools or RidersTextureArchiveTool",
     "ToolUrl": "https://github.com/Sewer56/SonicRiders.Index/tree/master/Source/RidersTextureArchiveTool",
     "Template": "XvrsTextureArchive.bt",
-    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/formats/template/XvrsTextureArchive.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/files/template/XvrsTextureArchive.bt",
     "Description": "For some strange reason they decided to use a file extension which made it look like it belongs to Sega NN library.",
     "Example": "v.XVRs"
   },
@@ -143,7 +143,7 @@
     "Tool": "Riders.Tweakbox",
     "ToolUrl": "https://github.com/Sewer56/Riders.Tweakbox",
     "Template": "ObjectLayout.bt",
-    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/formats/template/ObjectLayout.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/files/template/ObjectLayout.bt",
     "Description": "Defines the layout of objects in Sonic Riders",
     "Example": "1 -> 00305 -> 00000"
   },
@@ -155,8 +155,20 @@
     "Tool": "",
     "ToolUrl": "",
     "Template": "ObjectVisibility.bt",
-    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/formats/template/ObjectVisibility.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/files/template/ObjectVisibility.bt",
     "Description": "Defines object rendering regions. It contains a list of 3D bounding boxes objects indexed an ASCII character. If an object has the same character assigned but is not in the box, it is not loaded.",
     "Example": "1 -> 00301 -> 00000"
+  },
+
+  {
+    "Id": "PVRT",
+    "Extension": null,
+    "Format": "Texture Format",
+    "Tool": "Sega NN Tools",
+    "ToolUrl": "https://github.com/Argx2121/Sega_NN_tools",
+    "Template": "PVRTTexture.bt",
+    "TemplateUrl": "https://github.com/Sewer56/SonicRiders.Index/blob/master/docs/files/template/PVRTTexture.bt",
+    "Description": "Variant of the classic Ninja PVRT format used on the Dreamcast.",
+    "Example": "Inside PVR Texture Libraries"
   }
 ]
