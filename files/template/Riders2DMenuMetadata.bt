@@ -1,0 +1,127 @@
+//------------------------------------------------
+//--- 010 Editor v11.0 Binary Template
+//
+//      File: Sonic Riders 2D Layout Metadata ???
+//   Authors: Sewer56
+//   Version: 1.0.0
+//      Note: This file corresponds to e.g. TSGME -> 40016 -> 00004,
+//            and contains the layout information for the 2D elements.
+//            Likewise the textures referenced in this file are in 
+//            e.g. TSGME -> 40016 -> 00005
+//------------------------------------------------
+
+struct Header 
+{
+    short resolutionX;
+    short resolutionY;
+    int unknown;
+    int pEntryHeader;
+    int pTextureIndices;
+};
+
+struct EntryHeader 
+{
+    int numEntries;
+    int totalEntrySizeIncludingOffsets;
+    int offsetsRelativeToHeader[numEntries];
+};
+
+struct Entry 
+{
+    // Struct Info
+    int subEntryCount;
+    int totalEntrySize;
+    int subEntryPointers[subEntryCount];
+};
+
+enum <int> SubEntryFlags
+{
+    FlipHorizontal = 0x1,
+    FlipVertical = 0x2,
+
+    UnknownA = 0x20,
+    UnknownB = 0x40,
+};
+
+struct TextureIdHeader 
+{
+    int numTextures;
+    int unknown;
+};
+
+struct TextureIdEntry 
+{
+    short unknown; 
+    short xvrsTextureId;    // Index inside the xvrs texture archive
+    float normalizedPosX;   // Top Left Corner. 0-1
+    float normalizedPosY;   // Top Left Corner. 0-1
+    float normalizedWidth;  // 0 - 1
+    float normalizedHeight; // 0 - 1
+};
+
+struct SubEntry 
+{
+    short maybeLayer;
+    short unknownColorFlags; // 0x0 - 0xF Color (Bit 0-4)
+                             // 0x10 - 0xF0 Alpha (Bit 4-8)
+
+    short maybeFormatOrKeyframe; // Setting to 1 skews image; non 0/1 crash
+    short maybeIsLoadedFlag; // Changed to 0 at runtime
+    short maybeNumVertices;    
+    short textureIndex;
+    
+    // Only present in some files??
+    if (maybeFormatOrKeyframe <= 0) 
+    {
+        SubEntryFlags flags;
+
+        short width;
+        short height;
+
+        int unknown;
+        short offsetX;
+        short offsetY;
+        int unknown;
+        int transparencyOffsetTopLeft;
+        int transparencyOffsetBottomLeft;
+        int transparencyOffsetBottomRight;
+        int transparencyOffsetTopRight;
+    
+        // Some entries extend further beyond this point.
+        // but that data appears unused?
+    }
+};
+
+// Start of struct
+Header header;
+local int entryHeaderPtr = FTell();
+EntryHeader entryHeader;
+
+local int x = 0;
+local int y = 0;
+local int entryPointer;
+for (x = 0; x < entryHeader.numEntries; x++) 
+{
+    FSeek(entryHeaderPtr + entryHeader.offsetsRelativeToHeader[x]);
+    entryPointer = FTell();
+    Entry entry;
+    
+    for (y = 0; y < entry.subEntryCount; y++) 
+    {
+        FSeek(entryPointer + entry.subEntryPointers[y]);
+        SubEntry subEntry;
+    }
+}
+
+FSeek(header.pTextureIndices);
+TextureIdHeader textureHeader;
+TextureIdEntry texture[textureHeader.numTextures];
+
+// Entry Reference for TSGME -> 40016 -> 00004
+// 0 -> Shadow Icon
+// 1 -> Rouge Icon
+
+// SubEntry Reference for Shadow Icon
+// 0 -> Master (Crash)
+// 1 -> Icon
+// 2 -> Background
