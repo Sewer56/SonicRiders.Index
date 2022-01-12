@@ -5,6 +5,7 @@ using CommandLine;
 using CommandLine.Text;
 using Sewer56.SonicRiders;
 using Sewer56.SonicRiders.Parser.TextureArchive;
+using Sewer56.SonicRiders.Parser.TextureArchive.Structs;
 using File = System.IO.File;
 
 namespace RidersTextureArchiveTool
@@ -62,7 +63,7 @@ namespace RidersTextureArchiveTool
             // Write file to new location.
             Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath));
             using var fileStream = new FileStream(options.SavePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            writer.Write(fileStream, options.BigEndian);
+            writer.Write(fileStream, options.BigEndian ? TextureArchiveWriterSettings.GameCube : TextureArchiveWriterSettings.PC);
         }
 
         private static void Extract(ExtractOptions options)
