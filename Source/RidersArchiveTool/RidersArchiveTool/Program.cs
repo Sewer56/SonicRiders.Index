@@ -32,13 +32,15 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<ExtractAllOptions>(ExtractAll)
                         .WithParsed<PackOptions>(Pack)
                         .WithParsed<PackAllOptions>(PackAll)
                         .WithParsed<PackListOptions>(PackList)
                         .WithParsed<TestOptions>(TestFiles)
+                        .WithParsed<CompressOptions>(CompressFile)
+                        .WithParsed<DecompressOptions>(DecompressFile)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
         }
 
@@ -141,7 +143,7 @@ namespace RidersArchiveTool
             Parallel.ForEach(partitioner, (tuple, state) =>
             {
                 for (int x = tuple.Item1; x < tuple.Item2; x++)
-                    Pack(new PackOptions() { SavePath = paths[x], Source = sources[x], BigEndian = packAllOptions.BigEndian });
+                    Pack(new PackOptions() { SavePath = paths[x], Source = sources[x], BigEndian = packAllOptions.BigEndian, Compress = packAllOptions.Compress });
             });
         }
 
@@ -168,7 +170,19 @@ namespace RidersArchiveTool
             // Write file to new location.
             Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath));
             using var fileStream = new FileStream(options.SavePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            writer.Write(fileStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
+            if (!options.Compress)
+            {
+                writer.Write(fileStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
+            }
+            else
+            {
+                // TODO: Optimize this more. This is pretty unoptimal.
+                using var memoryStream = new MemoryStream();
+                writer.Write(memoryStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
+                memoryStream.Position = 0;
+                fileStream.Write(ArchiveCompression.CompressFast(memoryStream, (int)memoryStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+            }
+
             Console.WriteLine($"Saved: {options.SavePath}");
         }
 
@@ -259,6 +273,20 @@ namespace RidersArchiveTool
                         Console.WriteLine($"Written {filePath}");
                 }
             }
+        }
+
+        private static void DecompressFile(DecompressOptions options)
+        {
+            using var outputStream = new FileStream(options.Destination, FileMode.Create);
+            using var inputStream = new FileStream(options.Source, FileMode.Open);
+            outputStream.Write(ArchiveCompression.DecompressFast(inputStream, (int)inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+        }
+
+        private static void CompressFile(CompressOptions options)
+        {
+            using var outputStream = new FileStream(options.Destination, FileMode.Create);
+            using var inputStream = new FileStream(options.Source, FileMode.Open);
+            outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
         }
 
         /// <summary>

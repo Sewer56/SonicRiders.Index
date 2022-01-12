@@ -2,6 +2,32 @@
 
 namespace RidersArchiveTool
 {
+    [Verb("compress", HelpText = "Compresses a file using Riders' compression algorithm.")]
+    internal class CompressOptions
+    {
+        [Option(Required = true, HelpText = "The file to compress.")]
+        public string Source { get; internal set; }
+
+        [Option(Required = true, HelpText = "Where to save the compressed file.")]
+        public string Destination { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
+        public bool BigEndian { get; internal set; }
+    }
+
+    [Verb("decompress", HelpText = "Decompresses a file using Riders' compression algorithm.")]
+    internal class DecompressOptions
+    {
+        [Option(Required = true, HelpText = "The file to decompress.")]
+        public string Source { get; internal set; }
+
+        [Option(Required = true, HelpText = "Where to save the decompressed file.")]
+        public string Destination { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
+        public bool BigEndian { get; internal set; }
+    }
+
     [Verb("extract", HelpText = "Extracts a Riders Archive file.")]
     internal class ExtractOptions
     {
@@ -55,6 +81,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
     }
 
     [Verb("packlist", HelpText = "Packs a list of Riders Archive files.")]
@@ -68,6 +97,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
     }
 
     [Verb("test", HelpText = "Unpacks and repacks all files and compares their hashes.")]
