@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
@@ -151,7 +152,6 @@ namespace RidersArchiveTool
         {
             var directories = Directory.GetDirectories(options.Source);
             var writer      = new ArchiveWriter();
-
             foreach (var dir in directories)
             {
                 var directoryName = Path.GetFileNameWithoutExtension(dir).Split(GroupIdSeparator);
@@ -177,8 +177,9 @@ namespace RidersArchiveTool
             else
             {
                 // TODO: Optimize this more. This is pretty unoptimal.
-                using var memoryStream = new MemoryStream();
-                writer.Write(memoryStream, options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC);
+                var writerOptions      = options.BigEndian ? ArchiveWriterOptions.GameCube : ArchiveWriterOptions.PC;
+                using var memoryStream = new MemoryStream(writer.EstimateFileSize(writerOptions) + 1);
+                writer.Write(memoryStream, writerOptions);
                 memoryStream.Position = 0;
                 fileStream.Write(ArchiveCompression.CompressFast(memoryStream, (int)memoryStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
             }
