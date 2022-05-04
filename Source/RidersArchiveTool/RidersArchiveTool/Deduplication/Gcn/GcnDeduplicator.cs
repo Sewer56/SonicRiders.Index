@@ -1,19 +1,142 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Sewer56.SonicRiders.Structures.Enums;
 
 namespace RidersArchiveTool.Deduplication.Gcn;
 
 internal class GcnDeduplicator
 {
+    private static DeduplicateGcnOptions _options;
+
     public static void Deduplicate(DeduplicateGcnOptions options)
     {
+        _options = options;
+
         // Deduplicating Stages
-        DeduplicateStages(options);
+        DeduplicateStages();
+        DeduplicateTag();
+        // SVR: NO
+        DeduplicateCutscenes();
     }
 
-    private static void DeduplicateStages(DeduplicateGcnOptions options)
+    private class CutsceneData
+    {
+        public List<string> MainCutsceneFiles = new();
+        public List<List<string>> Scenes = new();
+    }
+
+    private static void DeduplicateCutscenes()
+    {
+        Console.WriteLine($"=== Cutscene Deduplication Begin ===");
+        const string Common = "SCMN";
+        const char CommonLanguageSuffix = 'C';
+
+        var languageSuffixes = new char[] { 'E', 'F', 'G', 'I', 'J', 'S' };
+        var targetFolder     = CombineAndCreateDirectory(_options.SavePath, "Cutscene");
+
+        // Copy All Cutscene Files.
+        var cutscenes = new List<CutsceneData>();
+        for (int cutsceneId = 0; cutsceneId <= 16; cutsceneId++)
+        {
+            var cutscene = new CutsceneData();
+
+            // Main Files
+            foreach (var suffix in languageSuffixes)
+                CopyFile(_options.Source, targetFolder, $"{cutsceneId}", $"S{cutsceneId}{suffix}", cutscene.MainCutsceneFiles);
+
+            // Scenes
+            for (int sceneId = 0; sceneId < 99; sceneId++)
+            {
+                var baseName = $"S{cutsceneId}S{sceneId}";
+                var sceneFiles = new List<string>();
+
+                foreach (var suffix in languageSuffixes)
+                {
+                    var fileName = baseName + suffix;
+                    CopyFile(_options.Source, targetFolder, $"{cutsceneId}/Scene{sceneId}", fileName, sceneFiles);
+                }
+
+                if (sceneFiles.Count > 0)
+                    cutscene.Scenes.Add(sceneFiles);
+            }
+
+            // Add if valid cutscene
+            if (cutscene.MainCutsceneFiles.Count > 0)
+                cutscenes.Add(cutscene);
+        }
+
+        // Calc Data Size
+        var originalDataSize = GetDirectorySize(targetFolder);
+
+        // Cutscene Files: Deduplicate
+        var commonCutsceneFiles      = new List<string>();
+
+        for (var x = 0; x < cutscenes.Count; x++)
+        {
+            var cutscene = cutscenes[x];
+
+            // Deduplicate Main
+            if (cutscene.MainCutsceneFiles.Count >= 2)
+            {
+                var commonCutsceneFile = ReplaceLastCharacter(cutscene.MainCutsceneFiles.First(), CommonLanguageSuffix);
+                commonCutsceneFiles.Add(commonCutsceneFile);
+                Deduplicate(commonCutsceneFile, cutscene.MainCutsceneFiles.ToArray(), out var origMainCutSize, out var newMainCutSize);
+                LogDeduplication($"Cutscene {x}", origMainCutSize, newMainCutSize);
+            }
+
+            // Deduplicate Scene
+            if (cutscene.Scenes.Count > 0)
+            {
+                for (var y = 0; y < cutscene.Scenes.Count; y++)
+                {
+                    var sceneFiles = cutscene.Scenes[y];
+                    if (sceneFiles.Count >= 2)
+                    {
+                        var commonSceneFile = ReplaceLastCharacter(sceneFiles.First(), CommonLanguageSuffix);
+                        Deduplicate(commonSceneFile, sceneFiles.ToArray(), out var origMainCutSize, out var newMainCutSize);
+                        LogDeduplication($"Cutscene {x} Scene #{y}", origMainCutSize, newMainCutSize);
+                    }
+                }
+            }
+        }
+
+        // Main Common Files: Deduplicate
+        Deduplicate(Path.Combine(targetFolder, Common), commonCutsceneFiles.ToArray(), out var origCommonSize, out var newCommonSize);
+        LogDeduplication($"Cutscene Common", origCommonSize, newCommonSize);
+
+        // Print Space Savings
+        var newDataSize = GetDirectorySize(targetFolder);
+        Console.WriteLine($"=== Cutscene Deduplication Complete ===\n" +
+                          $"==> Space Saved Total: {((originalDataSize - newDataSize) / 1000.0):##.00}KBytes");
+    }
+
+    private static void DeduplicateTag()
+    {
+        Console.WriteLine($"=== Tag Deduplication Begin ===");
+        const string Common = "TCMN";
+
+        var targetFolder = CombineAndCreateDirectory(_options.SavePath, "Tag");
+
+        // Copy Stage Files & Populate
+        var tagFiles = new List<string>();
+        for (int x = 0; x <= (int)Levels.SpaceTheater; x++)
+            CopyFile(_options.Source, targetFolder, $"", $"TG{x}", tagFiles);
+
+        var originalDataSize = GetDirectorySize(targetFolder);
+
+        // Deduplicate Tag
+        Deduplicate(Path.Combine(targetFolder, Common), tagFiles.ToArray(), out var originalSize, out var newSize);
+        LogDeduplication("Tag Assets", originalSize, newSize);
+        
+        // Print Space Savings
+        var newDataSize = GetDirectorySize(targetFolder);
+        Console.WriteLine($"=== Tag Deduplication Complete ===\n" +
+                          $"==> Space Saved Total: {((originalDataSize - newDataSize) / 1000.0):##.00}KBytes");
+    }
+
+    private static void DeduplicateStages()
     {
         Console.WriteLine($"=== Stage Deduplication Begin ===");
         const string Common1P = "CMN1";
@@ -22,7 +145,7 @@ internal class GcnDeduplicator
         const string CommonMission = "MCMN";
         const string Common = "CMN";
         
-        var targetFolder  = CombineAndCreateDirectory(options.SavePath, "Stages");
+        var targetFolder  = CombineAndCreateDirectory(_options.SavePath, "Stages");
 
         // Copy Stage Files & Populate
         var missionFiles = new List<string>();
@@ -32,10 +155,10 @@ internal class GcnDeduplicator
 
         for (int x = 0; x <= (int)Levels.SpaceTheater; x++)
         {
-            CopyFile(options.Source, targetFolder, $"{x}", $"{x}", stageFiles1P);
-            CopyFile(options.Source, targetFolder, $"{x}", $"{x}M", stageFiles2P);
-            CopyFile(options.Source, targetFolder, $"{x}", $"{x}V", stageFiles4P);
-            CopyFile(options.Source, targetFolder, $"{x}", $"M{x}", missionFiles);
+            CopyFile(_options.Source, targetFolder, $"{x}", $"{x}", stageFiles1P);
+            CopyFile(_options.Source, targetFolder, $"{x}", $"{x}M", stageFiles2P);
+            CopyFile(_options.Source, targetFolder, $"{x}", $"{x}V", stageFiles4P);
+            CopyFile(_options.Source, targetFolder, $"{x}", $"M{x}", missionFiles);
         }
 
         var originalDataSize = GetDirectorySize(targetFolder);
@@ -88,7 +211,7 @@ internal class GcnDeduplicator
 
     static void Deduplicate(string outputPath, string[] inputFiles, out long originalSize, out long newSize)
     {
-        var deduplicator = new Deduplicator(outputPath, inputFiles, true, true);
+        var deduplicator = new Deduplicator(outputPath, inputFiles, true, _options.Compress);
         originalSize = deduplicator.GetInputFilesSize(false);
         deduplicator.Deduplicate();
         newSize = deduplicator.GetInputFilesSize(true);
@@ -129,11 +252,12 @@ internal class GcnDeduplicator
     /// <param name="targetSubfolderName">Any additional subfolders, if required.</param>
     /// <param name="fileName">File name in source folder.</param>
     /// <param name="files">Optional list of files to add the new file path to.</param>
-    static void CopyFile(string sourceFolder, string targetFolder, string targetSubfolderName, string fileName, List<string> files = null)
+    /// <returns>Path to the new file if copied, else null.</returns>
+    static string CopyFile(string sourceFolder, string targetFolder, string targetSubfolderName, string fileName, List<string> files = null)
     {
         var filePath = Path.Combine(sourceFolder, fileName);
         if (!File.Exists(filePath))
-            return;
+            return null;
 
         var directory = Path.Combine(targetFolder, targetSubfolderName);
         var newPath   = Path.Combine(directory, fileName);
@@ -141,6 +265,7 @@ internal class GcnDeduplicator
         File.Copy(filePath, newPath, true);
 
         files?.Add(newPath);
+        return newPath;
     }
 
     /// <summary>
@@ -156,4 +281,11 @@ internal class GcnDeduplicator
 
         return bytes;
     }
+
+    /// <summary>
+    /// Replaces last character of a string.
+    /// </summary>
+    /// <param name="text">The text to replace the character in.</param>
+    /// <param name="newChar">The character to insert.</param>
+    static string ReplaceLastCharacter(string text, char newChar) => text.Remove(text.Length - 1) + newChar;
 }

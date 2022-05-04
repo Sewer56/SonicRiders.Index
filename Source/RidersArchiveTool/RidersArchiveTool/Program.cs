@@ -298,7 +298,10 @@ namespace RidersArchiveTool
         {
             // Note: No Error Handling + Unoptimised
             var deduplicator = new Deduplicator(options);
+            var sizeBefore = deduplicator.GetInputFilesSize(false);
             deduplicator.Deduplicate();
+            var sizeAfter  = deduplicator.GetInputFilesSize(true);
+            Console.WriteLine($"Deduplication Complete. Space Saved Total: {((sizeBefore - sizeAfter) / 1000.0):##.00}KBytes");
         }
 
         private static void DeduplicateGcn(DeduplicateGcnOptions options) => GcnDeduplicator.Deduplicate(options);
