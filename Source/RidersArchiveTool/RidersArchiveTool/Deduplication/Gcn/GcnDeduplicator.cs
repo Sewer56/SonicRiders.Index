@@ -61,7 +61,8 @@ internal class GcnDeduplicator
         {
             Path.Combine(targetFolder, Common1P),
             Path.Combine(targetFolder, Common2P),
-            Path.Combine(targetFolder, Common4P)
+            Path.Combine(targetFolder, Common4P),
+            Path.Combine(targetFolder, CommonMission)
         }, out var originalSizeCommon, out var newSizeCommon);
         LogDeduplication("1P, 2P, 4P Common", originalSizeCommon, newSizeCommon);
 
