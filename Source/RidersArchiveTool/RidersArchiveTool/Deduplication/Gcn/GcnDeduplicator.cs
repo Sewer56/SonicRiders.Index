@@ -19,6 +19,23 @@ internal class GcnDeduplicator
         DeduplicateTag();
         // SVR: NO
         DeduplicateCutscenes();
+        ApplyFiles();
+    }
+
+    private static void ApplyFiles()
+    {
+        if (!_options.Apply)
+            return;
+
+        if (string.IsNullOrEmpty(_options.ApplyPath))
+            _options.ApplyPath = _options.SavePath;
+
+        var files = Directory.GetFiles(_options.SavePath, "*.*", SearchOption.AllDirectories);
+        foreach (var file in files)
+        {
+            var targetPath = Path.Combine(_options.ApplyPath, Path.GetFileName(file));
+            File.Move(file, targetPath, true);
+        }
     }
 
     private class CutsceneData

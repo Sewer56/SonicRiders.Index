@@ -155,5 +155,11 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if new archives should be compressed.", Default = false)]
         public bool Compress { get; internal set; }
+
+        [Option(Required = false, HelpText = "If true, copies all files back to the Riders directory.", Default = false)]
+        public bool Apply { get; internal set; }
+
+        [Option(Required = false, HelpText = "Folder where the result files should be copied to. If not specified, this will equal source.")]
+        public string ApplyPath { get; internal set; }
     }
 }
