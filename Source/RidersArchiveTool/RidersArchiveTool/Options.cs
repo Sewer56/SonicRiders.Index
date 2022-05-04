@@ -15,6 +15,19 @@ namespace RidersArchiveTool
         public bool BigEndian { get; internal set; }
     }
 
+    [Verb("compressall", HelpText = "Compresses all files in a directory using Riders' compression algorithm.")]
+    internal class CompressAllOptions
+    {
+        [Option(Required = true, HelpText = "The directory with files to compress.")]
+        public string Source { get; internal set; }
+
+        [Option(Required = true, HelpText = "Where to save the compressed files.")]
+        public string Destination { get; internal set; }
+
+        [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
+        public bool BigEndian { get; internal set; }
+    }
+
     [Verb("decompress", HelpText = "Decompresses a file using Riders' compression algorithm.")]
     internal class DecompressOptions
     {

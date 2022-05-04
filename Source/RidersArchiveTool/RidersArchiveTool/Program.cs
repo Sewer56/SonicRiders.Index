@@ -35,7 +35,7 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions, DeduplicateOptions, DeduplicateGcnOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, CompressAllOptions, DecompressOptions, DeduplicateOptions, DeduplicateGcnOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<ExtractAllOptions>(ExtractAll)
                         .WithParsed<PackOptions>(Pack)
@@ -43,6 +43,7 @@ namespace RidersArchiveTool
                         .WithParsed<PackListOptions>(PackList)
                         .WithParsed<TestOptions>(TestFiles)
                         .WithParsed<CompressOptions>(CompressFile)
+                        .WithParsed<CompressAllOptions>(CompressAllFiles)
                         .WithParsed<DecompressOptions>(DecompressFile)
                         .WithParsed<DeduplicateOptions>(DeduplicateDirectory)
                         .WithParsed<DeduplicateGcnOptions>(DeduplicateGcn)
@@ -290,8 +291,26 @@ namespace RidersArchiveTool
         private static void CompressFile(CompressOptions options)
         {
             using var outputStream = new FileStream(options.Destination, FileMode.Create);
-            using var inputStream = new FileStream(options.Source, FileMode.Open);
+            using var inputStream  = new FileStream(options.Source, FileMode.Open);
             outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+        }
+
+        private static void CompressAllFiles(CompressAllOptions options)
+        {
+            var files = Directory.GetFiles(options.Source, "*.*", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                var relativePath    = Paths.GetRelativePath(file, options.Source);
+                var destinationPath = Paths.AppendRelativePath(relativePath, options.Destination);
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+
+                CompressFile(new CompressOptions()
+                {
+                    BigEndian = options.BigEndian,
+                    Source = file,
+                    Destination = destinationPath
+                });
+            }
         }
 
         private static void DeduplicateDirectory(DeduplicateOptions options)
