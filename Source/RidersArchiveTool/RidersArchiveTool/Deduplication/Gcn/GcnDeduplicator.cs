@@ -19,11 +19,13 @@ internal class GcnDeduplicator
         const string Common1P = "CMN1";
         const string Common2P = "CMN2";
         const string Common4P = "CMN4";
+        const string CommonMission = "MCMN";
         const string Common = "CMN";
         
-        var targetFolder = CombineAndCreateDirectory(options.SavePath, "Stages");
+        var targetFolder  = CombineAndCreateDirectory(options.SavePath, "Stages");
 
         // Copy Stage Files & Populate
+        var missionFiles = new List<string>();
         var stageFiles1P = new List<string>();
         var stageFiles2P = new List<string>();
         var stageFiles4P = new List<string>();
@@ -33,6 +35,7 @@ internal class GcnDeduplicator
             CopyFile(options.Source, targetFolder, $"{x}", $"{x}", stageFiles1P);
             CopyFile(options.Source, targetFolder, $"{x}", $"{x}M", stageFiles2P);
             CopyFile(options.Source, targetFolder, $"{x}", $"{x}V", stageFiles4P);
+            CopyFile(options.Source, targetFolder, $"{x}", $"M{x}", missionFiles);
         }
 
         var originalDataSize = GetDirectorySize(targetFolder);
@@ -48,6 +51,10 @@ internal class GcnDeduplicator
         // Deduplicate 4P Stages
         Deduplicate(Path.Combine(targetFolder, Common4P), stageFiles4P.ToArray(), out var originalSize4P, out var newSize4P);
         LogDeduplication("4P Stage Assets", originalSize4P, newSize4P);
+
+        // Deduplicate Mission Stages
+        Deduplicate(Path.Combine(targetFolder, CommonMission), missionFiles.ToArray(), out var originalSizeMission, out var newSizeMission);
+        LogDeduplication("Mission Assets", originalSizeMission, newSizeMission);
 
         // Deduplicate Commons
         Deduplicate(Path.Combine(targetFolder, Common), new string[]
@@ -65,6 +72,7 @@ internal class GcnDeduplicator
             AddFileIfExists(singleStageFiles, CopyFileCombinePath(targetFolder, $"{x}", $"{x}"));
             AddFileIfExists(singleStageFiles, CopyFileCombinePath(targetFolder, $"{x}", $"{x}M"));
             AddFileIfExists(singleStageFiles, CopyFileCombinePath(targetFolder, $"{x}", $"{x}V"));
+            AddFileIfExists(singleStageFiles, CopyFileCombinePath(targetFolder, $"{x}", $"M{x}"));
 
             Deduplicate(CopyFileCombinePath(targetFolder, $"{x}", $"{x}CMN"), singleStageFiles.ToArray(), out var originalStageSize, out var newStageSize);
             LogDeduplication($"Stage {x} Common", originalStageSize, newStageSize);
