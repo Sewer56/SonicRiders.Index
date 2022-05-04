@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using RidersArchiveTool.Deduplication.Structures;
 using Sewer56.SonicRiders.Parser.Archive;
+using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
 using Sewer56.SonicRiders.Utility;
 
 namespace RidersArchiveTool.Deduplication;
@@ -169,6 +170,13 @@ internal class Deduplicator
 
     private void SaveArchiveToPath(ArchiveWriter writer, string filePath, bool compress)
     {
+        // Hack: Add dummy file if archive is empty.
+        if (writer.Groups.Count == 0)
+        {
+            writer.AddGroup(0, ManagedGroup.Create());
+            compress = false;
+        }
+
         using var outputStream = new FileStream(filePath, FileMode.Create);
         if (!compress)
         {
