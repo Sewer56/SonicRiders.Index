@@ -2,7 +2,7 @@
   "profiles": {
     "RidersArchiveTool": {
       "commandName": "Project",
-      "commandLineArgs": "pack --source \"C:\\Users\\sewer\\Desktop\\Temp\\Compress Test\\Unpacked\" --savepath \"C:\\Users\\sewer\\Desktop\\Temp\\Compress Test\\1 New\" --bigendian --compress"
+      "commandLineArgs": "deduplicate-gcn --source \"D:\\Games\\ISOs\\DX1.0.1\\files\" --savepath \"C:\\Users\\sewer\\Desktop\\Temp\\Deduplicator\\Output\" --compress"
     }
   }
 }

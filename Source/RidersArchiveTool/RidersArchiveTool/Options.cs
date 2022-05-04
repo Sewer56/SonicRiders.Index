@@ -114,4 +114,33 @@ namespace RidersArchiveTool
         [Option(Required = false, HelpText = "Location of the folder to save old and new file in case of mismatch.", Default = false)]
         public string SavePath { get; private set; }
     }
+
+    [Verb("deduplicate", HelpText = "Finds all duplicates in archives in a given directory and repacks all the archives.")]
+    internal class DeduplicateOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the files to deduplicate.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Name of the file to be saved.", Default = "COMMON")]
+        public string SaveName { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if new archives should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
+    }
+
+    [Verb("deduplicate-gcn", HelpText = "Deduplicates GameCube Version of Sonic Riders.")]
+    internal class DeduplicateGcnOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the GCN Version of Riders.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Path to the directory where the deduped files will be contained.")]
+        public string SavePath { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if new archives should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
+    }
 }

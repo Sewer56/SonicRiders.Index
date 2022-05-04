@@ -10,6 +10,8 @@ using CommandLine.Text;
 using Reloaded.Memory.Streams;
 using Reloaded.Memory.Streams.Readers;
 using Reloaded.Memory.Streams.Writers;
+using RidersArchiveTool.Deduplication;
+using RidersArchiveTool.Deduplication.Gcn;
 using RidersArchiveTool.Utilities;
 using Sewer56.SonicRiders.Parser.Archive;
 using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
@@ -33,7 +35,7 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions, DeduplicateOptions, DeduplicateGcnOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<ExtractAllOptions>(ExtractAll)
                         .WithParsed<PackOptions>(Pack)
@@ -42,6 +44,8 @@ namespace RidersArchiveTool
                         .WithParsed<TestOptions>(TestFiles)
                         .WithParsed<CompressOptions>(CompressFile)
                         .WithParsed<DecompressOptions>(DecompressFile)
+                        .WithParsed<DeduplicateOptions>(DeduplicateDirectory)
+                        .WithParsed<DeduplicateGcnOptions>(DeduplicateGcn)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
         }
 
@@ -289,6 +293,15 @@ namespace RidersArchiveTool
             using var inputStream = new FileStream(options.Source, FileMode.Open);
             outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
         }
+
+        private static void DeduplicateDirectory(DeduplicateOptions options)
+        {
+            // Note: No Error Handling + Unoptimised
+            var deduplicator = new Deduplicator(options);
+            deduplicator.Deduplicate();
+        }
+
+        private static void DeduplicateGcn(DeduplicateGcnOptions options) => GcnDeduplicator.Deduplicate(options);
 
         /// <summary>
         /// Errors or --help or --version.
