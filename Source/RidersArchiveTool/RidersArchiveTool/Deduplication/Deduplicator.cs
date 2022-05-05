@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using RidersArchiveTool.Deduplication.Structures;
+using RidersArchiveTool.Utilities;
 using Sewer56.SonicRiders.Parser.Archive;
 using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
 using Sewer56.SonicRiders.Utility;
@@ -87,12 +88,10 @@ internal class Deduplicator
     /// <returns>Total size of all input files.</returns>
     public long GetInputFilesSize(bool includeOutputFile)
     {
-        long size = 0;
-        foreach (var input in InputFiles)
-            size += GetFileSize(input);
-
+        long size = IOUtilities.GetFileSize(InputFiles);
+        
         if (includeOutputFile && File.Exists(CommonOutputPath))
-            size += GetFileSize(CommonOutputPath);
+            size += IOUtilities.GetFileSize(CommonOutputPath);
 
         return size;
     }
@@ -222,6 +221,4 @@ internal class Deduplicator
 
         return archives;
     }
-
-    private static long GetFileSize(string path) => new FileInfo(path).Length;
 }

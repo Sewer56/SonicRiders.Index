@@ -162,4 +162,14 @@ namespace RidersArchiveTool
         [Option(Required = false, HelpText = "Folder where the result files should be copied to. If not specified, this will equal source.")]
         public string ApplyPath { get; internal set; }
     }
+
+    [Verb("prs-recompress", HelpText = "Recompresses all archives in a given directory with PRS.")]
+    internal class PrsRecompress
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the GCN Version of Riders to recompress.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+    }
 }
