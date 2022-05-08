@@ -9,6 +9,11 @@ namespace RidersArchiveTool.Deduplication.Structures;
 internal class GroupHashCollection : IEquatable<GroupHashCollection>
 {
     /// <summary>
+    /// Id of the individual group.
+    /// </summary>
+    public ushort Id;
+
+    /// <summary>
     /// Combined hash code of all elements within the group.
     /// </summary>
     public ulong Hash;
@@ -20,6 +25,7 @@ internal class GroupHashCollection : IEquatable<GroupHashCollection>
 
     internal GroupHashCollection(in ManagedGroup group)
     {
+        Id = group.Id;
         Hashes = new ulong[group.Files.Count];
         ulong combinedHash = 0;
 
@@ -49,7 +55,9 @@ internal class GroupHashCollection : IEquatable<GroupHashCollection>
     // Auto Implemented
     public bool Equals(GroupHashCollection other)
     {
-        return Hash == other.Hash && Hashes.SequenceEqual(other.Hashes);
+        return Hash == other.Hash && 
+               Id == other.Id &&
+               Hashes.SequenceEqual(other.Hashes);
     }
 
     public override bool Equals(object obj)
