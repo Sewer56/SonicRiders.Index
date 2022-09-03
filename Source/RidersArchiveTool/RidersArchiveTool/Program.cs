@@ -33,7 +33,7 @@ namespace RidersArchiveTool
                 with.HelpWriter = null;
             });
 
-            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions>(args);
+            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, DecompressOptions, FindDecompressedOptions>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<ExtractAllOptions>(ExtractAll)
                         .WithParsed<PackOptions>(Pack)
@@ -42,7 +42,42 @@ namespace RidersArchiveTool
                         .WithParsed<TestOptions>(TestFiles)
                         .WithParsed<CompressOptions>(CompressFile)
                         .WithParsed<DecompressOptions>(DecompressFile)
+                        .WithParsed<FindDecompressedOptions>(FindDecompressed)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
+        }
+
+        private static void FindDecompressed(FindDecompressedOptions options)
+        {
+            var watch = Stopwatch.StartNew();
+            var files = Directory.GetFiles(options.Source, "*.*", SearchOption.AllDirectories);
+            var archivesTested = 0;
+
+            foreach (var file in files)
+            {
+                using var stream = new FileStream(file, FileMode.Open);
+
+                // Check if Valid Riders Archive
+                if (!RidersArchiveGuesser.TryGuess(stream, (int)stream.Length, options.BigEndian, out bool isCompressed))
+                    continue;
+
+                if (!isCompressed)
+                {
+                    if (options.PrintCompressedSavings)
+                    {
+                        var compressed = ArchiveCompression.CompressFast(stream, (int)stream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC);
+                        Console.WriteLine($"[Uncompressed] {file}, Before: {stream.Length}, After: {compressed.Length}, Ratio: {((float)compressed.Length / stream.Length):0.00}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"[Uncompressed] {file}");
+                    }
+                }
+
+                archivesTested++;
+            }
+
+            Console.WriteLine($"Total Archives Checked {archivesTested}");
+            Console.WriteLine($"{watch.ElapsedMilliseconds}ms");
         }
 
         private static void TestFiles(TestOptions options)

@@ -114,4 +114,18 @@ namespace RidersArchiveTool
         [Option(Required = false, HelpText = "Location of the folder to save old and new file in case of mismatch.", Default = false)]
         public string SavePath { get; private set; }
     }
+
+    [Verb("find-decompressed", HelpText = "Finds all Riders archives that don't use compression.")]
+    internal class FindDecompressedOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the files to check.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Compresses the file and prints size before and after.", Default = false)]
+        public bool PrintCompressedSavings { get; internal set; }
+    }
+
 }
