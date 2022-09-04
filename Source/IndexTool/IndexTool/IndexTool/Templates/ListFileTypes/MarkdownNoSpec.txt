@@ -7,9 +7,9 @@
 	end
 	type.extension
 }} | {{ type.format }} | {{ 
-	if type.tool_url != null
-		type.tool = "[" + type.tool + "]" + "(" + type.tool_url + ")"
+	if type.tools.size > 0
+		tool = "[" + type.tools[0].name + "]" + "(" + type.tools[0].url + ")"
+		tool
 	end
-	type.tool
 }} | {{ type.description }} |
 {{- end }}

@@ -1,5 +1,5 @@
-﻿| Extension   | Format | Example Tool | Specification | Example File | Description |
-| ----------- | ------ | ------------ | ------------- | ------------ | ----------- |
+﻿| Extension   | Format | Example Tool | Specification(s) | Example File | Description |
+| ----------- | ------ | ------------ | ---------------- | ------------ | ----------- |
 {{- for type in types }}
 | {{ 
 	if type.extension == ""
@@ -7,14 +7,14 @@
 	end
 	type.extension
 }} | {{ type.format }} | {{ 
-	if type.tool_url != null
-		type.tool = "[" + type.tool + "]" + "(" + type.tool_url + ")"
+	if type.tools.size > 0
+		tool = "[" + type.tools[0].name + "]" + "(" + type.tools[0].url + ")"
+		tool
 	end
-	type.tool
 }} | {{ 
-	if type.template_url != null
-		type.template = "[" + type.template + "]" + "(" + type.template_url + ")"
+	for doc in type.documentation
+		line = "[" + doc.name + "]" + "(" + doc.url + ")"
+		line
 	end
-	type.template
 }} | {{ type.example }} | {{ type.description }} |
 {{- end }}

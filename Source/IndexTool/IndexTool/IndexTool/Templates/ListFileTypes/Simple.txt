@@ -1,3 +1,8 @@
 ﻿{{ for type in types }}
-{{ type.extension }} | {{ type.format }} | {{ type.tool }} | {{ type.template }} | {{ type.example }} | {{ type.description }} |
+{{ type.extension }} | {{ type.format }} | {{ 
+if type.tools.size > 0
+	tool = "[" + type.tools[0].name + "]" + "(" + type.tools[0].url + ")"
+	tool
+end 
+}} | {{ type.template }} | {{ type.example }} | {{ type.description }} |
 {{- end }}

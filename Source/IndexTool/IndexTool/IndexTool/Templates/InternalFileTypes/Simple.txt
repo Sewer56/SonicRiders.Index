@@ -1,3 +1,13 @@
 ﻿{{ for type in types }}
-{{ type.format }} | {{ type.tool }} | {{ type.template }} | {{ type.example }} | {{ type.description }} |
+{{ type.format }} | {{ 
+	if type.tools.size > 0
+		tool = "[" + type.tools[0].name + "]" + "(" + type.tools[0].url + ")"
+		tool
+	end
+}} | {{ 
+	for doc in type.documentation
+		line = "[" + doc.name + "]" + "(" + doc.url + ")"
+		line
+	end
+}} | {{ type.example }} | {{ type.description }} |
 {{- end }}

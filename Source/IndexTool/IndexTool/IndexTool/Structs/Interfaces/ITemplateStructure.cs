@@ -1,7 +1,6 @@
-﻿namespace IndexTool.Structs.Interfaces
+﻿namespace IndexTool.Structs.Interfaces;
+
+public interface ITemplateStructure
 {
-    public interface ITemplateStructure
-    {
         
-    }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 
-namespace IndexTool.Structs.Attributes
+namespace IndexTool.Structs.Attributes;
+
+public class ReflectionIgnoreAttribute : Attribute
 {
-    public class ReflectionIgnoreAttribute : Attribute
-    {
-    }
 }

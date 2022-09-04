@@ -1,10 +1,7 @@
-﻿using System;
+﻿namespace IndexTool.Options.Interfaces;
 
-namespace IndexTool.Options.Interfaces
+public interface IOption
 {
-    public interface IOption
-    {
-        public string GetName();
-        public void Execute();
-    }
+    public string GetName();
+    public void Execute();
 }
