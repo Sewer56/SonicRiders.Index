@@ -12,8 +12,17 @@ extra:
       link: https://twitter.com/TheSewer56
 
 markdown_extensions:
+  - admonition
+  - tables
+  - pymdownx.details
   - pymdownx.highlight
-  - pymdownx.superfences
+  - pymdownx.superfences 
+  - pymdownx.tasklist
+  - def_list
+  - meta
+  - md_in_html
+  - attr_list
+  - footnotes
 
 theme:
   name: material
@@ -41,6 +50,7 @@ nav:
     - File Listing: files/list.md
 
   - Guides: 
+    - Custom Model Guide: guides/custom-models.md
     - Contributing Locally: guides/contributing-locally.md
     - Contributing Online: guides/contributing-online.md
      
