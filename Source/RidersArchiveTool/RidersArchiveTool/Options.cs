@@ -55,6 +55,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Does not print out files written to disk.", Default = false)]
         public bool Silent { get; internal set; }
+
+        [Option(Required = false, HelpText = "Guesses the internal file type.", Default = true)]
+        public bool? GuessFileType { get; internal set; }
     }
 
     [Verb("extractall", HelpText = "Extracts all Riders archives in a given folder.")]
@@ -68,6 +71,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; private set; }
+
+        [Option(Required = false, HelpText = "Guesses the internal file type.", Default = true)]
+        public bool? GuessFileType { get; internal set; }
     }
 
     [Verb("packall", HelpText = "Packs all folders in a given path into Riders archive files.")]

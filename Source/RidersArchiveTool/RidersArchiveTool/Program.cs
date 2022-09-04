@@ -13,6 +13,7 @@ using Reloaded.Memory.Streams.Writers;
 using RidersArchiveTool.Utilities;
 using Sewer56.SonicRiders.Parser.Archive;
 using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
+using Sewer56.SonicRiders.Parser.File;
 using Standart.Hash.xxHash;
 using File = System.IO.File;
 
@@ -268,7 +269,8 @@ namespace RidersArchiveTool
                     Source = filePath,
                     SavePath = Path.Combine(options.SavePath, Path.GetFileName(filePath)),
                     BigEndian = options.BigEndian,
-                    Silent = true
+                    Silent = true,
+                    GuessFileType = options.GuessFileType
                 }, fileStream, isCompressed);
             else
                 Console.WriteLine($"[{Path.GetFileName(filePath)}] Not an Archive File!!");
@@ -305,7 +307,11 @@ namespace RidersArchiveTool
                 for (var y = 0; y < @group.Files.Count; y++)
                 {
                     var filePath = Path.Combine(folder, y.ToString("00000"));
-                    File.WriteAllBytesAsync(filePath, @group.Files[y].Data);
+                    var data = @group.Files[y].Data;
+                    if (options.GuessFileType.GetValueOrDefault(false) && FileTypeGuesser.TryGuess(data, out var fileType))
+                        filePath += fileType!.GetExtensionOrCustomExtension();
+
+                    File.WriteAllBytesAsync(filePath, data);
                     if (!options.Silent)
                         Console.WriteLine($"Written {filePath}");
                 }
