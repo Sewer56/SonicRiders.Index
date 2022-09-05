@@ -352,7 +352,58 @@ For any characters on skates or bikes you should have the skates / bike be part 
 !!! tip 
 
     Both the model preparer and exporter support batch preparing / exporting. Simply select two models rigs or meshes and run the prepare / export function.
+##Texture Packing
+!!! info
+    
+    Shows how to unpack and repack textures from your model archive
 
+File 00001 in the 000_ folder contains the textures that the model uses. In order to change the textures to support your new model, we will require a few things:
+
+Firstly, use the `RidersTextureArchivetool` to unpack the file and view its contents. An example here (do not forget the --bigendian flag if working with gamecube): 
+
+`RidersTextureArchiveTool.exe extract --source C:\Users\sewer\Downloads\Build\output\00001 --savepath C:\Users\sewer\Downloads\Build\output\00001output`
+
+This will write to a new folder `\00001output` next to your other files. Inside this folder will be some textures and a file called `order.txt`, which lists all 
+
+textures and their order in the file.
+
+![Packing Textures #1](../images/guide/ordertxtshown.png)
+
+!!! tip
+
+    For board models, do not change the 1st texture, as this will always be the magic carpet if you are working for DX 2.0
+    
+These textures are encoded in PVR (or GVR for gamecube) format, and your textures will also need to be re-encoded the same way. 
+
+**DO NOT ENCODE OVERLY LARGE TEXTURES, AS THE GAME WILL STRUGGLE**. Try and stay below 512x512 sized textures for your model, you will be able to apply custom textures 
+
+over them anyway. To encode textures, select Texture > Encode
+
+![Packing Textures #2](../images/guide/PuyoTools1.png)
+
+Then select GVR from the dropdown, set data format as DXT1 compressed, tick the mipmaps box and change the header to GCIX. 
+
+![Packing Textures #3](../images/guide/PuyoTools2.png)
+
+This will export the texture(s) to a file called "Encoded Textures" where your PuyoTools.exe is located:
+
+![Packing Textures #4](../images/guide/PuyoTools2.png)
+
+Take your new encoded textures and place them in your extracted file where order.txt is. Delete the old character textures (these should be obviously named)
+
+and replace them with your new ones. Then, open order.txt and edit it to line up with your new file names. 
+
+**Remove the file extensions in your new textures (.gvr or .pvr) so the tool can find the files properly, or you will get errors.**
+
+![Packing Textures #5](../images/guide/ordertxtshown2.png)
+
+Once you are done, its time to repack the texture file, once again using `RidersTextureArchivetool` and the `pack` command this time as follows (bigendian if required: 
+
+`RidersArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output\00001output --savepath C:\Users\sewer\Downloads\Build\output\00001new`
+
+Now you have your new file `00001new`, rename it to `00001` and delete the old file with the same name in the directory where your model is, 
+
+replacing it with the new one. Textures all packed and ready to go!
 
 ## Packing Models
 
