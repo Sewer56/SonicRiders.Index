@@ -5,6 +5,8 @@
     This guide is relatively recent and could probably be improved.  
     If you have used it and are familiar with the model editing workflow, please consider helping us.  
 
+    This guide is generic and can be used with any supported version of Riders.  
+
 !!! info
 
     [This guide is available in video form](https://www.youtube.com/watch?v=duIGbfS_Zho). 
@@ -12,6 +14,11 @@
 !!! note
 
     The tooling at the moment in time only targets Windows. If you have a demand for alternate OS support, please let us know. [Model exporter](https://github.com/Argx2121/Sega_NN_tools) requires triangle stripping dependency with no native Python implementation. [Public contributions would be welcome!!]
+
+!!! todo
+
+    Packing textures. We kinda forgot to add this, but we gotta nap.  
+    We'll add it tomorrow 'I Sewer'
 
 ## Prerequisites 
 
@@ -339,7 +346,7 @@ Finally, you can export the model, by selecting a mesh and choosing `Model .*no`
 
 Please select the appropriate format and game. 
 If you are planning on exporting a character to play as in game, it's recommend to use the `Player` preset for `Data type settings`.
-If you are exporting a model to just be played on boards, please export the character without a board, and with the `Base board model` setting selected.
+If you are exporting a model to just be played on boards [i.e. You are exporting to SRDX 2.0 and above], please export the character without a board, and with the `Base board model` setting selected.
 For any characters on skates or bikes you should have the skates / bike be part of the model you are exporting, and you should have this setting off.
 
 !!! tip 
