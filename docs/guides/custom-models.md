@@ -7,7 +7,7 @@
 
 !!! info
 
-    This guide will soon be available in video form.   
+    [This guide is available in video form](https://www.youtube.com/watch?v=duIGbfS_Zho). 
 
 !!! note
 
