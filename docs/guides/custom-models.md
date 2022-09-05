@@ -24,12 +24,13 @@
 
 You will need to download the following items first.  
 
-| Program                                                                                                                                                                                   | Purpose                                                          |
-|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| [.NET 5 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) [(Windows)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-5.0.17-windows-x64-installer) | Required to run Sewer's Sonic Riders tools.                      |
-| [Blender](https://www.blender.org/download/)                                                                                                                                              | Modelling software.                                              |
-| [Sega NN Tools](https://github.com/Argx2121/Sega_NN_tools/archive/refs/heads/master.zip)                                                                                                  | Blender Plugin for Riders' Model Formats (and 20+ other games!). |
-| [RidersArchiveTool](https://github.com/Sewer56/SonicRiders.Index/releases/tag/1.3.0)                                                                                                      | Sewer's tool for extracting compressed Riders archives.          |
+| Program                                                                                                                                                                                   | Purpose                                                                    |
+|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| [.NET 5 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) [(Windows)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-5.0.17-windows-x64-installer) | Required to run Sewer's Sonic Riders tools.                                |
+| [Blender](https://www.blender.org/download/)                                                                                                                                              | Modelling software.                                                        |
+| [Sega NN Tools](https://github.com/Argx2121/Sega_NN_tools/archive/refs/heads/master.zip)                                                                                                  | Blender Plugin for Riders' Model Formats (and 20+ other games!).           |
+| [RidersArchiveTool & RidersTextureArchiveTool](https://github.com/Sewer56/SonicRiders.Index/releases/latest)                                                                              | Sewer's tool for extracting compressed Riders archives & texture archives. |
+| [Puyo Tools](https://github.com/nickworonekin/puyotools/releases/latest)                                                                                                                  | Used for texture conversion to Ninja (NN) Texture formats. |
 
 It's recommended to download Blender from Steam; in order to receive automatic updates.
 
@@ -84,7 +85,7 @@ In the case of player models, they use the format P{X}{YY}, where:
 
 !!! info 
 
-    This section describes how to extract the Riders Archives e.g. `PA00` to obtain the models.
+    This section describes how to extract the Riders Arc hives e.g. `PA00` to obtain the models.
 
 ### Extracting Archives
 
@@ -352,58 +353,90 @@ For any characters on skates or bikes you should have the skates / bike be part 
 !!! tip 
 
     Both the model preparer and exporter support batch preparing / exporting. Simply select two models rigs or meshes and run the prepare / export function.
-##Texture Packing
+
+## Replacing Textures
+
+!!! todo
+    
+    Add PC/Xbox specific documentation for this section.  
+    I [Sewer] forgot what we use for creating PC tools; worst case scenario I'll just make my own tool.  
+
 !!! info
     
-    Shows how to unpack and repack textures from your model archive
+    Shows how to replace the textures such that the game will recognise your new character's textures.  
 
-File 00001 in the 000_ folder contains the textures that the model uses. In order to change the textures to support your new model, we will require a few things:
 
-Firstly, use the `RidersTextureArchivetool` to unpack the file and view its contents. An example here (do not forget the --bigendian flag if working with gamecube): 
+File `00001` in the folder with your original model contains the textures that the model uses.  
+In order to change the textures to support your new model, you will need to use `RidersTextureArchiveTool`.  
 
-`RidersTextureArchiveTool.exe extract --source C:\Users\sewer\Downloads\Build\output\00001 --savepath C:\Users\sewer\Downloads\Build\output\00001output`
+This tool has similar usage to `RidersArchiveTool`.
+
+### Extracting Textures
+
+You can unpack the file by using `RidersTextureArchiveTool.exe extract`. 
+```powershell
+# Example
+RidersTextureArchiveTool.exe extract --source C:\Users\sewer\Downloads\Build\output\00001 --savepath C:\Users\sewer\Downloads\Build\output\00001output
+
+# Do not forget --bigendian flag is working with GameCube.
+```
 
 This will write to a new folder `\00001output` next to your other files. Inside this folder will be some textures and a file called `order.txt`, which lists all 
-
 textures and their order in the file.
 
-![Packing Textures #1](../images/guide/ordertxtshown.png)
+### Packing New Textures
 
-!!! tip
+!!! todo
 
-    For board models, do not change the 1st texture, as this will always be the magic carpet if you are working for DX 2.0
-    
-These textures are encoded in PVR (or GVR for gamecube) format, and your textures will also need to be re-encoded the same way. 
+    We might need to make our own tool for PC/Xbox sometime; the formats available in Puyo Tools are pretty unoptimal.  
+    If anyone's interested in pitching in, [the format's documented over here](../files/template/PVRTTexture.bt).  
 
-**DO NOT ENCODE OVERLY LARGE TEXTURES, AS THE GAME WILL STRUGGLE**. Try and stay below 512x512 sized textures for your model, you will be able to apply custom textures 
+!!! danger
 
-over them anyway. To encode textures, select Texture > Encode
+    If you are working with SRDX 2.0, do not change the 1st [magic carpet] texture for board models.
 
-![Packing Textures #2](../images/guide/PuyoTools1.png)
+!!! warning
 
-Then select GVR from the dropdown, set data format as DXT1 compressed, tick the mipmaps box and change the header to GCIX. 
+    It is recommended to make your texture sizes powers of two (e.g. `64x64`, `128x128`, `256x256`) for performance reasons.  
+    On GameCube, textures MUST be powers of two.  
 
-![Packing Textures #3](../images/guide/PuyoTools2.png)
+!!! warning
+
+    Consoles are memory constrained and making your textures too high quality might lead to poor performance or game crashes.  
+    On consoles it's generally recommended to use textures in similar size to the originals, e.g. `128x128` and `256x256` for character models.  
+
+![Packing Textures #1](../images/guide/texture_archive_files.png)
+
+These textures use `PVR` [Xbox/PC] or `GVR` [GameCube] format, and your textures will also need to be re-encoded the same way.  
+
+In order to create new textures in the game's native format, select `Texture > Encode` in `Puyo Tools`.
+
+![Packing Textures #2](../images/guide/texture_archive_puyo_1.png)
+
+For GameCube, select `GVR` from the dropdown and set data format as `DXT1 Compressed`, tick the `mipmaps` box and change the header to `GCIX`. For PC and XBOX use `PVR` and `GBIX`.  
+
+![Packing Textures #3](../images/guide/texture_archive_puyo_2.png)
 
 This will export the texture(s) to a file called "Encoded Textures" where your PuyoTools.exe is located:
 
-![Packing Textures #4](../images/guide/PuyoTools2.png)
+![Packing Textures #4](../images/guide/texture_archive_puyo_3.png)
 
-Take your new encoded textures and place them in your extracted file where order.txt is. Delete the old character textures (these should be obviously named)
+Take your new encoded textures and place them in your extracted file where `order.txt` is. Delete the old character textures and replace them with your new ones. Then, open `order.txt` and edit it to line up with your new file names. 
 
-and replace them with your new ones. Then, open order.txt and edit it to line up with your new file names. 
+![Packing Textures #5](../images/guide/texture_archive_order.png)
 
-**Remove the file extensions in your new textures (.gvr or .pvr) so the tool can find the files properly, or you will get errors.**
+!!! tip
 
-![Packing Textures #5](../images/guide/ordertxtshown2.png)
+    Remove the file extensions in your new textures (`.gvr` or `.pvr`) so the tool can find the files properly, or you will get errors.  
 
-Once you are done, its time to repack the texture file, once again using `RidersTextureArchivetool` and the `pack` command this time as follows (bigendian if required: 
+Once you are done, its time to repack the texture file, once again using `RidersTextureArchiveTool` and the `pack` command this time as follows.
 
-`RidersArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output\00001output --savepath C:\Users\sewer\Downloads\Build\output\00001new`
+```powershell
+# Don't forget --bigendian if using GameCube
+RidersArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output\00001output --savepath C:\Users\sewer\Downloads\Build\output\00001new --bigendian
+```
 
-Now you have your new file `00001new`, rename it to `00001` and delete the old file with the same name in the directory where your model is, 
-
-replacing it with the new one. Textures all packed and ready to go!
+Now you have your new file `00001new`, replace the old `00001` with your new one. Textures all packed and ready to go!
 
 ## Packing Models
 
@@ -430,4 +463,4 @@ Once you have packed the archive, replace the original one in the game folder an
 ## Credits
 
 Arg!! & Sewer56 for the original creation of this guide.  
-
+Moester for adding the initial version of `Replacing Textures` part.  
