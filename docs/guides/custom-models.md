@@ -460,6 +460,67 @@ Once you have packed the archive, replace the original one in the game folder an
 
     If you are working with the PC version, you should create a [Reloaded-II Mod](https://reloaded-project.github.io/Reloaded-II/CreatingMods/). This will make it easier for people to use and will prevent you from overwriting your original game files.  
 
+## Extra
+
+### Custom Gears in SRDX 2.0
+
+!!! info 
+
+    In SRDX 2.0, gear and character models are logically separated from each other, allowing for any character to ride any gear.  
+
+Use Sewer56's [SRDX Gear Packer](https://github.com/Sewer56/srdx-gear-format/latest) to create custom gears for Riders DX.  
+
+Usage is same as `RidersArchiveTool` and `RidersTextureArchiveTool`, in other words:  
+
+To extract use `SrdxGearPacker.exe extract --source EXG0A --savepath EXG0A-out`  
+Pack: `SrdxGearPacker.exe pack --source EXG0A-out --savepath EXG0A`  
+
+![Extracted Gear Archive](../images/guide/exgl_gear_archive_extracted.png)
+
+The extracted gear archive will contain textures `.gvr` and model `.gno`.  
+Replace the model with your custom model and textures using the guidance in [Replacing Textures](#replacing-textures).
+
+### SRDX 2.0 Gear List
+
+!!! info 
+
+    Uses hexadecimal. i.e. 0A appears after 09.  
+
+Listing of files for gears in SRDX2.0.  
+
+| FileName      | Gear          |
+|---------------|---------------|
+| EXGE0 - EXGF5 | Default Gears (uses Character Select Screen order, top left to bottom right) |
+| EXG00 - EXG18 | Regular Gears (uses Gear Select order)                                       |
+
+### SRDX 2.0 Character List
+
+Listing of files for additional characters in SRDX2.0.  
+
+| FileName | Character   |
+|----------|-------------|
+| PF00     | Metal Sonic |
+| PU00     | Silver      |
+| PH00     | Chaos       |
+
+### SRTE 2.0 Character List
+
+Listing of files for additional characters in SRTE2.0.  
+Taken from inspecting the ROM.  
+
+| FileName | Character   |
+|----------|-------------|
+| P300     | Silver      |
+| P400     | Metal Sonic |
+| P500     | Emerl       |
+| P600     | Blaze       |
+| P700     | Chaos       |
+| P800     | Tikal       |
+
+!!! note 
+
+    I (Sewer) am relatively disconnected these days. If you are part of the SRTE team; please consider this part of the wiki after updates.
+
 ## Credits
 
 Arg!! & Sewer56 for the original creation of this guide.  
