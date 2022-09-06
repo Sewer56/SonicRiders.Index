@@ -608,7 +608,7 @@ Base address is `5B2538`. So add `1C` to that value for Eggman; then you can add
 
 !!! warning 
 
-    Incompatible with SRTE 2.0+ due to technical limitations. Compatible with all other mods/versions including SRDX & Vanilla.
+    Incompatible with SRTE 2.0+ due to technical limitations [<= 1.4.1 is okay]. All other mods based on NTSC-U including Riders DX should work fine.
 
 !!! warning 
 
