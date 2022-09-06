@@ -521,6 +521,143 @@ Taken from inspecting the ROM.
 
     I (Sewer) am relatively disconnected these days. If you are part of the SRTE team; please consider this part of the wiki after updates.
 
+### Changing Character HUD Colours
+
+!!! info 
+
+    Shows how to change HUD colours for individual characters.
+
+!!! note 
+
+    This section of the guide uses [hexadecimal numbers](https://www.mathsisfun.com/hexadecimals.html).  
+
+| Character  | Offset (Hex) |
+|------------|--------------|
+| Sonic      | 0            |
+| Tails      | 4            |
+| Knuckles   | 8            |
+| Amy        | C            |
+| Jet        | 10           |
+| Storm      | 14           |
+| Wave       | 18           |
+| Eggman     | 1C           |
+| Cream      | 20           |
+| Rouge      | 24           |
+| Shadow     | 28           |
+| SuperSonic | 2C           |
+| Nights     | 30           |
+| AiAi       | 34           |
+| Ulala      | 38           |
+| E10000G    | 3C           |
+| E10000R    | 40           |
+
+Colours for the character HUD are hardcoded inside the game code.  
+They are stored using the RGBA format; for example, Sonic uses `64C8D2FF`, which means:  
+
+- Blue: 64  
+- Green: C8
+- Red: D2
+- Alpha (Transparency): FF
+
+!!! tip 
+
+    Google 'RGB colour picker', many will display their colours in hex format `#aabbcc`; just add `FF` (i.e. your desired transparency) to it.
+
+To find a specific character's HUD, we will add `offset` to the `base address` provided.  
+
+![Hex Calculator](../images/guide/calculator_hexadecimal.png)
+
+#### GameCube
+
+Base address is `805BE500`.  
+So add `1C` to `805BE500` if you want to change Eggman's HUD.  That will make the address `805BE51C`.
+
+To convert this to a gecko code, change `80` to `04` and put the RGBA hex colour after a space.
+e.g. Eggman (`805BE51C`) and colour (`11223344`) will make `045BE51C 11223344`.
+
+| Character | Example Gecko Code |
+|-----------|--------------------|
+| Sonic     | 045BE500 FF0000FF  |
+| Tails     | 045BE504 D2C864FF  |
+
+[Dolphin Memory Engine](https://github.com/aldelaro5/Dolphin-memory-engine/releases) is recommended for testing.  Start the game in Dolphin, then DME.
+
+With DME, you can:  
+- Click `Add Watch`  
+- Set address to desired colour `805BE51C` (Eggman)  
+- Set Type as `4 Bytes`  
+- In the window where your new entry was added, right click and select `View as Hexadecimal`.  
+
+![DME](../images/guide/dme_hud_colour.png)
+
+If you doubleclick the value, you can change it in real time.
+
+#### PC
+
+Base address is `5B2538`. So add `1C` to that value for Eggman; then you can add that address to `Cheat Engine` as `4 bytes`.
+
+!!! tip 
+
+    If you are programming a Reloaded Mod for Sonic Riders, the API for this is `Sewer56.SonicRiders.API.Player.Colours`.
+
+### Character Sounds (GCN)
+
+!!! info 
+
+    Applies to GameCube only.  PC/Xbox variant of this format is not known, [documentation](../files/template/DTPK.bt).  
+
+!!! warning 
+
+    Incompatible with SRTE 2.0+ due to technical limitations. Compatible with all other mods/versions including SRDX & Vanilla.
+
+!!! warning 
+
+    Only supports original characters. Additional character slots added by mods cannot be currently supported due to technical problems.  
+
+Use Sewer56's [GcaxDatInjector](https://github.com/Sewer56/SonicRiders.Index/releases/latest) to create custom sound effects for characters.  
+
+#### Finding Sound Effects
+
+Sound effects for characters come in the format of `10{CHAR}` where `{CHAR}` is a shorthand for character names, for example:  
+
+![Extracted Sound Archive](../images/guide/sound_effect_file_listing.png)
+
+#### Extracting Sounds
+
+Run `GcaxDatInjector.exe extract` with a source file and destination folder.   
+
+`./GcaxDatInjector.exe extract --source path/to/10JSILVR.DAT --destination 10JSILVR-out --convert true`  
+
+Specifying `--convert true` will convert the audio files inside to WAV files; if not specified, they will be extracted RAW.  
+
+![Extracted Sound Archive](../images/guide/sound_effect_gcn_folder.png)
+
+!!! danger 
+
+    This tool is not a full extractor/repacker and has limitations.  
+    Modified files must use the original sample rate (usually 44.1kHz) and channel count (usually 1/mono).  
+
+#### Replacing Sounds
+
+!!! warning 
+
+    The tool isn't capable of creating new files from scratch, only modifying existing files.  
+    You must pack the sounds back into the `DAT` file you originally extracted them from!! [Take Backups!!]
+
+Run `GcaxDatInjector.exe pack` with previously extracted source folder and destination file.  
+
+`GcaxDatInjector.exe inject --source 10JSILVR-out --destination path/to/10JSILVR.DAT`
+
+The destination path must be the original file you extracted from `10JSILVR.DAT` must be a file that already exists. That file will be overwritten so consider taking backups.  
+
+Upon completion, the tool should print out a Gecko code, that looks similar to:  
+```
+045E5BCC 000006C0
+045E5BD0 000214D0
+```
+
+This gecko code will be necessary to run your sound effects as the game hardcodes certain properties of the file and we need to overwrite them.  
+
 ## Credits
 
 Arg!! & Sewer56 for the original creation of this guide.  
