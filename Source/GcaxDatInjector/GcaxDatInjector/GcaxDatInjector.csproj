@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>10.0</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="RegExtract" Version="1.0.18" />
+    <PackageReference Include="Reloaded.Memory" Version="4.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Structures\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Submodules\VGAudio\src\VGAudio\VGAudio.csproj" />
+  </ItemGroup>
+
+</Project>

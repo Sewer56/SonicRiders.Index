@@ -1,3 +1,6 @@
 [submodule "Source/Submodules/Sewer56.SonicRiders"]
 	path = Source/Submodules/Sewer56.SonicRiders
 	url = https://github.com/Sewer56/Sewer56.SonicRiders.git
+[submodule "Source/Submodules/VGAudio"]
+	path = Source/Submodules/VGAudio
+	url = https://github.com/Thealexbarney/VGAudio.git

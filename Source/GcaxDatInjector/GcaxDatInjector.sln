@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32210.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GcaxDatInjector", "GcaxDatInjector\GcaxDatInjector.csproj", "{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Submodules", "Submodules", "{B5BA5C5E-2B4E-4DEC-95FD-C5AA569F72E0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VGAudio", "..\Submodules\VGAudio\src\VGAudio\VGAudio.csproj", "{48D457DD-C673-4191-955B-8AE6953AA02B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|x64.Build.0 = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Debug|x86.Build.0 = Debug|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|x64.ActiveCfg = Release|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|x64.Build.0 = Release|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|x86.ActiveCfg = Release|Any CPU
+		{B041BCFC-A3F3-4DE2-9524-F1F6FD622F1E}.Release|x86.Build.0 = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|x64.Build.0 = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Debug|x86.Build.0 = Debug|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|x64.ActiveCfg = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|x64.Build.0 = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|x86.ActiveCfg = Release|Any CPU
+		{48D457DD-C673-4191-955B-8AE6953AA02B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{48D457DD-C673-4191-955B-8AE6953AA02B} = {B5BA5C5E-2B4E-4DEC-95FD-C5AA569F72E0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {242ABF77-3104-41B0-8D75-7A533F4D7F80}
+	EndGlobalSection
+EndGlobal
