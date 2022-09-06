@@ -503,10 +503,9 @@ Listing of files for additional characters in SRDX2.0.
 | PU00     | Silver      |
 | PH00     | Chaos       |
 
-### SRTE 2.0 Character List
+### SRTE 2.0 Board List
 
 Listing of files for additional characters in SRTE2.0.  
-Taken from inspecting the ROM.  
 
 | FileName | Character   |
 |----------|-------------|
@@ -516,6 +515,19 @@ Taken from inspecting the ROM.
 | P600     | Blaze       |
 | P700     | Chaos       |
 | P800     | Tikal       |
+
+### SRTE 2.0 Character List
+
+Listing of files for additional characters in SRTE2.0.  
+
+| FileName | Character   |
+|----------|-------------|
+| P3CO     | Silver      |
+| P4CO     | Metal Sonic |
+| P5CO     | Emerl       |
+| P6CO     | Blaze       |
+| P7CO     | Chaos       |
+| P8CO     | Tikal       |
 
 !!! note 
 
@@ -662,3 +674,4 @@ This gecko code will be necessary to run your sound effects as the game hardcode
 
 Arg!! & Sewer56 for the original creation of this guide.  
 Moester for adding the initial version of `Replacing Textures` part.  
+Exortile for corrections regarding minor SRTE aspects.  
