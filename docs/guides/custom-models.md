@@ -581,6 +581,10 @@ To find a specific character's HUD, we will add `offset` to the `base address` p
 
 #### GameCube
 
+!!! warning 
+
+    Incompatible with SRTE 2.0+ due to technical limitations [<= 1.4.1 is okay]. [Shifted code due to disassembly]
+
 Base address is `805BE500`.  
 So add `1C` to `805BE500` if you want to change Eggman's HUD.  That will make the address `805BE51C`.
 
@@ -620,7 +624,7 @@ Base address is `5B2538`. So add `1C` to that value for Eggman; then you can add
 
 !!! warning 
 
-    Incompatible with SRTE 2.0+ due to technical limitations [<= 1.4.1 is okay]. All other mods based on NTSC-U including Riders DX should work fine.
+    Incompatible with SRTE 2.0+ due to technical limitations [<= 1.4.1 is okay]. [Shifted code due to disassembly]
 
 !!! warning 
 
