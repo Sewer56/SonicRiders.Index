@@ -20,11 +20,13 @@ The goal is to have a vast array of game knowledge all condensed into one area f
 - [Contributing to the Index: Online](./docs/guides/contributing-online.md)
 - [Contributing to the Index: Locally](./docs/guides/contributing-locally.md)
 
+Contributions are highly encouraged!  
+
 ## Contact Us
 
-This repository is maintained by some of the folks from the [Extreme Gear Labs](https://discord.gg/nfFyGc2EFh) Discord server. Saying hi in the `#pc-discussion` channel is the fastest way to get noticed.
+This repository is periodically maintained by [Sewer56](https://github.com/Sewer56) (formerly SRDX).  
 
-If that is not an option for you, [consider opening an issue](https://github.com/Sewer56/SonicRiders.Index/issues) on this repository.
+For any requests, or if you simply need support, [consider opening an issue](https://github.com/Sewer56/SonicRiders.Index/issues) on this repository.
 
 ## Credits, Attributions
 
