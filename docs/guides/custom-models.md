@@ -347,7 +347,7 @@ Finally, you can export the model, by selecting a mesh and choosing `Model .*no`
 
 Please select the appropriate format and game. 
 If you are planning on exporting a character to play as in game, it's recommend to use the `Player` preset for `Data type settings`.
-If you are exporting a model to just be played on boards [i.e. You are exporting to SRDX 2.0 and above], please export the character without a board, and with the `Base board model` setting selected.
+If you are exporting a model to just be played on boards [i.e. You are exporting to SRDX/TE 2.0 and above], please export the character without a board, and with the `Base board model` setting selected.
 For any characters on skates or bikes you should have the skates / bike be part of the model you are exporting, and you should have this setting off.
 
 !!! tip 
