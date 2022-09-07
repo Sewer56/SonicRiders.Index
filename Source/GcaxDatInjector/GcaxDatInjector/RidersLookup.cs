@@ -48,7 +48,13 @@ internal static class RidersLookup
         new("10AIAI.DAT", 0x805E5D28),
         new("10ULALA.DAT", 0x805E5D44),
         new("10ER1.DAT", 0x805E5D60),
-        new("10ER2.DAT", 0x805E5D7C)
+        new("10ER2.DAT", 0x805E5D7C),
+
+        new("10METAL.DAT", 0x805E5D7C, true),
+        new("10SILVR.DAT", 0x800EF798, true),
+
+        new("10METAL.DAT", 0x805E5D7C, true),
+        new("10JSILVR.DAT", 0x800EF798, true)
     };
 
     public static bool TryGetGeckoCode(string fileName, int endOfTbld, int pcmdSectionSize, out string? geckoTbld)
@@ -63,6 +69,9 @@ internal static class RidersLookup
             StringBuilder builder = new StringBuilder();
             builder.AppendLine($"04{pEndOfTbld:X} {endOfTbld:X8}");
             builder.AppendLine($"04{pPcmdSectionSize:X} {pcmdSectionSize:X8}");
+            if (entry.SrdxSpecific)
+                builder.AppendLine($"This code is Riders DX 2.0+ specific.");
+
             geckoTbld = builder.ToString();
             return true;
         }
@@ -76,10 +85,14 @@ public struct RidersFileEntry
 {
     public string FileName   ;
     public uint MemoryAddress;
+    public bool SrdxSpecific;
+    // SRTE might auto fix this for all DATs in the future, but for now it all shifts between each patch
+    // SRDX is keeping theirs stable via DOL edit
 
-    public RidersFileEntry(string fileName, uint memoryAddress)
+    public RidersFileEntry(string fileName, uint memoryAddress, bool srdxSpecific = false)
     {
         FileName = fileName;
         MemoryAddress = memoryAddress;
+        SrdxSpecific = srdxSpecific;
     }
 }
