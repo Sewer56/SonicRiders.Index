@@ -15,10 +15,6 @@
 
     The tooling at the moment in time only targets Windows. If you have a demand for alternate OS support, please let us know. [Model exporter](https://github.com/Argx2121/Sega_NN_tools) requires triangle stripping dependency with no native Python implementation. [Public contributions would be welcome!!]
 
-!!! todo
-
-    Packing textures. We kinda forgot to add this, but we gotta nap.  
-    We'll add it tomorrow 'I Sewer'
 
 ## Prerequisites 
 
@@ -27,7 +23,7 @@ You will need to download the following items first.
 | Program                                                                                                                                                                                   | Purpose                                                                    |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | [.NET 5 Runtime](https://dotnet.microsoft.com/download/dotnet/5.0) [(Windows)](https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-5.0.17-windows-x64-installer) | Required to run Sewer's Sonic Riders tools.                                |
-| [Blender](https://www.blender.org/download/)                                                                                                                                              | Modelling software.                                                        |
+| [Blender (3.0.0+)](https://www.blender.org/download/)                                                                                                                                              | Modelling software.                                                        |
 | [Sega NN Tools](https://github.com/Argx2121/Sega_NN_tools/archive/refs/heads/master.zip)                                                                                                  | Blender Plugin for Riders' Model Formats (and 20+ other games!).           |
 | [RidersArchiveTool & RidersTextureArchiveTool](https://github.com/Sewer56/SonicRiders.Index/releases/latest)                                                                              | Sewer's tool for extracting compressed Riders archives & texture archives. |
 | [Puyo Tools](https://github.com/nickworonekin/puyotools/releases/latest)                                                                                                                  | Used for texture conversion to Ninja (NN) Texture formats. |
