@@ -505,7 +505,7 @@ Listing of files for additional characters in SRDX2.0.
 
 ### SRTE 2.0 Board List
 
-Listing of files for additional characters in SRTE2.0.  
+Listing of files for additional boards in SRTE2.0.  
 
 | FileName | Character   |
 |----------|-------------|
@@ -581,11 +581,11 @@ To find a specific character's HUD, we will add `offset` to the `base address` p
 
 #### GameCube
 
-!!! warning 
+| Game                           | Base Address |
+|--------------------------------|--------------|
+| Vanilla, SRDX, SRTE (<= 1.4.2) | 805BE500     |
+| SRTE 2.0                       | 805E17E0     |
 
-    Incompatible with SRTE 2.0+ due to technical limitations [<= 1.4.1 is okay]. [Shifted code due to disassembly]
-
-Base address is `805BE500`.  
 So add `1C` to `805BE500` if you want to change Eggman's HUD.  That will make the address `805BE51C`.
 
 To convert this to a gecko code, change `80` to `04` and put the RGBA hex colour after a space.
@@ -678,4 +678,4 @@ This gecko code will be necessary to run your sound effects as the game hardcode
 
 Arg!! & Sewer56 for the original creation of this guide.  
 Moester for adding the initial version of `Replacing Textures` part.  
-Exortile for corrections regarding minor SRTE aspects.  
+Exortile for corrections regarding minor SRTE aspects, mem addresses.  
