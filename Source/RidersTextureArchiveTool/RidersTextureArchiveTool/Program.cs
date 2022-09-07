@@ -63,7 +63,9 @@ namespace RidersTextureArchiveTool
             // Write file to new location.
             Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath));
             using var fileStream = new FileStream(options.SavePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            writer.Write(fileStream, options.BigEndian ? TextureArchiveWriterSettings.GameCube : TextureArchiveWriterSettings.PC);
+            var settings = options.BigEndian ? TextureArchiveWriterSettings.GameCube : TextureArchiveWriterSettings.PC;
+            settings.WriteFlagsSection = options.EmitUnknownFlags.GetValueOrDefault(true);
+            writer.Write(fileStream, settings);
         }
 
         private static void Extract(ExtractOptions options)

@@ -27,6 +27,9 @@ namespace RidersTextureArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian.", Default = false)]
         public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Emits unknown flags.", Default = true)]
+        public bool? EmitUnknownFlags { get; internal set; }
     }
 
     [Verb("packall", HelpText = "Packs a list of Riders Texture Archive files.")]
