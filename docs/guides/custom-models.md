@@ -628,7 +628,7 @@ Base address is `5B2538`. So add `1C` to that value for Eggman; then you can add
 
 !!! warning 
 
-    Only supports original characters. Additional character slots added by mods cannot be currently supported due to technical problems.  
+    Only guaranteed support for original characters and some addiitonal SRDX characters. 
 
 Use Sewer56's [GcaxDatInjector](https://github.com/Sewer56/SonicRiders.Index/releases/latest) to create custom sound effects for characters.  
 
