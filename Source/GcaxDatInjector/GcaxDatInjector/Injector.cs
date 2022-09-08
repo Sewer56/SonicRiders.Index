@@ -180,8 +180,8 @@ internal class Injector
             currentPcmdOffset += (size + (int)bytesPadded);
         }
 
-        // Weird data.
-        //outputStream.Write(new byte[16]);
+        // Pad PCMD Section.
+        outputStream.AddPadding(32);
 
         // Write updated table.
         outputStream.Seek(fileTablePtr, SeekOrigin.Begin);
