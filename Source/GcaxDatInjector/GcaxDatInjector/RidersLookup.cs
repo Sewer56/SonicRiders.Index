@@ -67,8 +67,8 @@ internal static class RidersLookup
             var pPcmdSectionSize = pEndOfTbld + 4;
 
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine($"04{pEndOfTbld:X} {endOfTbld:X8}");
-            builder.AppendLine($"04{pPcmdSectionSize:X} {pcmdSectionSize:X8}");
+            builder.AppendLine($"04{pEndOfTbld:X6} {endOfTbld:X8}");
+            builder.AppendLine($"04{pPcmdSectionSize:X6} {pcmdSectionSize:X8}");
             if (entry.SrdxSpecific)
                 builder.AppendLine($"This code is Riders DX 2.0+ specific.");
 
