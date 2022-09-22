@@ -429,7 +429,7 @@ Once you are done, its time to repack the texture file, once again using `Riders
 
 ```powershell
 # Don't forget --bigendian if using GameCube
-RidersArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output\00001output --savepath C:\Users\sewer\Downloads\Build\output\00001new --bigendian
+RidersTextureArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output\00001output --savepath C:\Users\sewer\Downloads\Build\output\00001new --bigendian
 ```
 
 Now you have your new file `00001new`, replace the old `00001` with your new one. Textures all packed and ready to go!
