@@ -11,10 +11,6 @@
 
     [This guide is available in video form](https://www.youtube.com/watch?v=duIGbfS_Zho). 
 
-!!! note
-
-    The tooling at the moment in time only targets Windows. If you have a demand for alternate OS support, please let us know. [Model exporter](https://github.com/Argx2121/Sega_NN_tools) requires triangle stripping dependency with no native Python implementation. [Public contributions would be welcome!!]
-
 
 ## Prerequisites 
 
