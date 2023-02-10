@@ -2,7 +2,7 @@
 //--- 010 Editor v12.0 Binary Template
 //
 //      File: CRI Middleware DTPK Audio Package GameCube
-//   Authors: Sewer56
+//   Authors: Sewer56, Exortile
 //   Purpose: For inspecting DTPKs
 //------------------------------------------------
 
@@ -22,10 +22,10 @@ struct DtpkHeader
     HeaderBase baseHeader;
     int fileSizeInclHeader;
     
-    int pEndOfTbld <comment="Pointer to end of Tbld (presumably). Contains zero filled bytes up to next 2048 boundary.">;
+    int pEndOfTbld <comment="Pointer to end of Tbld, aligned to 32-bit, plus 0x20. Contains zero filled bytes up to next 2048 boundary.">;
     int unknown;
 
-    int pcmdSectionSize <comment="Size of gcaxPCMD section.">;
+    int pcmdSectionSize <comment="Size of gcaxPCMD section, aligned to 32-bit, plus 0x20.">;
     int pcmdSectionPtr;
 
     char unknownPadding[0x40];
@@ -41,14 +41,14 @@ struct TbldHeader
     int pUnknown_A;
     int pUnknown_B;
     int pUnknown_C;    
-    int pUnknown_D;
+    int pSoundbankInfo;
 
     int pUnknownSectionE;
     int pUnknown_F;
     int pUnknown_G;
     int pUnknown_H;    
     int pFileTable;
-    int pUnknownSection32Bytes;
+    int endOfTBLDHeader <comment="Aligned to 32-bit.">;
 };
 
 struct PcmdHeader 
@@ -78,9 +78,37 @@ struct FileTable
     FileTableEntry entries[fileCountMinusOne + 1];
 };
 
+struct AudioInfo
+{
+    ushort unknownConstxC0DF;
+    ubyte audioID;
+    ushort unknownAlmostAlwaysConstx7F80;
+    byte eliminator;
+
+    while (eliminator != -1) {
+        ubyte audioID;
+        ushort unknownAlmostAlwaysConstx7F80;
+        byte eliminator;
+    }
+};
+
+struct SoundbankInfo
+{
+    int padding;
+    ushort fileIdentifier <comment="Unique identifier that's used to identify every soundbank.">;
+    short unknownConst8;
+    byte fileCountMinusOne;
+    char padding2[3];
+    int offsetTable[fileCountMinusOne + 1] <comment="Contains offsets to each AudioInfo entry, relative to the start of this struct.">;
+    AudioInfo entries[fileCountMinusOne + 1] <optimize=false>;
+};
+
 struct UnknownSectionEEntry 
 {
-    char data[64];
+    ubyte audioID;
+    char data[2];
+    ubyte audioID2 <comment="Usually equivalent to the first audioID in this struct.">;
+    char data2[60];
 };
 
 struct UnknownSectionE
@@ -151,11 +179,11 @@ if (header.baseHeader.maybeFormat == 0x4A)
 
     // Section C
     FSeek(tbldHeader.pUnknown_C);
-    ConstSection unknownSection_C(tbldHeader.pUnknown_D - tbldHeader.pUnknown_C);
+    ConstSection unknownSection_C(tbldHeader.pSoundbankInfo - tbldHeader.pUnknown_C);
 
-    // Section D
-    FSeek(tbldHeader.pUnknown_D);
-    ConstSection unknownSection_D(tbldHeader.pUnknownSectionE - tbldHeader.pUnknown_D);
+    // Section Soundbank Info
+    FSeek(tbldHeader.pSoundbankInfo);
+    SoundbankInfo soundbankInfo;
 
     // Section E
     FSeek(tbldHeader.pUnknownSectionE);
@@ -187,7 +215,7 @@ if (header.baseHeader.maybeFormat == 0x4A)
     FileTable table <comment="Contains info about files in PCMD section.">;
 
     // Section J
-    FSeek(tbldHeader.pUnknownSection32Bytes);
+    FSeek(tbldHeader.endOfTBLDHeader);
     UnknownSection32Bytes unknownSection32Bytes <comment="Usually all zero.">;
 
     // PCMD Section
