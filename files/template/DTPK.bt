@@ -1,0 +1,237 @@
+//------------------------------------------------
+//--- 010 Editor v12.0 Binary Template
+//
+//      File: CRI Middleware DTPK Audio Package GameCube
+//   Authors: Sewer56, Exortile
+//   Purpose: For inspecting DTPKs
+//------------------------------------------------
+
+struct HeaderBase 
+{
+    char magicPlatform[4];
+    char magicDtpk[4];
+
+    byte unknownTypicallyTwo <comment="Maybe max number of channels. Breaks if set smaller than original.">;
+    byte maybeFormat <comment="48 = PS2, 4A = GC, 4B = PC. Has no effect.">; 
+    byte isBigEndian <comment="Unused? Unsure about this one.">;
+    byte unknown;
+};
+
+struct DtpkHeader 
+{
+    HeaderBase baseHeader;
+    int fileSizeInclHeader;
+    
+    int pEndOfTbld <comment="Pointer to end of Tbld, aligned to 32-bit, plus 0x20. Contains zero filled bytes up to next 2048 boundary.">;
+    int unknown;
+
+    int pcmdSectionSize <comment="Size of gcaxPCMD section, aligned to 32-bit, plus 0x20.">;
+    int pcmdSectionPtr;
+
+    char unknownPadding[0x40];
+};
+
+struct TbldHeader 
+{
+    HeaderBase baseHeader;
+    char unknownNull0[0x18];
+    int bankId <comment="Usually Contains Character ID.">;
+
+    char constUnknown1[16] <comment="Same across all files.">;
+    int pUnknown_A;
+    int pUnknown_B;
+    int pUnknown_C;    
+    int pSoundbankInfo;
+
+    int pUnknownSectionE;
+    int pUnknown_F;
+    int pUnknown_G;
+    int pUnknown_H;    
+    int pFileTable;
+    int endOfTBLDHeader <comment="Aligned to 32-bit.">;
+};
+
+struct PcmdHeader 
+{
+    HeaderBase baseHeader;
+    int sizeAfterThisHeader;
+};
+
+struct FileTableEntry 
+{
+    int pcmdOffset <comment="Offset to raw data relative to DtpkHeader.pcmdSectionPtr">;
+    int numChannels <comment="Not 100% sure; but I believe it to be.">;
+    int maybeNumNibbles <comment="Usually (size * 2) +- 1. Strongly believe this is nibble count.">;
+    short adpcmCoefficients[16] <comment="I'm not an audio engineer. Ask Yacker.">;
+    int unk3 <comment="Might be Predictor/Scale.">;
+    int unk4;
+    int unk5;
+    int unknownConst512;
+    ushort sampleRate;
+    short padding;
+    int size;
+};
+
+struct FileTable 
+{
+    int fileCountMinusOne;
+    FileTableEntry entries[fileCountMinusOne + 1];
+};
+
+struct AudioInfo
+{
+    ushort unknownConstxC0DF;
+    ubyte audioID;
+    ushort unknownAlmostAlwaysConstx7F80;
+    byte eliminator;
+
+    while (eliminator != -1) {
+        ubyte audioID;
+        ushort unknownAlmostAlwaysConstx7F80;
+        byte eliminator;
+    }
+};
+
+struct SoundbankInfo
+{
+    int padding;
+    ushort fileIdentifier <comment="Unique identifier that's used to identify every soundbank.">;
+    short unknownConst8;
+    byte fileCountMinusOne;
+    char padding2[3];
+    int offsetTable[fileCountMinusOne + 1] <comment="Contains offsets to each AudioInfo entry, relative to the start of this struct.">;
+    AudioInfo entries[fileCountMinusOne + 1] <optimize=false>;
+};
+
+struct UnknownSectionEEntry 
+{
+    ubyte audioID;
+    char data[2];
+    ubyte audioID2 <comment="Usually equivalent to the first audioID in this struct.">;
+    char data2[60];
+};
+
+struct UnknownSectionE
+{
+    char data[16];
+    short fileCountMinusOne;
+    char data2[30];
+    UnknownSectionEEntry entry[fileCountMinusOne + 1];
+};
+
+struct UnknownSectionH
+{
+    int unk_A;
+    short unk_B;
+    short entryCount;
+    int unk_C;
+    int entryPointers[entryCount];
+    UnknownSectionEEntry entry[entryCount];
+};
+
+struct UnknownSection(int size)
+{
+    char data[size];
+};
+
+// For sections with identical data between files.
+struct ConstSection(int size)
+{
+    char data[size];
+};
+
+struct UnknownSection32Bytes
+{
+    char data[32];
+};
+
+struct PcmdFileData(int size) 
+{
+    char data[size];
+};
+
+struct PcmdFiles(int pcmdSectionPtr, FileTable& table) 
+{
+    local int x = 0;
+    for (x = 0; x < table.fileCountMinusOne + 1; x++) 
+    {
+        FSeek(pcmdSectionPtr + table.entries[x].pcmdOffset);
+        PcmdFileData file(table.entries[x].size);
+    }
+};
+
+DtpkHeader header;
+
+// GameCube Check
+if (header.baseHeader.maybeFormat == 0x4A) 
+{
+    TbldHeader tbldHeader;
+
+    // Seek out all sections.
+
+    // Section A
+    FSeek(tbldHeader.pUnknown_A);
+    ConstSection unknownSection_A(tbldHeader.pUnknown_B - tbldHeader.pUnknown_A);
+
+    // Section B
+    FSeek(tbldHeader.pUnknown_B);
+    ConstSection unknownSection_B(tbldHeader.pUnknown_C - tbldHeader.pUnknown_B);
+
+    // Section C
+    FSeek(tbldHeader.pUnknown_C);
+    ConstSection unknownSection_C(tbldHeader.pSoundbankInfo - tbldHeader.pUnknown_C);
+
+    // Section Soundbank Info
+    FSeek(tbldHeader.pSoundbankInfo);
+    SoundbankInfo soundbankInfo;
+
+    // Section E
+    FSeek(tbldHeader.pUnknownSectionE);
+    UnknownSectionE unkSectionE;
+
+    // Section F
+    if (tbldHeader.pUnknown_F > 0) 
+    {
+        FSeek(tbldHeader.pUnknown_F);
+        UnknownSection unknownSection_F(1);
+    }
+ 
+    // Section G
+    if (tbldHeader.pUnknown_G > 0) 
+    {
+        FSeek(tbldHeader.pUnknown_G);
+        UnknownSection unknownSection_G(1);
+    }
+
+    // Section H
+    if (tbldHeader.pUnknown_H > 0) 
+    {
+        FSeek(tbldHeader.pUnknown_H);
+        UnknownSectionH unknownSection_H();
+    }
+   
+    // Section File Table
+    FSeek(tbldHeader.pFileTable);
+    FileTable table <comment="Contains info about files in PCMD section.">;
+
+    // Section J
+    FSeek(tbldHeader.endOfTBLDHeader);
+    UnknownSection32Bytes unknownSection32Bytes <comment="Usually all zero.">;
+
+    // PCMD Section
+    FSeek(header.pcmdSectionPtr);
+    PcmdHeader pcmdHeader <comment="Section containing raw data for audio.">;
+    PcmdFiles files(header.pcmdSectionPtr, table);
+}
+
+// PCMD: Aligned to 2048 Bytes (CD Sector)
+
+/*
+	int samplerate;
+	int numchannels;
+	short adpcmCoefficients[16];
+	byte rawData[restOfFile]
+	
+	Can probably rig the code from here to make it work: 
+    https://github.com/libertyernie/brawltools/blob/master/BrawlLib/Wii/Audio/AudioConverter.cs
+*/
