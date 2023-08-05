@@ -460,7 +460,7 @@ Once you have packed the archive, replace the original one in the game folder an
 
     In SRDX 2.0, gear and character models are logically separated from each other, allowing for any character to ride any gear.  
 
-Use Sewer56's [SRDX Gear Packer](https://github.com/Sewer56/srdx-gear-format/latest) to create custom gears for Riders DX.  
+Use Sewer56's [SRDX Gear Packer](https://github.com/Sewer56/srdx-gear-format/releases/latest) to create custom gears for Riders DX.  
 
 Usage is same as `RidersArchiveTool` and `RidersTextureArchiveTool`, in other words:  
 
