@@ -1,4 +1,4 @@
-﻿using CommandLine;
+using CommandLine;
 
 namespace RidersArchiveTool
 {
@@ -134,6 +134,41 @@ namespace RidersArchiveTool
         public string SavePath { get; private set; }
     }
 
+    [Verb("deduplicate", HelpText = "Finds all duplicates in archives in a given directory and repacks all the archives.")]
+    internal class DeduplicateOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the files to deduplicate.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+
+        [Option(Required = false, HelpText = "Name of the file to be saved.", Default = "COMMON")]
+        public string SaveName { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if new archives should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
+    }
+
+    [Verb("deduplicate-gcn", HelpText = "Deduplicates GameCube Version of Sonic Riders.")]
+    internal class DeduplicateGcnOptions
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the GCN Version of Riders.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Path to the directory where the deduped files will be contained.")]
+        public string SavePath { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if new archives should be compressed.", Default = false)]
+        public bool Compress { get; internal set; }
+
+        [Option(Required = false, HelpText = "If true, copies all files back to the Riders directory.", Default = false)]
+        public bool Apply { get; internal set; }
+
+        [Option(Required = false, HelpText = "Folder where the result files should be copied to. If not specified, this will equal source.")]
+        public string ApplyPath { get; internal set; }
+    }
+
     [Verb("find-decompressed", HelpText = "Finds all Riders archives that don't use compression.")]
     internal class FindDecompressedOptions
     {
@@ -147,4 +182,14 @@ namespace RidersArchiveTool
         public bool PrintCompressedSavings { get; internal set; }
     }
 
+
+    [Verb("prs-recompress", HelpText = "Recompresses all archives in a given directory with PRS.")]
+    internal class PrsRecompress
+    {
+        [Option(Required = true, HelpText = "Path to the directory containing the GCN Version of Riders to recompress.")]
+        public string Source { get; private set; }
+
+        [Option(Required = false, HelpText = "Set to true if files use Big Endian.", Default = false)]
+        public bool BigEndian { get; internal set; }
+    }
 }

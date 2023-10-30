@@ -1,19 +1,19 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
-using Reloaded.Memory.Streams;
-using Reloaded.Memory.Streams.Readers;
-using Reloaded.Memory.Streams.Writers;
+using csharp_prs;
+using RidersArchiveTool.Deduplication;
+using RidersArchiveTool.Deduplication.Gcn;
 using RidersArchiveTool.Utilities;
 using Sewer56.SonicRiders.Parser.Archive;
 using Sewer56.SonicRiders.Parser.Archive.Structs.Managed;
 using Sewer56.SonicRiders.Parser.File;
+using Sewer56.SonicRiders.Utility;
 using Standart.Hash.xxHash;
 using File = System.IO.File;
 
@@ -33,8 +33,8 @@ namespace RidersArchiveTool
                 with.EnableDashDash = true;
                 with.HelpWriter = null;
             });
-            
-            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, CompressAllOptions, DecompressOptions, FindDecompressedOptions>(args);
+  
+            var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, CompressAllOptions, DecompressOptions, FindDecompressedOptions, DeduplicateOptions, DeduplicateGcnOptions, PrsRecompress>(args);
             parserResult.WithParsed<ExtractOptions>(Extract)
                         .WithParsed<ExtractAllOptions>(ExtractAll)
                         .WithParsed<PackOptions>(Pack)
@@ -44,6 +44,9 @@ namespace RidersArchiveTool
                         .WithParsed<CompressOptions>(CompressFile)
                         .WithParsed<CompressAllOptions>(CompressAllFiles)
                         .WithParsed<DecompressOptions>(DecompressFile)
+                        .WithParsed<DeduplicateOptions>(DeduplicateDirectory)
+                        .WithParsed<DeduplicateGcnOptions>(DeduplicateGcn)
+                        .WithParsed<PrsRecompress>(PrsRecompress)
                         .WithParsed<FindDecompressedOptions>(FindDecompressed)
                         .WithNotParsed(errs => HandleParseError(parserResult, errs));
         }
@@ -205,7 +208,7 @@ namespace RidersArchiveTool
             }
 
             // Write file to new location.
-            Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath));
+            Directory.CreateDirectory(Path.GetDirectoryName(options.SavePath)!);
             using var fileStream = new FileStream(options.SavePath, FileMode.Create, FileAccess.Write, FileShare.None);
             if (!options.Compress)
             {
@@ -339,7 +342,7 @@ namespace RidersArchiveTool
             {
                 var relativePath    = Paths.GetRelativePath(file, options.Source);
                 var destinationPath = Paths.AppendRelativePath(relativePath, options.Destination);
-                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath));
+                Directory.CreateDirectory(Path.GetDirectoryName(destinationPath)!);
 
                 CompressFile(new CompressOptions()
                 {
@@ -350,6 +353,58 @@ namespace RidersArchiveTool
             }
         }
         
+        private static void DeduplicateDirectory(DeduplicateOptions options)
+        {
+            // Note: No Error Handling + Unoptimised
+            var deduplicator = new Deduplicator(options);
+            var sizeBefore = deduplicator.GetInputFilesSize(false);
+            deduplicator.Deduplicate();
+            var sizeAfter  = deduplicator.GetInputFilesSize(true);
+            Console.WriteLine($"Deduplication Complete. Space Saved Total: {((sizeBefore - sizeAfter) / 1000.0):##.00}KBytes");
+        }
+
+        private static void DeduplicateGcn(DeduplicateGcnOptions options) => GcnDeduplicator.Deduplicate(options);
+        
+        private static void PrsRecompress(PrsRecompress options)
+        {
+            var archiveFiles    = new List<string>();
+            var allFiles        = Directory.GetFiles(options.Source, "*.*", SearchOption.AllDirectories);
+            var romSizeOriginal = IOUtilities.GetFileSize(allFiles);
+
+            // Find All Archives
+            foreach (var file in allFiles)
+            {
+                using var fileStream = new FileStream(file, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+                if (RidersArchiveGuesser.TryGuess(fileStream, (int)fileStream.Length, options.BigEndian, out bool isCompressed))
+                    archiveFiles.Add(file);
+            }
+
+            // Recompress Archives
+            Parallel.ForEach(archiveFiles, archive =>
+            {
+                // Get Decompressed Bytes
+                byte[] decompressedBytes;
+                using (var fileStream = new FileStream(archive, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite))
+                {
+                    if (ArchiveCompression.IsCompressed(fileStream, options.BigEndian))
+                    {
+                        decompressedBytes = ArchiveCompression.DecompressFast(fileStream, (int)fileStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC);
+                    }
+                    else
+                    {
+                        decompressedBytes = new byte[fileStream.Length];
+                        fileStream.TryReadSafe(decompressedBytes.AsSpan());
+                    }
+                }
+
+                // Compress and write back.
+                File.WriteAllBytes(archive, Prs.Compress(decompressedBytes, 0x1FFF));
+            });
+            
+            var romSizeNew = IOUtilities.GetFileSize(allFiles);
+            Console.WriteLine($"PRS Compression Complete. Space Saved Total: {((romSizeOriginal - romSizeNew) / 1000.0):##.00}KBytes");
+        }
+
         /// <summary>
         /// Errors or --help or --version.
         /// </summary>
