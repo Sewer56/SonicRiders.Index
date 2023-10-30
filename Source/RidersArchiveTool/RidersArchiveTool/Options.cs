@@ -1,4 +1,4 @@
-using CommandLine;
+﻿using CommandLine;
 
 namespace RidersArchiveTool
 {
@@ -13,6 +13,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
         public bool BigEndian { get; internal set; }
+        
+        [Option(Required = false, HelpText = "Set to true if this is Zero Gravity.", Default = false)]
+        public bool ZG { get; internal set; }
     }
 
     [Verb("compressall", HelpText = "Compresses all files in a directory using Riders' compression algorithm.")]
@@ -26,6 +29,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
         public bool BigEndian { get; internal set; }
+        
+        [Option(Required = false, HelpText = "Set to true if this is Zero Gravity.", Default = false)]
+        public bool ZG { get; internal set; }
     }
 
     [Verb("decompress", HelpText = "Decompresses a file using Riders' compression algorithm.")]
@@ -39,6 +45,9 @@ namespace RidersArchiveTool
 
         [Option(Required = false, HelpText = "Set to true if file uses Big Endian (GameCube), else false for PC.", Default = false)]
         public bool BigEndian { get; internal set; }
+        
+        [Option(Required = false, HelpText = "Set to true if this is Zero Gravity.", Default = false)]
+        public bool ZG { get; internal set; }
     }
 
     [Verb("extract", HelpText = "Extracts a Riders Archive file.")]

@@ -1,0 +1,20 @@
+//------------------------------------------------
+//--- 010 Editor v14.0 Binary Template
+//
+//      File: OOCH Header
+//   Authors: Sewer56
+//   Version: 0.0.0
+//   Purpose: Parses CRI Middleware OOCH Header, used in Sonic Riders Zero Gravity, and some other games.
+//------------------------------------------------
+int magic;
+short unknown;
+short compressedOffset<comment="Offset to compressed data.">;
+int compressedSize<comment="Size of the payload compressed data.">;
+int decompressedSize;
+short unknown;
+short unknown;
+int unknown;
+int unknown;
+int unknown;
+int unknown;
+int unknown;

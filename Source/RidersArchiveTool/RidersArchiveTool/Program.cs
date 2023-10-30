@@ -325,14 +325,14 @@ namespace RidersArchiveTool
         {
             using var outputStream = new FileStream(options.Destination, FileMode.Create);
             using var inputStream = new FileStream(options.Source, FileMode.Open);
-            outputStream.Write(ArchiveCompression.DecompressFast(inputStream, (int)inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+            outputStream.Write(ArchiveCompression.DecompressFast(inputStream, (int)inputStream.Length, ArchiveCompressorOptions.GetPreset(options.BigEndian, options.ZG)));
         }
 
         private static void CompressFile(CompressOptions options)
         {
             using var outputStream = new FileStream(options.Destination, FileMode.Create);
             using var inputStream  = new FileStream(options.Source, FileMode.Open);
-            outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
+            outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, ArchiveCompressorOptions.GetPreset(options.BigEndian, options.ZG)));
         }
         
         private static void CompressAllFiles(CompressAllOptions options)
@@ -348,7 +348,8 @@ namespace RidersArchiveTool
                 {
                     BigEndian = options.BigEndian,
                     Source = file,
-                    Destination = destinationPath
+                    Destination = destinationPath,
+                    ZG = options.ZG
                 });
             }
         }
