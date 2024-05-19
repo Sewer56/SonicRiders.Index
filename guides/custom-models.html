@@ -1,0 +1,1870 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="http://sewer56.dev/SonicRiders.Index/guides/custom-models.html">
+      
+      
+        <link rel="prev" href="../files/list.html">
+      
+      
+        <link rel="next" href="contributing-locally.html">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
+    
+    
+      
+        <title>Custom Model Guide - Sonic Riders Index</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.558e4712.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="red" data-md-color-accent="red">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#custom-model-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Sonic Riders Index" class="md-header__button md-logo" aria-label="Sonic Riders Index" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Sonic Riders Index
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Custom Model Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Sewer56/SonicRiders.Index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sewer56/SonicRiders.Index
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Sonic Riders Index" class="md-nav__button md-logo" aria-label="Sonic Riders Index" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Sonic Riders Index
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Sewer56/SonicRiders.Index" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Sewer56/SonicRiders.Index
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources.html" class="md-nav__link">
+        Resources
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
+          Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Tools" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tools/index.html" class="md-nav__link">
+        Index
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4" tabindex="0" aria-expanded="false">
+          Files
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Files" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Files
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files/formats.html" class="md-nav__link">
+        File Formats
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../files/list.html" class="md-nav__link">
+        File Listing
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_5" type="checkbox" id="__nav_5" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5" tabindex="0" aria-expanded="true">
+          Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Guides" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Custom Model Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="custom-models.html" class="md-nav__link md-nav__link--active">
+        Custom Model Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-game-files" class="md-nav__link">
+    Finding Game Files
+  </a>
+  
+    <nav class="md-nav" aria-label="Finding Game Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pc-riders" class="md-nav__link">
+    PC Riders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamecube-riders" class="md-nav__link">
+    GameCube Riders
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-models" class="md-nav__link">
+    Finding Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-models" class="md-nav__link">
+    Extracting Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Extracting Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-archives" class="md-nav__link">
+    Extracting Archives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-model" class="md-nav__link">
+    Finding the Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-blender" class="md-nav__link">
+    Working with Blender
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Blender">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-plugin" class="md-nav__link">
+    Installing the Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importing-models" class="md-nav__link">
+    Importing Models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renaming-bones" class="md-nav__link">
+    Renaming Bones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigging-the-model" class="md-nav__link">
+    Rigging the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Rigging the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-nicer-view" class="md-nav__link">
+    Getting A Nicer View
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-bone-positions" class="md-nav__link">
+    Adjusting Bone Positions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-weights" class="md-nav__link">
+    Assigning Weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-materials" class="md-nav__link">
+    Preparing Materials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-finalisation-and-exporting" class="md-nav__link">
+    Model Finalisation and Exporting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replacing-textures" class="md-nav__link">
+    Replacing Textures
+  </a>
+  
+    <nav class="md-nav" aria-label="Replacing Textures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-textures" class="md-nav__link">
+    Extracting Textures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packing-new-textures" class="md-nav__link">
+    Packing New Textures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-models" class="md-nav__link">
+    Packing Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    Extra
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-gears-in-srdx-20" class="md-nav__link">
+    Custom Gears in SRDX 2.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srdx-20-gear-list" class="md-nav__link">
+    SRDX 2.0 Gear List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srdx-20-character-list" class="md-nav__link">
+    SRDX 2.0 Character List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srte-20-board-list" class="md-nav__link">
+    SRTE 2.0 Board List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srte-20-character-list" class="md-nav__link">
+    SRTE 2.0 Character List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-character-hud-colours" class="md-nav__link">
+    Changing Character HUD Colours
+  </a>
+  
+    <nav class="md-nav" aria-label="Changing Character HUD Colours">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gamecube" class="md-nav__link">
+    GameCube
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pc" class="md-nav__link">
+    PC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-sounds-gcn" class="md-nav__link">
+    Character Sounds (GCN)
+  </a>
+  
+    <nav class="md-nav" aria-label="Character Sounds (GCN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-sound-effects" class="md-nav__link">
+    Finding Sound Effects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-sounds" class="md-nav__link">
+    Extracting Sounds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacing-sounds" class="md-nav__link">
+    Replacing Sounds
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing-locally.html" class="md-nav__link">
+        Contributing Locally
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="contributing-online.html" class="md-nav__link">
+        Contributing Online
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    Prerequisites
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-game-files" class="md-nav__link">
+    Finding Game Files
+  </a>
+  
+    <nav class="md-nav" aria-label="Finding Game Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pc-riders" class="md-nav__link">
+    PC Riders
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gamecube-riders" class="md-nav__link">
+    GameCube Riders
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-models" class="md-nav__link">
+    Finding Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extracting-models" class="md-nav__link">
+    Extracting Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Extracting Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-archives" class="md-nav__link">
+    Extracting Archives
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#finding-the-model" class="md-nav__link">
+    Finding the Model
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-blender" class="md-nav__link">
+    Working with Blender
+  </a>
+  
+    <nav class="md-nav" aria-label="Working with Blender">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-the-plugin" class="md-nav__link">
+    Installing the Plugin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importing-models" class="md-nav__link">
+    Importing Models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#renaming-bones" class="md-nav__link">
+    Renaming Bones
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rigging-the-model" class="md-nav__link">
+    Rigging the Model
+  </a>
+  
+    <nav class="md-nav" aria-label="Rigging the Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#getting-a-nicer-view" class="md-nav__link">
+    Getting A Nicer View
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-bone-positions" class="md-nav__link">
+    Adjusting Bone Positions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assigning-weights" class="md-nav__link">
+    Assigning Weights
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-materials" class="md-nav__link">
+    Preparing Materials
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-finalisation-and-exporting" class="md-nav__link">
+    Model Finalisation and Exporting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replacing-textures" class="md-nav__link">
+    Replacing Textures
+  </a>
+  
+    <nav class="md-nav" aria-label="Replacing Textures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#extracting-textures" class="md-nav__link">
+    Extracting Textures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#packing-new-textures" class="md-nav__link">
+    Packing New Textures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#packing-models" class="md-nav__link">
+    Packing Models
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#extra" class="md-nav__link">
+    Extra
+  </a>
+  
+    <nav class="md-nav" aria-label="Extra">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-gears-in-srdx-20" class="md-nav__link">
+    Custom Gears in SRDX 2.0
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srdx-20-gear-list" class="md-nav__link">
+    SRDX 2.0 Gear List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srdx-20-character-list" class="md-nav__link">
+    SRDX 2.0 Character List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srte-20-board-list" class="md-nav__link">
+    SRTE 2.0 Board List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#srte-20-character-list" class="md-nav__link">
+    SRTE 2.0 Character List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#changing-character-hud-colours" class="md-nav__link">
+    Changing Character HUD Colours
+  </a>
+  
+    <nav class="md-nav" aria-label="Changing Character HUD Colours">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gamecube" class="md-nav__link">
+    GameCube
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pc" class="md-nav__link">
+    PC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#character-sounds-gcn" class="md-nav__link">
+    Character Sounds (GCN)
+  </a>
+  
+    <nav class="md-nav" aria-label="Character Sounds (GCN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-sound-effects" class="md-nav__link">
+    Finding Sound Effects
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#extracting-sounds" class="md-nav__link">
+    Extracting Sounds
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#replacing-sounds" class="md-nav__link">
+    Replacing Sounds
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#credits" class="md-nav__link">
+    Credits
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+
+<h1 id="custom-model-guide">Custom Model Guide</h1>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This guide is relatively recent and could probably be improved.<br />
+If you have used it and are familiar with the model editing workflow, please consider helping us.  </p>
+<p>This guide is generic and can be used with any supported version of Riders.  </p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><a href="https://www.youtube.com/watch?v=duIGbfS_Zho">This guide is available in video form</a>. </p>
+</div>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>You will need to download the following items first.  </p>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://dotnet.microsoft.com/download/dotnet/5.0">.NET 5 Runtime</a> <a href="https://dotnet.microsoft.com/en-us/download/dotnet/thank-you/runtime-desktop-5.0.17-windows-x64-installer">(Windows)</a></td>
+<td>Required to run Sewer's Sonic Riders tools.</td>
+</tr>
+<tr>
+<td><a href="https://www.blender.org/download/">Blender (3.0.0+)</a></td>
+<td>Modelling software.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Argx2121/Sega_NN_tools/archive/refs/heads/master.zip">Sega NN Tools</a></td>
+<td>Blender Plugin for Riders' Model Formats (and 20+ other games!).</td>
+</tr>
+<tr>
+<td><a href="https://github.com/Sewer56/SonicRiders.Index/releases/latest">RidersArchiveTool &amp; RidersTextureArchiveTool</a></td>
+<td>Sewer's tool for extracting compressed Riders archives &amp; texture archives.</td>
+</tr>
+<tr>
+<td><a href="https://github.com/nickworonekin/puyotools/releases/latest">Puyo Tools</a></td>
+<td>Used for texture conversion to Ninja (NN) Texture formats.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="finding-game-files">Finding Game Files</h2>
+<h3 id="pc-riders">PC Riders</h3>
+<p><img alt="PC Riders Folder" src="../images/guide/pcriders_datafolder.png" /></p>
+<p>In the PC Version of Sonic Riders, there exists a folder called <code>Data</code>. This folder will have all of the files necessary to perform model edits.  </p>
+<h3 id="gamecube-riders">GameCube Riders</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>For the GameCube port of the game, you will first need to extract the ROM. The guidance below shows how to do that with Dolphin Emulator.</p>
+</div>
+<p>To do so, right click the game on your game list, and select <code>Properties</code>.  </p>
+<p><img alt="GameCube Riders Properties" src="../images/guide/gcnriders_properties.png" /></p>
+<p>Then scroll right to the <code>FileSystem</code> section, right click <code>Disc</code> and select <code>Extract Entire Disc</code>.</p>
+<p><img alt="GameCube Riders Properties" src="../images/guide/gcnriders_properties_extract.png" /></p>
+<p>Go to the folder where you have extracted the ROM, and into the <code>files</code> folder.<br />
+You will be getting the original models from this folder.  </p>
+<p>(If this folder has &gt;1000 files and/or contains a <code>_Main.rel</code> file then you probably found the right one.)</p>
+<h2 id="finding-models">Finding Models</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This section describes where to find your desired game models to edit.</p>
+</div>
+<p>This wiki contains a very useful page known as the <a href="../files/list.html">File Listing</a>. This page contains a list of all files in Vanilla PC Riders including what they are, and what they contain.  </p>
+<p>In the case of player models, they use the format P{X}{YY}, where:<br />
+- <code>P</code> represents 'Player'.<br />
+- <code>{X}</code> is a single letter that is a shorthand for character.  <code>e.g. 'S' is Sonic, 'T' is Tails</code><br />
+- <code>{YY}</code> number that represents the gear. e.g. <code>00</code> is Default Gear.  </p>
+<p><img alt="Example Entry" src="../images/guide/listing_exampleEntry.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>It is recommended you pick a model with similar proportions to the model you're replacing.<br />
+For example, if you're adding a human-like character; consider replacing Ulala.  </p>
+</div>
+<h2 id="extracting-models">Extracting Models</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This section describes how to extract the Riders Arc hives e.g. <code>PA00</code> to obtain the models.</p>
+</div>
+<h3 id="extracting-archives">Extracting Archives</h3>
+<div class="admonition info">
+<p class="admonition-title">If you already know Commandline.</p>
+<p><code>RidersArchiveTool.exe extract --source &lt;pathToArchive&gt; --savepath &lt;whereToOutput&gt;</code>.<br />
+Include <code>--bigendian</code> if working for GCN.  </p>
+</div>
+<p>For this you will use <code>RidersArchiveTool.exe</code> that you have downloaded previously from the prerequisites.<br />
+This is a commandline tool, so you will need to use the <code>Command Prompt</code>.  </p>
+<ul>
+<li>Open a <code>Command Prompt</code> window (Press <code>Super (Windows)</code> key, search <code>cmd</code> and press <code>Enter</code>).  </li>
+<li>Drag <code>RidersArchiveTool.exe</code> over the <code>cmd</code> window.  </li>
+<li>Press <code>space</code> and type in <code>extract</code> to make <code>&lt;some_folder_path&gt;/RidersArchiveTool.exe extract</code>, and press <code>enter</code>.  </li>
+</ul>
+<p><img alt="Extracting with Archive Tool" src="../images/guide/cli_archivetool_extract.png" /></p>
+<p>This will show you the available options for extraction. In this case, we will want to specify <code>--source</code> and <code>--savepath</code>; to create a command such as <code>RidersArchiveTool.exe extract --source "D:\Games\ISOs\Sonic Riders Vanilla\files\PA00" --savepath "C:\Users\sewer\Downloads\Build\output" --bigendian</code>.  </p>
+<p><img alt="Extracting with Archive Tool #2" src="../images/guide/cli_archivetool_extract_2.png" /></p>
+<h3 id="finding-the-model">Finding the Model</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Demonstrates where the model is inside the extracted archive.</p>
+</div>
+<p>Inside the extracted folder you will find folders under the name <code>XXX_YYYYY</code>. <code>XXX</code> represents the original order of the file in the archive and <code>YYYYY</code> represents the type of the contents of that group of files. The known <code>YYYYY</code>s are documented over at <a href="../files/formats.html#internal-file-formats-all-ids">File Formats</a>.  </p>
+<p>In any case, for Player models, this is <code>00000</code>. </p>
+<p><img alt="Extracting with Archive Tool #2" src="../images/guide/cli_archivetool_extract_output.png" /></p>
+<p><img alt="Extracting with Archive Tool #3" src="../images/guide/cli_archivetool_extract_output_gno.png" /></p>
+<p>Model formats use the <code>.*NO</code> extension. For GameCube, this is <code>.GNO</code>; for PC this is <code>.XNO</code>.<br />
+You can now import this model into Blender.  </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Vanilla game combines the player model and gear e.g. <code>PA00</code> would contain Amy and her Default Gear.<br />
+Modern mods of Sonic Riders separate these models; so there's usually only 1 model for each character and 1 model (in a separate file) for each gear. Guidance for that will be available in the future.  </p>
+</div>
+<h2 id="working-with-blender">Working with Blender</h2>
+<h3 id="installing-the-plugin">Installing the Plugin</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Demonstrates how to install and run the plugin in Blender.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>You must download the latest version of the plugin from source code by clicking <code>Code</code> and then <code>Download Zip</code> on the page for <a href="https://github.com/Argx2121/Sega_NN_tools">NN Tools</a>. The current <code>GitHub Release</code> does not yet contain the exporter.  </p>
+<p>(If you used the guide in the link, nothing to worry about.)</p>
+</div>
+<p>To install the importer &amp; exporter plugin, go to <code>Edit</code>-&gt;<code>Preferences</code>, and navigate to the <code>Add-ons</code> menu.<br />
+Click <code>Install</code> and select the zip file for the plugin (This will probably be called <code>Sega_NN_tools-master.zip</code>).  </p>
+<p><img alt="Installing Plugin #1" src="../images/guide/blender_preferences.png" /></p>
+<p><img alt="Installing Plugin #2" src="../images/guide/blender_install.png" /></p>
+<p>Click <code>Install</code> and select the zip file for the plugin (This will probably be called <code>Sega_NN_tools-master.zip</code>).  </p>
+<p>Once you have installed the plugin, search for <code>NN</code>, and enable the <code>Sega NN Tools</code> plugin using the checkbox.</p>
+<p><img alt="Extracting with Archive Tool #4" src="../images/guide/cli_archivetool_pack.png" /></p>
+<h3 id="importing-models">Importing Models</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Demonstrates how to import an existing model into Blender.  </p>
+</div>
+<p>Open the <code>NN Tools</code> sidebar menu by pressing <code>N</code> on your keyboard while in 3d view, and selecting the <code>NN Tools</code> tab screenshot, left.  </p>
+<p><img alt="Blender NN Tools Sidebar" src="../images/guide/blender_nntools_sidebar.png" /></p>
+<p>Press <code>Model *.no</code> under <code>Import</code> and select the format (<code>.GNO for GameCube</code> or <code>.XNO for PC</code>), and <code>Sonic Riders</code> from the games list, navigate to your extracted model from earlier and press <code>Import</code>.  </p>
+<p><img alt="Blender Import" src="../images/guide/blender_import.png" /></p>
+<h3 id="renaming-bones">Renaming Bones</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Renaming bones using a blender script.</p>
+</div>
+<p>Imported Riders models will have autogenerated bone names, which are inconvenient to work with when rigging models.  </p>
+<p><img alt="Blender Bone Script" src="../images/guide/blender_bone_badname.png" /></p>
+<p>To fix this (at least for non-bike locked characters like Eggman), a blender script is provided below.  </p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">bpy</span>
+<span class="kn">from</span> <span class="nn">bpy.types</span> <span class="kn">import</span> <span class="n">Armature</span><span class="p">,</span> <span class="n">Object</span>
+
+<span class="n">bone_names</span> <span class="o">=</span> \
+    <span class="p">[</span><span class="s1">&#39;Root&#39;</span><span class="p">,</span> <span class="s1">&#39;Board&#39;</span><span class="p">,</span> <span class="s1">&#39;Board_Mesh&#39;</span><span class="p">,</span> <span class="s1">&#39;Player&#39;</span><span class="p">,</span> <span class="s1">&#39;Body&#39;</span><span class="p">,</span> <span class="s1">&#39;Hips&#39;</span><span class="p">,</span> <span class="s1">&#39;Spine_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Spine_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Spine_3&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Root&#39;</span><span class="p">,</span> <span class="s1">&#39;Bone&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Head_Spike_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_3&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_1_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_2_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_3_L&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Head_Spike_1_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_2_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Spike_3_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Ears_Root&#39;</span><span class="p">,</span> <span class="s1">&#39;Ear_1_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Ear_2_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Ear_3_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Ear_1_R&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Ear_2_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Ear_3_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Head_Front_Hair&#39;</span><span class="p">,</span> <span class="s1">&#39;Head&#39;</span><span class="p">,</span> <span class="s1">&#39;Glasses&#39;</span><span class="p">,</span> <span class="s1">&#39;Shoulder_L&#39;</span><span class="p">,</span> <span class="s1">&#39;UpperArm_L&#39;</span><span class="p">,</span> <span class="s1">&#39;ForeArm_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_L&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Hand_Rest_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Flat_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Splay_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Fist_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Peace_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Point_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Shoulder_R&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;UpperArm_R&#39;</span><span class="p">,</span> <span class="s1">&#39;ForeArm_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Rest_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Flat_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Splay_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Fist_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Hand_Peace_R&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Hand_Point_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_Root&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_1&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_2&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_3&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_1_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_2_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_3_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_1_L&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Tail_2_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Tail_3_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Thigh_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Calf_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Foot_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Toe_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Toe_End_L&#39;</span><span class="p">,</span> <span class="s1">&#39;Thigh_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Calf_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Foot_R&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Toe_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Toe_End_R&#39;</span><span class="p">,</span> <span class="s1">&#39;Body_Render&#39;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">rename_bones</span><span class="p">():</span>
+    <span class="n">obj</span><span class="p">:</span> <span class="n">Object</span> <span class="o">=</span> <span class="n">bpy</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">selected_objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">arma</span><span class="p">:</span> <span class="n">Armature</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">data</span>
+    <span class="k">for</span> <span class="n">bone</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">arma</span><span class="o">.</span><span class="n">bones</span><span class="p">,</span> <span class="n">bone_names</span><span class="p">):</span>
+        <span class="n">bone</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">b</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">rename_bones</span><span class="p">()</span>
+</code></pre></div>
+<p>Select the armature/rig inside the Blender Scene Explorer and navigate to the <code>Scripting</code> tab. Paste the script and press the <code>Run</code> button.  </p>
+<h3 id="rigging-the-model">Rigging the Model</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Applying the armature of the old model to your new model; to make it compatible with existing animations.  </p>
+</div>
+<p>Delete the meshes of the old model, and the armature of the new model you are replacing it with.</p>
+<p><img alt="Deleting the Meshes" src="../images/guide/blender_rigging_1_deletemeshes.png" /></p>
+<p>(Pictured: Deleting old meshes.)</p>
+<p>Align the model armature over the new model. An easy way to do this is to center the position of both models to 0,0,0 in the <code>Transform</code> window.  </p>
+<p><img alt="Moving the Transform" src="../images/guide/blender_rigging_2_transform.png" /></p>
+<p>(Select old model in scene explorer, set transform to 0,0,0; repeat for new model)</p>
+<h4 id="getting-a-nicer-view">Getting A Nicer View</h4>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Work with Wireframe mode (<code>Hotkey: Z</code>) to be able to see the bones and the model at the same time.  </p>
+</div>
+<p>It's highly recommended that you change the bones to display as a <code>stick</code> in the Viewport Display. Working with the defaults can be pretty messy.  </p>
+<p><img alt="Blender Rigging 3 Stick" src="../images/guide/blender_rigging_3_stick.png" /></p>
+<p><img alt="Blender Rigging 3 Stick 2" src="../images/guide/blender_rigging_3_stick_2.png" /></p>
+<p>(this is cleaner than the alternative...)</p>
+<h4 id="adjusting-bone-positions">Adjusting Bone Positions</h4>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Before adjusting the bones manually, consider scaling the bones to get a better fit with the new model.  </p>
+</div>
+<p>Once the old bones and new model are overlaid, it is recommended to manually move the bones to better match the model.<br />
+e.g. you will want to nudge bones such that for example, a knee bone would match the middle of the knee rather than being off center.  </p>
+<p><img alt="Bad Positioning" src="../images/guide/blender_rigging_4_knee.png" /></p>
+<p>[Bad Positioning, Does not Match Knee Center]</p>
+<p><img alt="Good Positioning" src="../images/guide/blender_rigging_4_knee_2.png" /></p>
+<p>[Better Positioning]</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be careful when moving bones. You should not move the bones' head or tail individually. Only move the bone as a whole. Moving head/tail individually will result in messed up animations due to a change in rotation.</p>
+</div>
+<h4 id="assigning-weights">Assigning Weights</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>This part involves assinging 'weights' of vertices to individual bones in the armature.<br />
+'Weights' influence how movements of the bone affect movements of the individual vertices and is how animations work.  </p>
+</div>
+<p>First hide the armature, by selecting it and pressing the little <code>eye</code> icon (alternatively <code>Hotkey: H</code>).</p>
+<p><img alt="Blender Weights" src="../images/guide/blender_rigging_5_weights_1.png" /></p>
+<p>Select everything with <code>A</code> on keyboard, unhide the armature (ctrl+click it in scene viewer, and <code>Alt+H</code>) and click one of the bones while holding <code>Shift</code>.<br />
+Then press <code>Ctrl+P</code> to parent. Select <code>Armature Deform: With Empty Groups</code>.  </p>
+<p>We have now made the meshes children to the rig, so you can go ahead and weight paint the model.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Automatic weights are not recommended, will likely weight to wrong bones due to sheer bone count.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You are now ready to weight.<br />
+Consider learning how to do this through external tutorials on YouTube and co.<br />
+Key phrase to search is 'weight painting blender guide'.  </p>
+</div>
+<h4 id="preparing-materials">Preparing Materials</h4>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>The Material set up listed here is expcted to change in the future to allow more customisability, and to show in blender what the model will look like in game more accurately.</p>
+</div>
+<p>Open blenders Shading Tab on the Top Bar to view blenders material set up.</p>
+<p><img alt="Blender Shading Tab" src="../images/guide/blender_shading_tab.png" /></p>
+<p>Then select a mesh of your model. In the area below your model, you will see the materials set up for that mesh.
+For Riders, there are a few material types supported:</p>
+<ul>
+<li>
+<p>Diffuse texture (texture that puts colour on the mesh): <code>DiffuseTexture</code></p>
+</li>
+<li>
+<p>Reflection texture (texture that makes the mesh look reflective): <code>ReflectionTexture</code></p>
+</li>
+<li>
+<p>Emission texture (texture that allows the mesh to emit light): <code>EmissionTexture</code></p>
+</li>
+</ul>
+<p>For the textures in the material area, you want to set the images node name to be the images type by opening the side menu with the key <code>N</code> on your keyboard.
+For example:</p>
+<p><img alt="Blender Shading Node" src="../images/guide/blender_shading_node.png" /></p>
+<p>This would be read by the tool as a valid texture assigned to the model.</p>
+<p>Please make sure your textures node name is <code>DiffuseTexture</code>, <code>ReflectionTexture</code> or <code>EmissionTexture</code>, otherwise it will not be used.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Some models have a material per mesh. It would be a good idea to cycle through each mesh and check their material to make sure you dont have any untextured meshes.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Some models have multiple materials per mesh. You can cycle through these by changing slots and the top of the shader view, where its labelled Slot 1, next to the material name.</p>
+</div>
+<h4 id="model-finalisation-and-exporting">Model Finalisation and Exporting</h4>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Apply your modifiers (excluding the armature modifier) before continuing. If you don't know what modifiers are you don't have to do anything.</p>
+</div>
+<p>The final step before you export is to run the prepare model function. This was originally going to be part of the exporting function, but having it separate cuts down on how long it takes to export the model.
+This function is destructive, so it will modify your model from what it was originally.</p>
+<p>Select your models armature or a mesh, and then run the prepare function from the <code>Sega NN Tools</code> menu, select the appropriate format and game and hit ok.</p>
+<p><img alt="Blender Prepare Model" src="../images/guide/blender_prepare_model.png" /></p>
+<p><img alt="Blender Prepare Model Ok" src="../images/guide/blender_prepare_model_ok.png" /></p>
+<p>Finally, you can export the model, by selecting a mesh and choosing <code>Model .*no</code> underneath the <code>Prepare model</code> function.</p>
+<p><img alt="Blender Export Menu" src="../images/guide/blender_export_menu.png" /></p>
+<p>Please select the appropriate format and game. 
+If you are planning on exporting a character to play as in game, it's recommend to use the <code>Player</code> preset for <code>Data type settings</code>.
+If you are exporting a model to just be played on boards [i.e. You are exporting to SRDX/TE 2.0 and above], please export the character without a board, and with the <code>Base board model</code> setting selected.
+For any characters on skates or bikes you should have the skates / bike be part of the model you are exporting, and you should have this setting off.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Both the model preparer and exporter support batch preparing / exporting. Simply select two models rigs or meshes and run the prepare / export function.</p>
+</div>
+<h2 id="replacing-textures">Replacing Textures</h2>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>Add PC/Xbox specific documentation for this section.<br />
+I [Sewer] forgot what we use for creating PC tools; worst case scenario I'll just make my own tool.  </p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Shows how to replace the textures such that the game will recognise your new character's textures.  </p>
+</div>
+<p>File <code>00001</code> in the folder with your original model contains the textures that the model uses.<br />
+In order to change the textures to support your new model, you will need to use <code>RidersTextureArchiveTool</code>.  </p>
+<p>This tool has similar usage to <code>RidersArchiveTool</code>.</p>
+<h3 id="extracting-textures">Extracting Textures</h3>
+<p>You can unpack the file by using <code>RidersTextureArchiveTool.exe extract</code>. 
+<div class="highlight"><pre><span></span><code><span class="c"># Example</span>
+<span class="n">RidersTextureArchiveTool</span><span class="p">.</span><span class="n">exe</span> <span class="n">extract</span> <span class="p">-</span><span class="n">-source</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sewer</span><span class="p">\</span><span class="n">Downloads</span><span class="p">\</span><span class="n">Build</span><span class="p">\</span><span class="n">output</span><span class="p">\</span><span class="n">00001</span> <span class="p">-</span><span class="n">-savepath</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sewer</span><span class="p">\</span><span class="n">Downloads</span><span class="p">\</span><span class="n">Build</span><span class="p">\</span><span class="n">output</span><span class="p">\</span><span class="n">00001output</span>
+
+<span class="c"># Do not forget --bigendian flag is working with GameCube.</span>
+</code></pre></div></p>
+<p>This will write to a new folder <code>\00001output</code> next to your other files. Inside this folder will be some textures and a file called <code>order.txt</code>, which lists all 
+textures and their order in the file.</p>
+<h3 id="packing-new-textures">Packing New Textures</h3>
+<div class="admonition todo">
+<p class="admonition-title">Todo</p>
+<p>We might need to make our own tool for PC/Xbox sometime; the formats available in Puyo Tools are pretty unoptimal.<br />
+If anyone's interested in pitching in, <a href="../files/template/PVRTTexture.bt">the format's documented over here</a>.  </p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>If you are working with SRDX 2.0, do not change the 1st [magic carpet] texture for board models.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is recommended to make your texture sizes powers of two (e.g. <code>64x64</code>, <code>128x128</code>, <code>256x256</code>) for performance reasons.<br />
+On GameCube, textures MUST be powers of two.  </p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Consoles are memory constrained and making your textures too high quality might lead to poor performance or game crashes.<br />
+On consoles it's generally recommended to use textures in similar size to the originals, e.g. <code>128x128</code> and <code>256x256</code> for character models.  </p>
+</div>
+<p><img alt="Packing Textures #1" src="../images/guide/texture_archive_files.png" /></p>
+<p>These textures use <code>PVR</code> [Xbox/PC] or <code>GVR</code> [GameCube] format, and your textures will also need to be re-encoded the same way.  </p>
+<p>In order to create new textures in the game's native format, select <code>Texture &gt; Encode</code> in <code>Puyo Tools</code>.</p>
+<p><img alt="Packing Textures #2" src="../images/guide/texture_archive_puyo_1.png" /></p>
+<p>For GameCube, select <code>GVR</code> from the dropdown and set data format as <code>DXT1 Compressed</code>, tick the <code>mipmaps</code> box and change the header to <code>GCIX</code>. For PC and XBOX use <code>PVR</code> and <code>GBIX</code>.  </p>
+<p><img alt="Packing Textures #3" src="../images/guide/texture_archive_puyo_2.png" /></p>
+<p>This will export the texture(s) to a file called "Encoded Textures" where your PuyoTools.exe is located:</p>
+<p><img alt="Packing Textures #4" src="../images/guide/texture_archive_puyo_3.png" /></p>
+<p>Take your new encoded textures and place them in your extracted file where <code>order.txt</code> is. Delete the old character textures and replace them with your new ones. Then, open <code>order.txt</code> and edit it to line up with your new file names. </p>
+<p><img alt="Packing Textures #5" src="../images/guide/texture_archive_order.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remove the file extensions in your new textures (<code>.gvr</code> or <code>.pvr</code>) so the tool can find the files properly, or you will get errors.  </p>
+</div>
+<p>Once you are done, its time to repack the texture file, once again using <code>RidersTextureArchiveTool</code> and the <code>pack</code> command this time as follows.</p>
+<div class="highlight"><pre><span></span><code><span class="c"># Don&#39;t forget --bigendian if using GameCube</span>
+<span class="n">RidersTextureArchiveTool</span><span class="p">.</span><span class="n">exe</span> <span class="n">pack</span> <span class="p">-</span><span class="n">-source</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sewer</span><span class="p">\</span><span class="n">Downloads</span><span class="p">\</span><span class="n">Build</span><span class="p">\</span><span class="n">output</span><span class="p">\</span><span class="n">00001output</span> <span class="p">-</span><span class="n">-savepath</span> <span class="n">C</span><span class="p">:\</span><span class="n">Users</span><span class="p">\</span><span class="n">sewer</span><span class="p">\</span><span class="n">Downloads</span><span class="p">\</span><span class="n">Build</span><span class="p">\</span><span class="n">output</span><span class="p">\</span><span class="n">00001new</span> <span class="p">-</span><span class="n">-bigendian</span>
+</code></pre></div>
+<p>Now you have your new file <code>00001new</code>, replace the old <code>00001</code> with your new one. Textures all packed and ready to go!</p>
+<h2 id="packing-models">Packing Models</h2>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Demonstrates how to put the model back into the game after exporting.</p>
+</div>
+<p>Rename your exported <code>.gno</code> / <code>.xno</code> to the name of the original file that you extracted (e.g. <code>00000.gno</code>); then replace the file. </p>
+<p>In order to pack the archive, you would again use <code>RidersArchiveTool</code>, but this time with the <code>pack</code> command, like so:  </p>
+<p><code>RidersArchiveTool.exe pack --source C:\Users\sewer\Downloads\Build\output --savepath C:\Users\sewer\Downloads\Build\PA00</code></p>
+<p>If you are targeting GameCube, you should specify <code>--bigendian</code> and it is recommended to use the <code>--compress</code> flag. If you are targeting PC, it's recommended to specify neither flag. </p>
+<p><img alt="Extracting with Archive Tool #4" src="../images/guide/cli_archivetool_pack.png" /></p>
+<p>Once you have packed the archive, replace the original one in the game folder and give it a go.  </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you are working with the PC version, you should create a <a href="https://reloaded-project.github.io/Reloaded-II/CreatingMods/">Reloaded-II Mod</a>. This will make it easier for people to use and will prevent you from overwriting your original game files.  </p>
+</div>
+<h2 id="extra">Extra</h2>
+<h3 id="custom-gears-in-srdx-20">Custom Gears in SRDX 2.0</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In SRDX 2.0, gear and character models are logically separated from each other, allowing for any character to ride any gear.  </p>
+</div>
+<p>Use Sewer56's <a href="https://github.com/Sewer56/srdx-gear-format/releases/latest">SRDX Gear Packer</a> to create custom gears for Riders DX.  </p>
+<p>Usage is same as <code>RidersArchiveTool</code> and <code>RidersTextureArchiveTool</code>, in other words:  </p>
+<p>To extract use <code>SrdxGearPacker.exe extract --source EXG0A --savepath EXG0A-out</code><br />
+Pack: <code>SrdxGearPacker.exe pack --source EXG0A-out --savepath EXG0A</code>  </p>
+<p><img alt="Extracted Gear Archive" src="../images/guide/exgl_gear_archive_extracted.png" /></p>
+<p>The extracted gear archive will contain textures <code>.gvr</code> and model <code>.gno</code>.<br />
+Replace the model with your custom model and textures using the guidance in <a href="#replacing-textures">Replacing Textures</a>.</p>
+<h3 id="srdx-20-gear-list">SRDX 2.0 Gear List</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Uses hexadecimal. i.e. 0A appears after 09.  </p>
+</div>
+<p>Listing of files for gears in SRDX2.0.  </p>
+<table>
+<thead>
+<tr>
+<th>FileName</th>
+<th>Gear</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EXGE0 - EXGF5</td>
+<td>Default Gears (uses Character Select Screen order, top left to bottom right)</td>
+</tr>
+<tr>
+<td>EXG00 - EXG18</td>
+<td>Regular Gears (uses Gear Select order)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="srdx-20-character-list">SRDX 2.0 Character List</h3>
+<p>Listing of files for additional characters in SRDX2.0.  </p>
+<table>
+<thead>
+<tr>
+<th>FileName</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PF00</td>
+<td>Metal Sonic</td>
+</tr>
+<tr>
+<td>PU00</td>
+<td>Silver</td>
+</tr>
+<tr>
+<td>PH00</td>
+<td>Chaos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="srte-20-board-list">SRTE 2.0 Board List</h3>
+<p>Listing of files for additional boards in SRTE2.0.  </p>
+<table>
+<thead>
+<tr>
+<th>FileName</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P300</td>
+<td>Silver</td>
+</tr>
+<tr>
+<td>P400</td>
+<td>Metal Sonic</td>
+</tr>
+<tr>
+<td>P500</td>
+<td>Emerl</td>
+</tr>
+<tr>
+<td>P600</td>
+<td>Blaze</td>
+</tr>
+<tr>
+<td>P700</td>
+<td>Chaos</td>
+</tr>
+<tr>
+<td>P800</td>
+<td>Tikal</td>
+</tr>
+</tbody>
+</table>
+<h3 id="srte-20-character-list">SRTE 2.0 Character List</h3>
+<p>Listing of files for additional characters in SRTE2.0.  </p>
+<table>
+<thead>
+<tr>
+<th>FileName</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P3CO</td>
+<td>Silver</td>
+</tr>
+<tr>
+<td>P4CO</td>
+<td>Metal Sonic</td>
+</tr>
+<tr>
+<td>P5CO</td>
+<td>Emerl</td>
+</tr>
+<tr>
+<td>P6CO</td>
+<td>Blaze</td>
+</tr>
+<tr>
+<td>P7CO</td>
+<td>Chaos</td>
+</tr>
+<tr>
+<td>P8CO</td>
+<td>Tikal</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>I (Sewer) am relatively disconnected these days. If you are part of the SRTE team; please consider this part of the wiki after updates.</p>
+</div>
+<h3 id="changing-character-hud-colours">Changing Character HUD Colours</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Shows how to change HUD colours for individual characters.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section of the guide uses <a href="https://www.mathsisfun.com/hexadecimals.html">hexadecimal numbers</a>.  </p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Offset (Hex)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sonic</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Tails</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Knuckles</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Amy</td>
+<td>C</td>
+</tr>
+<tr>
+<td>Jet</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Storm</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Wave</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Eggman</td>
+<td>1C</td>
+</tr>
+<tr>
+<td>Cream</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Rouge</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Shadow</td>
+<td>28</td>
+</tr>
+<tr>
+<td>SuperSonic</td>
+<td>2C</td>
+</tr>
+<tr>
+<td>Nights</td>
+<td>30</td>
+</tr>
+<tr>
+<td>AiAi</td>
+<td>34</td>
+</tr>
+<tr>
+<td>Ulala</td>
+<td>38</td>
+</tr>
+<tr>
+<td>E10000G</td>
+<td>3C</td>
+</tr>
+<tr>
+<td>E10000R</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p>Colours for the character HUD are hardcoded inside the game code.<br />
+They are stored using the RGBA format; for example, Sonic uses <code>64C8D2FF</code>, which means:  </p>
+<ul>
+<li>Blue: 64  </li>
+<li>Green: C8</li>
+<li>Red: D2</li>
+<li>Alpha (Transparency): FF</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Google 'RGB colour picker', many will display their colours in hex format <code>#aabbcc</code>; just add <code>FF</code> (i.e. your desired transparency) to it.</p>
+</div>
+<p>To find a specific character's HUD, we will add <code>offset</code> to the <code>base address</code> provided.  </p>
+<p><img alt="Hex Calculator" src="../images/guide/calculator_hexadecimal.png" /></p>
+<h4 id="gamecube">GameCube</h4>
+<table>
+<thead>
+<tr>
+<th>Game</th>
+<th>Base Address</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vanilla, SRDX, SRTE (&lt;= 1.4.2)</td>
+<td>805BE500</td>
+</tr>
+<tr>
+<td>SRTE 2.0</td>
+<td>805E17E0</td>
+</tr>
+</tbody>
+</table>
+<p>So add <code>1C</code> to <code>805BE500</code> if you want to change Eggman's HUD.  That will make the address <code>805BE51C</code>.</p>
+<p>To convert this to a gecko code, change <code>80</code> to <code>04</code> and put the RGBA hex colour after a space.
+e.g. Eggman (<code>805BE51C</code>) and colour (<code>11223344</code>) will make <code>045BE51C 11223344</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Character</th>
+<th>Example Gecko Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sonic</td>
+<td>045BE500 FF0000FF</td>
+</tr>
+<tr>
+<td>Tails</td>
+<td>045BE504 D2C864FF</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://github.com/aldelaro5/Dolphin-memory-engine/releases">Dolphin Memory Engine</a> is recommended for testing.  Start the game in Dolphin, then DME.</p>
+<p>With DME, you can:<br />
+- Click <code>Add Watch</code><br />
+- Set address to desired colour <code>805BE51C</code> (Eggman)<br />
+- Set Type as <code>4 Bytes</code><br />
+- In the window where your new entry was added, right click and select <code>View as Hexadecimal</code>.  </p>
+<p><img alt="DME" src="../images/guide/dme_hud_colour.png" /></p>
+<p>If you doubleclick the value, you can change it in real time.</p>
+<h4 id="pc">PC</h4>
+<p>Base address is <code>5B2538</code>. So add <code>1C</code> to that value for Eggman; then you can add that address to <code>Cheat Engine</code> as <code>4 bytes</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you are programming a Reloaded Mod for Sonic Riders, the API for this is <code>Sewer56.SonicRiders.API.Player.Colours</code>.</p>
+</div>
+<h3 id="character-sounds-gcn">Character Sounds (GCN)</h3>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Applies to GameCube only.  PC/Xbox variant of this format is not known, <a href="../files/template/DTPK.bt">documentation</a>.  </p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Incompatible with SRTE 2.0+ due to technical limitations [&lt;= 1.4.1 is okay]. [Shifted code due to disassembly]</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Only guaranteed support for original characters and some addiitonal SRDX characters. </p>
+</div>
+<p>Use Sewer56's <a href="https://github.com/Sewer56/SonicRiders.Index/releases/latest">GcaxDatInjector</a> to create custom sound effects for characters.  </p>
+<h4 id="finding-sound-effects">Finding Sound Effects</h4>
+<p>Sound effects for characters come in the format of <code>10{CHAR}</code> where <code>{CHAR}</code> is a shorthand for character names, for example:  </p>
+<p><img alt="Extracted Sound Archive" src="../images/guide/sound_effect_file_listing.png" /></p>
+<h4 id="extracting-sounds">Extracting Sounds</h4>
+<p>Run <code>GcaxDatInjector.exe extract</code> with a source file and destination folder.   </p>
+<p><code>./GcaxDatInjector.exe extract --source path/to/10JSILVR.DAT --destination 10JSILVR-out --convert true</code>  </p>
+<p>Specifying <code>--convert true</code> will convert the audio files inside to WAV files; if not specified, they will be extracted RAW.  </p>
+<p><img alt="Extracted Sound Archive" src="../images/guide/sound_effect_gcn_folder.png" /></p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>This tool is not a full extractor/repacker and has limitations.<br />
+Modified files must use the original sample rate (usually 44.1kHz) and channel count (usually 1/mono).  </p>
+</div>
+<h4 id="replacing-sounds">Replacing Sounds</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The tool isn't capable of creating new files from scratch, only modifying existing files.<br />
+You must pack the sounds back into the <code>DAT</code> file you originally extracted them from!! [Take Backups!!]</p>
+</div>
+<p>Run <code>GcaxDatInjector.exe pack</code> with previously extracted source folder and destination file.  </p>
+<p><code>GcaxDatInjector.exe inject --source 10JSILVR-out --destination path/to/10JSILVR.DAT</code></p>
+<p>The destination path must be the original file you extracted from <code>10JSILVR.DAT</code> must be a file that already exists. That file will be overwritten so consider taking backups.  </p>
+<p>Upon completion, the tool should print out a Gecko code, that looks similar to:<br />
+<div class="highlight"><pre><span></span><code>045E5BCC 000006C0
+045E5BD0 000214D0
+</code></pre></div></p>
+<p>This gecko code will be necessary to run your sound effects as the game hardcodes certain properties of the file and we need to overwrite them.  </p>
+<h2 id="credits">Credits</h2>
+<p>Arg!! &amp; Sewer56 for the original creation of this guide.<br />
+Moester for adding the initial version of <code>Replacing Textures</code> part.<br />
+Exortile for corrections regarding minor SRTE aspects, mem addresses.  </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Sewer56" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/TheSewer56" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant"], "search": "../assets/javascripts/workers/search.e5c33ebb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.51d95adb.min.js"></script>
+      
+    
+  </body>
+</html>

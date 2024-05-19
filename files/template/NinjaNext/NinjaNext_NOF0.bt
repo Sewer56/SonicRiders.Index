@@ -1,0 +1,24 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//------------------------------------------------
+
+#include "NN_BINCNK_HEADER.bt"
+
+struct NNS_BINCNK_NOF0HEADER 
+{
+    NNS_BINCNK_HEADER header;
+
+    /* The number of offsets listed in the array contained within this chunk. */
+    int offsetCount;
+
+    /* Always 0. */
+    int padding;
+
+    /* Offsets in this struct. */
+    int nofOffsets[offsetCount];
+};
+
+NNS_BINCNK_NOF0HEADER header;

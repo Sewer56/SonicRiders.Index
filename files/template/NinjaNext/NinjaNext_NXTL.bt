@@ -1,0 +1,56 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//------------------------------------------------
+
+#include "NN_BINCNK_HEADER.bt"
+
+struct NNS_TEXFILE
+{
+    /* See NNE_TEXFTYPE. */
+    int type;
+    /* Offset to the name of the file the texture is stored in. Seems it can also be null?? */
+    int fileName;
+    /* See NNE_MIN. */
+    ushort minFilter;
+    /* See NNE_MAG. */
+    ushort magFilter;
+    /* Set to 0 if NND_TEXFTYPE_LISTGLBIDX flag is not set in [type]. */
+    int globalIndex;
+    /* Set to 0 if NND_TEXFTYPE_LISTBANK flag is not set in [type]. */
+    int bank;
+};
+
+struct NNS_STRING 
+{
+    string text;
+};
+
+
+// Data offset comes from NXIF
+struct NNS_TEXFILELIST(int dataOffset)
+{
+    // Base Header
+    NNS_BINCNK_DATAHEADER header;
+
+    // Struct Data
+    FSeek(dataOffset + header.mainDataOffset);
+    int texFileCount;
+    int texFileOffset;
+
+    // Read Texture File Data
+    FSeek(dataOffset + texFileOffset);
+    NNS_TEXFILE texFiles[texFileCount] <optimize=false>;
+
+    // Read Texture File Name Data
+    local int x = 0;
+    for (x = 0; x < texFileCount; x++) 
+    {
+        FSeek(dataOffset + texFiles[x].fileName);
+        NNS_STRING textureName;
+    }
+};
+
+NNS_TEXFILELIST files(GetDataOffsetAndResetStart());

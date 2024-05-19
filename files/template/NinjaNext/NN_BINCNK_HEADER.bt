@@ -1,0 +1,80 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors:
+//------------------------------------------------
+
+struct NNS_BINCNK_HEADER
+{
+    /*
+       This chunk's identifier. The data which follows this
+       header is dependant on the value of this ID.
+    */
+    char id[4];
+
+    /*
+       The size of this chunk, *NOT* counting the size of this header.
+       Depending on the version of the format, this size either
+       includes padding, or doesn't (I haven't nailed down exactly
+       which versions include padding and which don't yet).
+    */
+    int size;
+};
+
+struct NNS_BINCNK_DATAHEADER 
+{
+    NNS_BINCNK_HEADER header;
+
+    /* Offset to the data contained within this chunk. */
+    int mainDataOffset;
+    
+    /* Always 0 from what I've seen. */
+    int version;
+};
+
+struct NNS_BINCNK_FILEHEADER
+{
+    NNS_BINCNK_HEADER header;
+
+    /* The number of "data chunks" in the file, starting at [dataOffset]. */
+    int dataChunkCount;
+
+    /* Pointer to the first "data chunk" in the file. */
+    int dataOffset;
+
+    /* The complete size of all of the "data chunks" in the file combined, including padding. */
+    int dataSize;
+
+    /* Pointer to the NOF0 chunk. */
+    int NOF0Offset;
+    /*
+       Size of the NOF0 chunk, including its header and, optionally, the
+       padding at the end of the chunk. Seems .[x]ncp files don't count
+       the padding, but everything else does??
+    */
+    int NOF0Size;
+    /*
+       1 in most NN files, 0 in some newer variants
+       (I think they just started using this as padding).
+    */
+    int version;
+};
+
+/*
+    Resets "Run Template At Offset" offset to 0, and returns data offset from NN file.
+    This is required for working with individual NN Chunks separately using "Run Template at Offset"
+*/
+int GetDataOffsetAndResetStart() 
+{
+    local int64 offset = OffsetGetStart();
+    local int64 pos = FTell();
+
+    OffsetSetStart(0);
+    FSeek(0);
+
+    struct NNS_BINCNK_FILEHEADER header <hidden=true>;
+    FSeek(pos + offset);
+
+    return header.dataOffset;
+}
