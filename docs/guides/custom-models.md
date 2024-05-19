@@ -24,8 +24,6 @@ You will need to download the following items first.
 | [RidersArchiveTool & RidersTextureArchiveTool](https://github.com/Sewer56/SonicRiders.Index/releases/latest)                                                                              | Sewer's tool for extracting compressed Riders archives & texture archives. |
 | [Puyo Tools](https://github.com/nickworonekin/puyotools/releases/latest)                                                                                                                  | Used for texture conversion to Ninja (NN) Texture formats. |
 
-It's recommended to download Blender from Steam; in order to receive automatic updates.
-
 ## Finding Game Files
 
 ### PC Riders

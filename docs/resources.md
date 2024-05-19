@@ -1,9 +1,8 @@
 ## Essentials
-
 | Resource  | Description |
 |-----------|-------------|
 | [Uncompressed Sonic Riders Assets](https://community.pcgamingwiki.com/files/file/2087-uncompressed-sonic-riders-assets/) | Solves the issue of infinite loads on some loading screens. Allows for easier hacking/modding. |
-| [Riders 4GB Patch](https://cdn.discordapp.com/attachments/849332785541021746/851864192335740978/Riders_4GB_Patch.7z) | This will let your game use 4GB of memory; for the most punishing of 8K+ texture packs. |
+| [Riders 4GB Patch](http://web.archive.org/web/20210810043953/https://cdn.discordapp.com/attachments/849332785541021746/851864192335740978/Riders_4GB_Patch.7z) | This will let your game use 4GB of memory; for the most punishing of 8K+ texture packs. |
 | [Reloaded II](https://github.com/Reloaded-Project/Reloaded-II/releases) | The mod loader of choice. |
 
 ## Popular Mods
@@ -20,7 +19,7 @@ All are Reloaded-II mods unless specified.
 |-----------|-------------|
 | [DX Music Pack for Tweakbox](https://u.pcloud.link/publink/show?code=XZq8U9XZNFeQeSSyWYyh8kiLO5Oq8y5XzpHV) | Sonic Riders DX Music |
 | [Animated Texture Example for Tweakbox](https://u.pcloud.link/publink/show?code=XZ68U9XZY8Is65OjVXpIohvdxDjQTSk82tky) | Example of an animated custom texture. |
-| [DX & SRTE Gear Profile Pack for Tweakbox](https://cdn.discordapp.com/attachments/668978565911543867/849194576496951296/GearConfigurations.7z) | DX & TE Gear Presets. Put in `Configurations\GearConfigurations` folder inside Tweakbox folder and load via `Gear Editor`. |
+| [DX & SRTE Gear Profile Pack for Tweakbox](http://web.archive.org/web/20210608031425/https://cdn.discordapp.com/attachments/668978565911543867/849194576496951296/GearConfigurations.7z) | DX & TE Gear Presets. Put in `Configurations\GearConfigurations` folder inside Tweakbox folder and load via `Gear Editor`. |
 
 ## Other Hacking Resources
 
