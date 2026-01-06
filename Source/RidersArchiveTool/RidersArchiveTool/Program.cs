@@ -196,6 +196,7 @@ namespace RidersArchiveTool
                 var groupNo = Convert.ToByte(directoryName[0]);
                 var id      = Convert.ToUInt16(directoryName[1]);
                 var filesInside = Directory.GetFiles(dir);
+                Array.Sort(filesInside); // Ensure files are sorted into the correct order.
 
                 var group = new ManagedGroup() { Id = id, Files = new List<ManagedFile>(filesInside.Length) };
                 foreach (var file in filesInside)
