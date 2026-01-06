@@ -1,0 +1,181 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: Sonic Riders PVRT Texture
+//   Authors: Sewer56
+//   Version: 1.0.0
+//------------------------------------------------
+
+struct GbixHeader 
+{
+    char magic[4];
+    int eight;
+    int globalIndex;
+    int padding; // Can be 0x20 on older variants.
+};
+
+
+struct PvrtHeader 
+{
+    char magic[4];
+    int textureSizeAfterThisMember;
+
+    // 1st byte = Pixel Format
+    // 2nd byte = Data Format
+    short dataFormat <format=hex>; 
+
+    short unknown;
+    short width;
+    short height;
+};
+
+
+GbixHeader gbixHeader;
+PvrtHeader pvrtHeader;
+
+/*
+    Pixel Formats [Supported by PC Riders]:
+
+    [0x7000]: Pixel (Swizzled?), dwFlags = 0x100F, ddspf.dwFlags = 0x40, dwCaps = 0x1000    | NO MIPMAP
+    [0x7100]: Pixel (Swizzled?), dwFlags = 0x2100F, ddspf.dwFlags = 0x40, dwCaps = 0x401008 | MIPMAP
+    [0x7200]: Pixel, dwFlags = 0x100F, ddspf.dwFlags = 0x40, dwCaps = 0x1000 | NO MIPMAP
+    [0x7300]: DXT1, dwFlags = 0x81007, ddspf.dwFlags = 4, dwCaps = 0x1000    | NO MIPMAP
+
+    [0x7400]: DXT1, dwFlags = 0xA1007, ddspf.dwFlags = 4, dwCaps = 0x401008  | MIPMAP
+    [0x7500]: DXT2, dwFlags = 0x81007, ddspf.dwFlags = 4, dwCaps = 0x1000    | NO MIPMAP
+    [0x7600]: DXT2, dwFlags = 0xA1007, ddspf.dwFlags = 4, dwCaps = 0x401008  | MIPMAP
+    
+    [0x7700]: DXT3, dwFlags = 0x81007, ddspf.dwFlags = 4, dwCaps = 0x1000 | NO MIPMAP
+    [0x7800]: DXT3, dwFlags = 0xA1007, ddspf.dwFlags = 4, dwCaps = ???    | MIPMAP
+    [0x7900]: DXT4, dwFlags = 0x81007, ddspf.dwFlags = 4, dwCaps = 0x1000 | NO MIPMAP
+    [0x7A00]: DXT4, dwFlags = 0xA1007, ddspf.dwFlags = 4, dwCaps = ???    | MIPMAP
+
+    [0x7B00]: DXT5, dwFlags = 0x81007, ddspf.dwFlags = 4, dwCaps = 0x1000 | NO MIPMAP
+    [0x7C00]: DXT5, dwFlags = 0xA1007, ddspf.dwFlags = 4, dwCaps = ???    | MIPMAP
+    
+    ===========
+    Mipmap Count: log2(min(width,height)) - 1;
+*/
+
+/*
+    Data Formats [Supported by PC Riders]:
+
+    0, 1, 9, 10 (???):
+    ddsHeader->ddspf.dwRGBBitCount = 8;
+    ddsHeader->ddspf.dwGBitMask = 0;
+    ddsHeader->ddspf.dwBBitMask = 0;
+    ddsHeader->ddspf.dwRBitMask = 0;
+    ddsHeader->ddspf.dwABitMask = 0;
+
+    2 (ARGB1555):
+    ddsHeader->ddspf.dwRBitMask = 0x7C00;
+    ddsHeader->ddspf.dwGBitMask = 0x3E0;
+    ddsHeader->ddspf.dwBBitMask = 0x1F;
+    ddsHeader->ddspf.dwABitMask = 0x8000;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwFlags |= 1; // Contains Alpha
+
+    3 (RGB555):
+    ddsHeader->ddspf.dwRBitMask = 0x7C00;
+    ddsHeader->ddspf.dwGBitMask = 0x3E0;
+    ddsHeader->ddspf.dwBBitMask = 0x1F;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwABitMask = 0;
+
+    4 (ARGB4444):
+    ddsHeader->ddspf.dwRBitMask = 0xF00;
+    ddsHeader->ddspf.dwGBitMask = 0xF0;
+    ddsHeader->ddspf.dwBBitMask = 0xF;
+    ddsHeader->ddspf.dwABitMask = 0xF000;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    5, 19 (RGB565):
+    ddsHeader->ddspf.dwRBitMask = 0xF800;
+    ddsHeader->ddspf.dwGBitMask = 0x7E0;
+    ddsHeader->ddspf.dwBBitMask = 0x1F;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwABitMask = 0;
+
+    6 (ARGB8888):
+    ddsHeader->ddspf.dwRBitMask = 0xFF0000;
+    ddsHeader->ddspf.dwGBitMask = 0xFF00;
+    ddsHeader->ddspf.dwBBitMask = 0xFF;
+    ddsHeader->ddspf.dwABitMask = 0xFF000000;
+    ddsHeader->ddspf.dwRGBBitCount = 32;
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    7 (RGB888):
+    ddsHeader->ddspf.dwRBitMask = 0xFF0000;
+    ddsHeader->ddspf.dwGBitMask = 0xFF00;
+    ddsHeader->ddspf.dwBBitMask = 0xFF;
+    ddsHeader->ddspf.dwABitMask = 0;
+    ddsHeader->ddspf.dwRGBBitCount = 32; // IMPORTANT!!
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    8, 18, 22, 26 (???):
+    ddsHeader->ddspf.dwRGBBitCount = 32;
+    ddsHeader->ddspf.dwGBitMask = 0;
+    ddsHeader->ddspf.dwBBitMask = 0;
+    ddsHeader->ddspf.dwRBitMask = 0;
+    ddsHeader->ddspf.dwABitMask = 0;
+
+    11 (ARGB8000): // (right to left) 8 bits padding, then 8 bits alpha 
+    ddsHeader->ddspf.dwRBitMask = 0;
+    ddsHeader->ddspf.dwGBitMask = 0;
+    ddsHeader->ddspf.dwBBitMask = 0;
+    ddsHeader->ddspf.dwABitMask = 0xFF00;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    12 (RGB655):
+    ddsHeader->ddspf.dwRBitMask = 0xFC00;
+    ddsHeader->ddspf.dwGBitMask = 0x3E0;
+    ddsHeader->ddspf.dwBBitMask = 0x1F;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+
+    13, 14, 17, 25 (???):
+    ddsHeader->ddspf.dwRBitMask = 0;
+    ddsHeader->ddspf.dwGBitMask = 0;
+    ddsHeader->ddspf.dwBBitMask = 0;
+    ddsHeader->ddspf.dwABitMask = 0;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+
+    15 (RGB0088):
+    ddsHeader->ddspf.dwRBitMask = 0;
+    ddsHeader->ddspf.dwGBitMask = 0xFF00;
+    ddsHeader->ddspf.dwBBitMask = 0xFF;
+    ddsHeader->ddspf.dwABitMask = 0;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+
+    16 (RGB808):
+    ddsHeader->ddspf.dwRBitMask = 0xFF00;
+    ddsHeader->ddspf.dwGBitMask = 0;
+    ddsHeader->ddspf.dwBBitMask = 0xFF;
+    ddsHeader->ddspf.dwABitMask = 0;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+
+    20 (RGBA4444):
+    ddsHeader->ddspf.dwRBitMask = 0xF000;
+    ddsHeader->ddspf.dwGBitMask = 0xF00;
+    ddsHeader->ddspf.dwBBitMask = 0xF0;
+    ddsHeader->ddspf.dwABitMask = 0xF;
+    ddsHeader->ddspf.dwRGBBitCount = 16;
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    21, 24 (ABGR8888):
+    ddsHeader->ddspf.dwRBitMask = 0xFF;
+    ddsHeader->ddspf.dwGBitMask = 0xFF00;
+    ddsHeader->ddspf.dwBBitMask = 0xFF0000;
+    ddsHeader->ddspf.dwABitMask = 0xFF000000;
+    ddsHeader->ddspf.dwRGBBitCount = 32;
+    ddsHeader->ddspf.dwFlags |= 1;
+
+    23 (ABGR8888):
+    ddsHeader->ddspf.dwRBitMask = 0xFF;
+    ddsHeader->ddspf.dwGBitMask = 0xFF00;
+    ddsHeader->ddspf.dwBBitMask = 0xFF0000;
+    ddsHeader->ddspf.dwABitMask = 0xFF000000;
+    ddsHeader->ddspf.dwRGBBitCount = 32;
+    ddsHeader->ddspf.dwFlags |= 1;
+*/

@@ -1,0 +1,59 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//------------------------------------------------
+
+#include "NN_BINCNK_HEADER.bt"
+#include "NNS_VECTOR.bt"
+
+struct NNS_MATERIALPTR 
+{
+    uint fType;
+    uint num;
+
+    uint pMaterial[num] <optimize=false>;
+};
+
+struct NNS_OBJECT(int dataOffset)
+{
+    // Base Header
+    NNS_BINCNK_DATAHEADER header;
+
+    // Struct Data
+    FSeek(dataOffset + header.mainDataOffset);
+    NNS_VECTOR center;
+    float radius;
+
+    int materialCount;
+    int materialOffset;
+    
+    int vertexCount;
+    int vertexOffset;
+
+    int faceCount;
+    int faceOffset;
+    
+    int nodeCount;
+    int nodeMaxDepth;
+    int nodeOffset;
+
+    int matrixCount;
+    int subObjectCount;
+    int subObjectOffset;
+
+    int textureCount;
+
+    /* See: NNE_TEXFTYPE */
+    int fType;
+    
+    int version;
+    NNS_VECTOR boundingBox;
+
+    // Read internal arrays.
+    
+    //NNS_MATERIALPTR materials[numMaterial];
+};
+
+NNS_OBJECT object(GetDataOffsetAndResetStart());

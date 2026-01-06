@@ -1,0 +1,29 @@
+//------------------------------------------------
+//--- 010 Editor v11.0 Binary Template
+//
+//      File: Sonic Riders XVRs Texture Archive
+//   Authors: Sewer56
+//   Version: 1.0.0
+//------------------------------------------------
+
+// Utility Struct
+struct TextureName
+{
+    string texName;
+};
+
+// Header
+short texCount;
+short hasFlagsSection;
+
+// Offset Section
+int fileOffsets[texCount];
+
+// Unknown Flags
+if (hasFlagsSection > 0) 
+{
+    byte unknownFlagsAlways0x11[texCount];
+}
+
+// Texture Names
+TextureName texNames[texCount] <optimize=false>;

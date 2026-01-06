@@ -1,0 +1,327 @@
+//------------------------------------------------
+//--- 010 Editor v11.0 Binary Template
+//
+//      File: Sonic Riders 2D Layout Metadata ???
+//   Authors: Sewer56
+//   Version: 1.0.0
+//      Note: This file corresponds to e.g. TSGME -> 40016 -> 00004,
+//            and contains the layout information for the 2D elements.
+//            Likewise the textures referenced in this file are in 
+//            e.g. TSGME -> 40016 -> 00005
+//------------------------------------------------
+
+struct Header 
+{
+    short resolutionX;
+    short resolutionY;
+    byte maybeFramerate;
+    byte maybeMaxPossibleKeyframeSize; // Offset when RegularLayer->keyframeType == 1
+    short unknown;
+    int pObjectSectionHeader;
+    int pTextureIndices;
+};
+
+struct ObjectSectionHeader 
+{
+    int numObjects;
+    int totalSectionSize;
+    int offsetsRelativeToHeader[numObjects]; // Relative to this header.
+};
+
+struct Object 
+{
+    // Struct Info
+
+    // Can be overwritten in game code (Spani_LayerNoProc) when specifying value
+    // greater than 0 as 4th parameter (from left) [after pvrt object index]
+    // Override value in game code is `param + 1`
+
+    int layerCount;
+    int objectSize;
+    int layerPointers[layerCount];
+};
+
+enum <int> LayerFlags
+{
+    FlipHorizontal = 0x1,
+    FlipVertical = 0x2,
+
+    UnknownA = 0x20,
+    UnknownB = 0x40,
+};
+
+struct TextureSectionHeader 
+{
+    int numTextures;
+    int unknown;
+};
+
+struct TextureEntry 
+{
+    short unknown; 
+    short xvrsTextureId;    // Index inside the xvrs texture archive
+    float normalizedPosX;   // Top Left Corner. 0-1
+    float normalizedPosY;   // Top Left Corner. 0-1
+    float normalizedWidth;  // 0 - 1
+    float normalizedHeight; // 0 - 1
+};
+
+enum <ushort> KeyframeType
+{
+    SizeFromLayer = 0,
+    SizeFromFileHeader = 1,
+    SizeFromSameStructSimpleHeader = 2,
+    SizeFromSameStructComplexHeader = 3,
+};
+
+// 1st Subentry. Action Layer.
+// Next Subentry. Regular Layer.
+// Can only have 1 action layer.
+// Game code does subtraction of 1 from object layer count.
+struct ActionLayer
+{
+    short isEnabled; //  > 1 enabled. 0 disabled.
+    short unknown_1;
+                     
+    if (isEnabled >= 1) 
+    {
+        short durationOfLongestAnimation;
+        short maybeDoNotLoopFlag;
+        short unknown_4;    
+        short unknown_5;
+        int unknown_6;
+    }
+};
+
+struct KeyframeType2DataHeader
+{
+    short maybeDataType;
+};
+
+struct KeyframeType3DataHeader
+{
+    short keyframeDataType;
+    short numberOfBytes;
+};
+
+struct KeyframeDataTypeUnknown(int numBytes)
+{
+    if (numBytes > 0)
+        byte data[numBytes];
+};
+
+struct KeyframeDataType24Color
+{
+    int AGBR_TopLeft<format=hex>;
+    int AGBR_BottomLeft<format=hex>;
+    int AGBR_BottomRight<format=hex>;
+    int AGBR_BottomTopRight<format=hex>;
+};
+
+struct KeyframeType3(int numValues)
+{
+    // Header. 4 bytes per numValue?
+    KeyframeType3DataHeader type3Header[numValues];
+
+    // Parse individual entries.
+    local int x = 0;
+    
+    for (x = 0; x < numValues; x++) 
+    {
+        if (type3Header[x].keyframeDataType == 24) 
+        {
+            KeyframeDataType24Color color;
+        }
+        else 
+        {
+            KeyframeDataTypeUnknown unknown(type3Header.numberOfBytes);
+        }   
+    }
+};
+
+struct KeyframeType2(int numValues, int numBytesDivBy4)
+{
+    local int valuesOffset = ((numBytesDivBy4 - numValues) * 4) - 8; // 8 == sizeof(Keyframe)
+    local int structOffset = FTell();
+
+    // Data Ptr:
+    // &keyFramePointer[2 * (keyFramePointer[3] - numOfSomeItem)];
+    // 5 - 2 = 3
+    // 3 * 4 = 12 
+
+    KeyframeType2DataHeader type2Header[numValues];
+
+    FSeek(structOffset + valuesOffset);
+    int values[numValues];
+};
+
+struct KeyframeType0(int numBytes)
+{
+    local int valuesOffset = (numValues * 2); // 8 == sizeof(Keyframe)
+    local int structOffset = FTell();
+
+    KeyframeType2DataHeader type2Header[numValues];
+
+    FSeek(structOffset + valuesOffset);
+    int values[numValues];
+};
+
+struct Keyframe(int structSize)
+{
+    KeyframeType keyframeType;
+    short animationActivationPointFrames;
+    short numOfChangedProperties;
+    short numBytesDivBy4; // Relative to start of struct.
+
+    // Exit on possible format bug.
+    if (numOfChangedProperties < 0)
+    {
+        Printf("WARN: Bad Keyframe. Game Devs' Exporter Bug? %d, Pos: %d\n", keyframeType, FTell());
+        return;
+    }
+
+    if ((keyframeType & 0x7FFF) == 2) 
+    {
+        KeyframeType2 type2Data(numOfChangedProperties, numBytesDivBy4);
+    }
+    else if ((keyframeType & 0x7FFF) == 3)
+    {
+        KeyframeType3 type3Data(numOfChangedProperties);
+    }
+    else if ((keyframeType & 0x7FFF) == 1)
+    {
+        Printf("WARN: Partially Supported KeyframeType: %d, Pos: %d\n", keyframeType, FTell());
+        KeyframeDataTypeUnknown unknown(header.maybeMaxPossibleKeyframeSize * 4);
+    }
+    else if ((keyframeType & 0x7FFF) == 0) 
+    {
+        Printf("WARN: Partially Supported KeyframeType: %d, Pos: %d\n", keyframeType, FTell());
+        //KeyframeType0 type2Data((structSize - 8));
+        KeyframeDataTypeUnknown unknown(structSize - 8); // See below "+8 may be an error here"
+    }
+    else 
+    {
+        Printf("WARN: Unknown KeyframeType: %d, Pos: %d\n", keyframeType, FTell());
+        KeyframeDataTypeUnknown unknown(structSize - 8); // See below "+8 may be an error here"
+    }
+};
+
+struct RegularLayer
+{
+    short numKeyframes;         
+    short layerNumBytes;
+    KeyframeType keyframeType; // Setting to 1 skews image; non 0/1 crash
+
+    short maybeAnimationDurationFrames;
+    byte  unknown_1_0;
+    byte  unknown_1_1;    
+    short textureIndex;
+    
+    // Only present in some files??
+    LayerFlags flags;
+
+    short width;
+    short height;
+
+    short unknown_SometimesOffsetX;
+    short unknown_SometimesOffsetY;
+    short offsetX;
+    short offsetY;
+    int unknown;
+    int colorAGBRTopLeft<format=hex>;
+    int colorAGBRBottomLeft<format=hex>;
+    int colorAGBRBottomRight<format=hex>;
+    int colorAGBRTopRight<format=hex>;
+};
+
+// Helper funcs
+int GetKeyframeSize(RegularLayer &layer, Header &header, long offset) 
+{
+    local KeyframeType keyframeType = ReadUShort(offset) & 0x7FFF;
+    local short numOfChangedProperties = ReadShort(offset + 4);
+
+    // Exit on possible format bug.
+    if (numOfChangedProperties < 0)
+        return 8; // Header size.
+
+    if (keyframeType == 0)
+        return layer.layerNumBytes + 8; // +8 may be an error here, but parses existing files.
+                                        // Null keyframe header is not included in byte count it seems.
+
+    if (keyframeType == 1)
+        return header.maybeMaxPossibleKeyframeSize * 4; // Typically 0x14 * 4
+    
+    if (keyframeType >= 2)
+        return ReadUShort(offset + 6) * 4; // Get numBytesDivBy4. Pointer 6 bytes ahead.
+}
+
+// Start of struct
+Header header;
+local int entryHeaderPtr = FTell();
+ObjectSectionHeader entryHeader;
+
+local int x = 0;
+local int y = 0;
+local int entryPointer;
+local int keyFramePos = 0;
+local int keyFrameSize = 0;
+local int remainingKeyframes = 0;
+local int keyFrameType = 0;
+
+for (x = 0; x < entryHeader.numObjects; x++) 
+{
+    FSeek(entryHeaderPtr + entryHeader.offsetsRelativeToHeader[x]);
+    entryPointer = FTell();
+    Object obj;
+    
+    for (y = 0; y < obj.layerCount; y++) 
+    {
+        FSeek(entryPointer + obj.layerPointers[y]);
+        if (y == 0) 
+        {
+            ActionLayer entryActionLayer;
+        }
+        else 
+        {
+            RegularLayer layer;
+
+            // Read all keyframes.
+            remainingKeyframes = layer.numKeyframes;
+            if (layer.maybeAnimationDurationFrames > 0 && remainingKeyframes > 0) 
+            {
+                while (remainingKeyframes > 1) 
+                {
+                    keyFramePos  = FTell();
+                    keyFrameSize = GetKeyframeSize(layer, header, keyFramePos);
+
+                    Keyframe keyframe(keyFrameSize);       
+                    keyFrameType = keyframe.keyframeType & 0x7FFF;
+
+                    // Animation ends if no duration, unless keyframes type 0/1
+                    if (keyframe.animationActivationPointFrames < 1) 
+                        break;
+
+                    FSeek(keyFramePos + keyFrameSize);
+                    remainingKeyframes--;
+                }
+            }
+        }
+    }
+}
+
+FSeek(header.pTextureIndices);
+TextureSectionHeader textureHeader;
+TextureEntry texture[textureHeader.numTextures];
+
+// Entry Reference for TSGME -> 40016 -> 00004
+// 0 -> Shadow Icon
+// 1 -> Rouge Icon
+
+// SubEntry Reference for Shadow Icon
+// 0 -> Master (Crash)
+// 1 -> Icon
+// 2 -> Background
+
+// TODO: Some Unique Code Happens when
+// Ref: 00444FE8
+// if ( *((char *)currentKeyFramePointer + 1) < 0 )
