@@ -16,7 +16,7 @@ namespace IndexTool.Options;
 
 public class ScanArchiveData : IOption
 {
-    public static readonly string OutputPath          = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/out/ScanArchiveData";
+    public static readonly string OutputPath          = $"{AppContext.BaseDirectory}out/ScanArchiveData";
     public static readonly string TemplateTableFolder = $"ListInternalTypesTable";
     public static readonly string TemplateFileFolder  = $"ListInternalTypesFile";
 

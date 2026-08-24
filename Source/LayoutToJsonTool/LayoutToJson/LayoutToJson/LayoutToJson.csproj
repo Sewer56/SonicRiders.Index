@@ -2,11 +2,24 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
+    <!-- NativeAOT; local-only so it never propagates to submodules. -->
+    <PublishAot>true</PublishAot>
+    <!-- JSON reflection serializer; see Serialization/ contexts. -->
+    <JsonSerializerIsReflectionEnabledByDefault>true</JsonSerializerIsReflectionEnabledByDefault>
+    <!-- Trim/AOT warnings persist despite rooting; verified needed. -->
+    <NoWarn>$(NoWarn);IL2026;IL2062;IL2067;IL2075;IL2104;IL3050</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <!-- Keep assemblies; used via reflection. -->
+    <TrimmerRootAssembly Include="LayoutToJson" />
+    <TrimmerRootAssembly Include="Sewer56.SonicRiders" />
+    <TrimmerRootAssembly Include="CommandLine" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser" Version="2.9.1" />
   </ItemGroup>
 
   <ItemGroup>

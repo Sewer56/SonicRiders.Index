@@ -9,6 +9,7 @@ using Reloaded.Memory.Streams;
 using Reloaded.Memory.Streams.Readers;
 using Reloaded.Memory.Streams.Writers;
 using Sewer56.SonicRiders.Parser.Menu.Metadata.Managed;
+using LayoutToJson.Serialization;
 
 namespace LayoutToJson
 {
@@ -16,6 +17,11 @@ namespace LayoutToJson
     {
         static void Main(string[] args)
         {
+            // NativeAOT: source-gen resolver + object values as JsonElement.
+            ManagedMenuMetadata.SerializerOptions.TypeInfoResolver = System.Text.Json.Serialization.Metadata.JsonTypeInfoResolver.Combine(
+                MenuMetadataJsonContext.Default, SystemObjectJsonContext.Default);
+            ManagedMenuMetadata.SerializerOptions.Converters.Add(new ObjectAsJsonElementConverter());
+
             var parser = new Parser(with =>
             {
                 with.AutoHelp = true;

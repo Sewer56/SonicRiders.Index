@@ -1,0 +1,58 @@
+name: Build Tools (NativeAOT)
+
+on:
+  push:
+    branches: [master, build-in-ci]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: "10.0.x"
+
+jobs:
+  build:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: linux-x64, os: ubuntu-24.04, rid: linux-x64, zip: linux-x64.zip }
+          - { name: linux-arm64, os: ubuntu-24.04-arm, rid: linux-arm64, zip: linux-arm64.zip }
+          - { name: windows-x64, os: windows-2025, rid: win-x64, zip: windows-x64.zip }
+          - { name: windows-arm64, os: windows-11-arm, rid: win-arm64, zip: windows-arm64.zip }
+          - { name: macos-x64, os: macos-26-intel, rid: osx-x64, zip: macos-x64.zip }
+          - { name: macos-arm64, os: macos-15, rid: osx-arm64, zip: macos-arm64.zip }
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      # PublishAot is set per-project in the csproj files; only the RID differs per build.
+      - name: Publish tools
+        run: |
+          dotnet publish Source/RidersArchiveTool/RidersArchiveTool/RidersArchiveTool.csproj -c Release -r ${{ matrix.rid }} -o publish/${{ matrix.rid }}/RidersArchiveTool
+          dotnet publish Source/RidersTextureArchiveTool/RidersTextureArchiveTool/RidersTextureArchiveTool.csproj -c Release -r ${{ matrix.rid }} -o publish/${{ matrix.rid }}/RidersTextureArchiveTool
+          dotnet publish Source/GcaxDatInjector/GcaxDatInjector/GcaxDatInjector.csproj -c Release -r ${{ matrix.rid }} -o publish/${{ matrix.rid }}/GcaxDatInjector
+          dotnet publish Source/IndexTool/IndexTool/IndexTool/IndexTool.csproj -c Release -r ${{ matrix.rid }} -o publish/${{ matrix.rid }}/IndexTool
+          dotnet publish Source/LayoutToJsonTool/LayoutToJson/LayoutToJson/LayoutToJson.csproj -c Release -r ${{ matrix.rid }} -o publish/${{ matrix.rid }}/LayoutToJson
+        env:
+          # Linux NativeAOT links against zlib; runners already provide clang + zlib1g-dev.
+          DOTNET_CLI_TELEMETRY_OPTOUT: 1
+
+      - name: Zip
+        run: |
+          cd publish/${{ matrix.rid }}
+          if [ "$RUNNER_OS" = "Windows" ]; then 7z a -tzip ../${{ matrix.zip }} .; else zip -r ../${{ matrix.zip }} .; fi
+          cd ../..
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.zip }}
+          path: publish/${{ matrix.zip }}

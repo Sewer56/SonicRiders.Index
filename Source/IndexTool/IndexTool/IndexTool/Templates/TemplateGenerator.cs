@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using IndexTool.Options.Helpers;
 using Scriban;
@@ -23,7 +24,7 @@ public class TemplateGenerator
     /// <param name="directory">Name of the directory inside the `Templates` folder.</param>
     public TemplateGenerator(string directory)
     {
-        Directory = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/Templates/{directory}";
+        Directory = $"{AppContext.BaseDirectory}Templates/{directory}";
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ namespace IndexTool.Options;
 
 public class GenerateFileListing : IOption
 {
-    public static readonly string OutputPath     = $"{Path.GetDirectoryName(typeof(TemplateGenerator).Assembly.Location)}/out/GenerateFileListing/Files.md";
+    public static readonly string OutputPath     = $"{AppContext.BaseDirectory}out/GenerateFileListing/Files.md";
     public static readonly string TemplateFolder = $"ListFilesTable";
 
     public string GetName() => "Generate File Listing";
