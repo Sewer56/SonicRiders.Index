@@ -72,8 +72,15 @@ public class ListFileTypes : IOption
             if (knownType.Extension != null && typesDict.TryGetValue(knownType.Extension, out var type))
             {
                 var origExample = type.Example;
-                knownType.Adapt(type);
-                type.Example = origExample;
+                // Manual copy instead of Mapster Adapt: expression compilation fails under NativeAOT.
+                type.Id                = knownType.Id;
+                type.CustomExtension   = knownType.CustomExtension;
+                type.Format            = knownType.Format;
+                type.Category          = knownType.Category;
+                type.Tools             = knownType.Tools;
+                type.Documentation     = knownType.Documentation;
+                type.Description       = knownType.Description;
+                type.Example           = origExample;
             }
         }
 
