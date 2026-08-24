@@ -11,6 +11,7 @@ public static class Utilities
 {
     public static JsonSerializerOptions JsonSerializerOptions { get; private set; } = new JsonSerializerOptions()
     {
+        TypeInfoResolver = Serialization.IndexToolJsonContext.Default,
         WriteIndented = true,
         IncludeFields = true,
         ReadCommentHandling = JsonCommentHandling.Skip

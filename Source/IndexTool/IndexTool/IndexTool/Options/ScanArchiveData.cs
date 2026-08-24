@@ -119,7 +119,11 @@ public class ScanArchiveData : IOption
         foreach (var knownType in knownTypes)
         {
             if (typesDict.TryGetValue(knownType.Id, out var type))
-                knownType.Adapt(type);
+            {
+                // Manual copy instead of Mapster Adapt: expression compilation fails under NativeAOT.
+                type.Id   = knownType.Id;
+                type.Name = knownType.Name;
+            }
         }
 
         types.Sort((x, y) => x.Id.Value.CompareTo(y.Id.Value));
