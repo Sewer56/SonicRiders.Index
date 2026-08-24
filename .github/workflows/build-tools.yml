@@ -3,6 +3,8 @@ name: Build Tools (NativeAOT)
 on:
   push:
     branches: [master, build-in-ci]
+    tags:
+      - "*"
   pull_request:
   workflow_dispatch:
 
@@ -56,3 +58,46 @@ jobs:
         with:
           name: ${{ matrix.zip }}
           path: publish/${{ matrix.zip }}
+
+  release:
+    name: GitHub Release
+    # Release only on tags.
+    if: startsWith(github.ref, 'refs/tags/')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history needed by auto-changelog.
+          fetch-depth: 0
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: Setup AutoChangelog
+        run: npm install -g auto-changelog
+
+      - name: Create Changelog
+        run: auto-changelog --sort-commits date --hide-credit --template .github/changelog.hbs --commit-limit false --unreleased --starting-version "${{ github.ref_name }}" --output ./Changelog.md
+
+      - name: Upload Changelog Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Changelog
+          path: Changelog.md
+          retention-days: 0
+
+      - name: Upload to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          # Path to load note-worthy description of changes in release from
+          body_path: Changelog.md
+          # Newline-delimited list of path globs for asset files to upload
+          files: |
+            Changelog.md
+            artifacts/**/*.zip

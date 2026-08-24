@@ -1,0 +1,23 @@
+# About
+
+A pack containing the following tools:
+- IndexTool: For generating documentation and automatically recognizing file formats.
+- RidersTextureArchiveTool: For extracting textures from XVRS texture archives.
+- RidersArchiveTool: For extracting and repacking Riders archives.
+- LayoutToJson: Can be used to edit animations inside the main menu and even add new menu elements.
+- GcaxDatInjector: Can be used to edit sound effects in `.DAT` files in the GCN version of Riders.
+
+The tools are self-contained native executables (NativeAOT); no .NET runtime installation is required.
+
+## Downloads
+
+- Windows: `windows-x64.zip` / `windows-arm64.zip`
+- Linux: `linux-x64.zip` / `linux-arm64.zip`
+- macOS: `macos-x64.zip` / `macos-arm64.zip`
+
+## What's New
+
+- Tools are now self-contained native executables (NativeAOT, .NET 10).
+- Installing runtimes no longer required.
+- Fixed: Packing archives with RidersArchiveTool produces consistent file order across operating systems. (Thanks
+@Exortile)
