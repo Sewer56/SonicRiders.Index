@@ -2,7 +2,7 @@ name: Build Tools (NativeAOT)
 
 on:
   push:
-    branches: [master, build-in-ci]
+    branches: [master]
     tags:
       - "*"
   pull_request:
@@ -83,7 +83,9 @@ jobs:
         run: npm install -g auto-changelog
 
       - name: Create Changelog
-        run: auto-changelog --sort-commits date --hide-credit --template .github/changelog.hbs --commit-limit false --unreleased --starting-version "${{ github.ref_name }}" --output ./Changelog.md
+        run:
+          auto-changelog --sort-commits date --hide-credit --template .github/changelog.hbs --commit-limit false
+          --unreleased --starting-version "${{ github.ref_name }}" --output ./Changelog.md
 
       - name: Upload Changelog Artifact
         uses: actions/upload-artifact@v4
