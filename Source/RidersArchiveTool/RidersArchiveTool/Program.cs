@@ -23,7 +23,7 @@ namespace RidersArchiveTool
     {
         private const char GroupIdSeparator = '_';
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var parser = new Parser(with =>
             {
@@ -33,11 +33,11 @@ namespace RidersArchiveTool
                 with.EnableDashDash = true;
                 with.HelpWriter = null;
             });
-            
+
             var parserResult = parser.ParseArguments<ExtractOptions, ExtractAllOptions, PackOptions, PackAllOptions, PackListOptions, TestOptions, CompressOptions, CompressAllOptions, DecompressOptions, FindDecompressedOptions>(args);
-            parserResult.WithParsed<ExtractOptions>(Extract)
-                        .WithParsed<ExtractAllOptions>(ExtractAll)
-                        .WithParsed<PackOptions>(Pack)
+            await parserResult.WithParsedAsync<ExtractOptions>(Extract);
+            await parserResult.WithParsedAsync<ExtractAllOptions>(ExtractAll);
+            parserResult.WithParsed<PackOptions>(Pack)
                         .WithParsed<PackAllOptions>(PackAll)
                         .WithParsed<PackListOptions>(PackList)
                         .WithParsed<TestOptions>(TestFiles)
@@ -145,7 +145,7 @@ namespace RidersArchiveTool
 
             // File Compare
             var newFile = memoryStream.ToArray();
-            
+
             var oldHash = xxHash64.ComputeHash(oldFile);
             var newHash = xxHash64.ComputeHash(newFile);
 
@@ -248,24 +248,24 @@ namespace RidersArchiveTool
             });
         }
 
-        private static void ExtractAll(ExtractAllOptions options)
+        private static async Task ExtractAll(ExtractAllOptions options)
         {
             var files = Directory.GetFiles(options.Source);
             Directory.CreateDirectory(options.SavePath);
 
             var partitioner = Partitioner.Create(0, files.Length);
-            Parallel.ForEach(partitioner, tuple =>
+            Parallel.ForEach(partitioner, async tuple =>
             {
                 for (int x = tuple.Item1; x < tuple.Item2; x++)
-                    ExtractAllFile(options, files[x]);
+                    await ExtractAllFile(options, files[x]);
             });
         }
 
-        private static void ExtractAllFile(ExtractAllOptions options, string filePath)
+        private static async Task ExtractAllFile(ExtractAllOptions options, string filePath)
         {
             using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             if (RidersArchiveGuesser.TryGuess(fileStream, (int)fileStream.Length, options.BigEndian, out bool isCompressed))
-                ExtractUsingStream(new ExtractOptions()
+                await ExtractUsingStream(new ExtractOptions()
                 {
                     Source = filePath,
                     SavePath = Path.Combine(options.SavePath, Path.GetFileName(filePath)),
@@ -277,8 +277,8 @@ namespace RidersArchiveTool
                 Console.WriteLine($"[{Path.GetFileName(filePath)}] Not an Archive File!!");
         }
 
-        private static void Extract(ExtractOptions options) => ExtractUsingStream(options, new FileStream(options.Source, FileMode.Open, FileAccess.Read));
-        private static void ExtractUsingStream(ExtractOptions options, FileStream fileStream, bool? isCompressed = null)
+        private static async Task Extract(ExtractOptions options) => await ExtractUsingStream(options, new FileStream(options.Source, FileMode.Open, FileAccess.Read));
+        private static async Task ExtractUsingStream(ExtractOptions options, FileStream fileStream, bool? isCompressed = null)
         {
             Directory.CreateDirectory(options.SavePath);
             isCompressed ??= ArchiveCompression.IsCompressed(fileStream, options.BigEndian);
@@ -286,21 +286,22 @@ namespace RidersArchiveTool
             if (isCompressed.Value)
             {
                 using var decompressed = new MemoryStream(ArchiveCompression.DecompressFast(fileStream, (int)fileStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
-                ExtractInternal(options, decompressed);
+                await ExtractInternal(options, decompressed);
             }
             else
             {
-                ExtractInternal(options, fileStream);
+                await ExtractInternal(options, fileStream);
             }
         }
 
-        private static void ExtractInternal(ExtractOptions options, Stream stream)
+        private static async Task ExtractInternal(ExtractOptions options, Stream stream)
         {
             using var archiveReader = new ArchiveReader(stream, (int)stream.Length, options.BigEndian);
             var allGroups = archiveReader.GetAllGroups();
 
             for (var x = 0; x < allGroups.Length; x++)
             {
+                var fileWriteTasks = new List<Task> { };
                 var group = allGroups[x];
                 var folder = Path.Combine(options.SavePath, $"{x:000}{GroupIdSeparator}{@group.Id:00000}");
                 Directory.CreateDirectory(folder);
@@ -312,10 +313,12 @@ namespace RidersArchiveTool
                     if (options.GuessFileType.GetValueOrDefault(false) && FileTypeGuesser.TryGuess(data, out var fileType))
                         filePath += fileType!.GetExtensionOrCustomExtension();
 
-                    File.WriteAllBytesAsync(filePath, data);
+                    fileWriteTasks.Add(File.WriteAllBytesAsync(filePath, data));
                     if (!options.Silent)
                         Console.WriteLine($"Written {filePath}");
                 }
+
+                await Task.WhenAll(fileWriteTasks);
             }
         }
 
@@ -332,7 +335,7 @@ namespace RidersArchiveTool
             using var inputStream  = new FileStream(options.Source, FileMode.Open);
             outputStream.Write(ArchiveCompression.CompressFast(inputStream, (int) inputStream.Length, options.BigEndian ? ArchiveCompressorOptions.GameCube : ArchiveCompressorOptions.PC));
         }
-        
+
         private static void CompressAllFiles(CompressAllOptions options)
         {
             var files = Directory.GetFiles(options.Source, "*.*", SearchOption.AllDirectories);
@@ -350,7 +353,7 @@ namespace RidersArchiveTool
                 });
             }
         }
-        
+
         /// <summary>
         /// Errors or --help or --version.
         /// </summary>
